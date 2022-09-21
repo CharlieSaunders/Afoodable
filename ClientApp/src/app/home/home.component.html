@@ -1,0 +1,21 @@
+<h1 id="tableLabel">Recipes</h1>
+
+<p>This demonstrates the selection of a recipe and the generation of a shopping list.</p>
+
+<p *ngIf="!recipes"><em>Loading...</em></p>
+
+<div class="row" *ngIf="recipes">
+    <div class="col-lg-3 p-2" *ngFor="let recipe of recipes">
+        <div class="card @_userTheme-card" style="background-color: #444; border: none; color: #f2f2f2">
+            <div class="card-header @_userTheme-card-header">
+                <p>
+                    <span style="float: left">{{ recipe.name }}</span>
+                    <span style="float: right">£{{ recipe.totalCost.toFixed(2) }}p</span>
+                </p>
+            </div>
+            <div class="recipe-image">
+                <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" class="img-responsive img-rounded recipe-image">
+            </div>
+        </div>
+    </div>
+</div>
