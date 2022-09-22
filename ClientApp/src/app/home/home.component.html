@@ -27,7 +27,7 @@
             </div>
             <div class="card-body p-0">
                 <div class="recipe-image">
-                    <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" class="img-responsive img-rounded recipe-image">
+                    <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" class="img-responsive img-rounded recipe-image" (click)="navigateToRecipe(recipe.id)">
                 </div>
             </div>
             <div class="card-footer p-0">

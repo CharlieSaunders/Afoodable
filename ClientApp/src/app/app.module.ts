@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterRecipeNamePipe } from './helpers/pipes/filter-recipe-name';
+import { RecipePageComponent } from './recipe-page/recipe-page.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { FilterRecipeNamePipe } from './helpers/pipes/filter-recipe-name';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'recipe/:id', component: RecipePageComponent },
     ]),
     BrowserAnimationsModule,
     MatButtonModule,

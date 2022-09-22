@@ -24,6 +24,7 @@
 }
 
 .sidebar-opener {
+    z-index: 1;
     cursor: pointer;
     position: fixed;
     top: 8%;

@@ -1,5 +1,6 @@
 
 export class Recipe {
+  id: number;
   name: string;
   type: string;
   rating: number;
@@ -8,7 +9,8 @@ export class Recipe {
   totalCost: number;
   selectedAmount: number;
 
-  constructor(_name: string, _type: string, _rating: number, _imageUrl: string, _ingredients: Array<RecipeItem>) {
+  constructor(_id: number, _name: string, _type: string, _rating: number, _imageUrl: string, _ingredients: Array<RecipeItem>) {
+    this.id = _id;
     this.name = _name;
     this.type = _type;
     this.rating = _rating;
