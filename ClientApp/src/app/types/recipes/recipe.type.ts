@@ -1,4 +1,3 @@
-import { RecipeItem } from './recipe-item.type';
 
 export class Recipe {
   name: string;
@@ -7,6 +6,7 @@ export class Recipe {
   imageUrl: string;
   ingredients: Array<RecipeItem>;
   totalCost: number;
+  selectedAmount: number;
 
   constructor(_name: string, _type: string, _rating: number, _imageUrl: string, _ingredients: Array<RecipeItem>) {
     this.name = _name;
@@ -15,6 +15,7 @@ export class Recipe {
     this.imageUrl = _imageUrl;
     this.ingredients = _ingredients;
     this.totalCost = this.TotalCost(_ingredients);
+    this.selectedAmount = 0;
   }
 
   private TotalCost(items: Array<RecipeItem>) : number {
@@ -25,5 +26,21 @@ export class Recipe {
     })
 
     return runningTotal;
+  }
+}
+
+export class RecipeItem {
+  name: string;
+  quantity: number;
+  cost: number;
+  servingSize: number;
+  servingMetric: string;
+
+  constructor(_name: string, _quantity: number, _cost: number, _servingSize: number, _servingMetric: string) {
+    this.name = _name;
+    this.quantity = _quantity;
+    this.cost = _quantity * _cost;
+    this.servingSize = _servingSize;
+    this.servingMetric = _servingMetric;
   }
 }

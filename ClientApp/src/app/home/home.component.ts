@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { RecipeItem } from '../types/recipes/recipe-item.type';
-import { Recipe } from '../types/recipes/recipe.type';
+import { Recipe, RecipeItem } from '../types/recipes/recipe.type';
+import { ShoppingList, ShoppingListItem } from '../types/recipes/shopping-list.type';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +8,59 @@ import { Recipe } from '../types/recipes/recipe.type';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  public sidebarShow: boolean = false;
+  public totalSelectedRecipes: number = 0;
+  public searchText: string = "";
+
   public recipes!: Array<Recipe>;
+  public shoppingList: ShoppingList = new ShoppingList;
 
   public ngOnInit(): void {
     this.recipes = [
-      new Recipe("Poached Egg on Toast", "Breakfast", 4, "poached-eggs-on-toast.jpeg", [new RecipeItem("Egg", 2, 0.2)])
-    ]
+      new Recipe("Sea Bass & Salad", "Dinner", 3, "sea-bass.jpg", [new RecipeItem("Sea Bass", 1, 2, 1, " ")]),
+      new Recipe("*Pepperoni Pizza", "Lunch", 3, "pepperoni-pizza.jpg", [new RecipeItem("Premade Pepperoni Pizza", 1, 1, 1, " ")]),
+      new Recipe("Baked Potato", "Lunch", 4, "baked-potato-cheese-beans.jpg", [new RecipeItem("Potato", 1, 0.3, 1, " ")]),
+      new Recipe("Mushroom Risotto", "Dinner", 4, "risotto.jpg", [new RecipeItem("Arborio Rice", 1, 1, 65, "g")]),
+      new Recipe("Poached Egg on Toast", "Breakfast", 4, "poached-eggs-on-toast.jpeg", [new RecipeItem("Egg", 2, 0.2, 1, " ")]),
+      new Recipe("Steak & Mash", "Dinner", 5, "steak-and-mash.jpg", [new RecipeItem("Steak", 1, 4, 1, " ")]),
+      new Recipe("Spaghetti Carbonara", "Dinner", 4, "carbonara.jpg", [new RecipeItem("Pasta", 1, 0.2, 75, "g")]),
+      new Recipe("Camembert & Garlic Bread", "Dinner", 4, "camembert-garlic-bread.jpg", [new RecipeItem("Camembert", 1, 1, 1, " ")]),
+      new Recipe("Overnight Weetabix", "Breakfast", 3, "overnight-weetabix.jpg", [new RecipeItem("Weetabix", 2, 0.2, 1, " ")]),
+    ];
+  }
+
+  public selectRecipe(recipe:Recipe) : void {
+    this.recipes.forEach((selectedRecipe) => {
+      if(selectedRecipe.name == recipe.name)
+      {
+        selectedRecipe.selectedAmount += 1;
+        this.totalSelectedRecipes += 1;
+        this.updateShoppingList(selectedRecipe);
+      } 
+    });
+  }
+
+  public unselectRecipe(recipe:Recipe) : void {
+    this.recipes.forEach((selectedRecipe) => {
+      if(selectedRecipe.name == recipe.name)
+      {
+        selectedRecipe.selectedAmount -= 1;
+        this.totalSelectedRecipes -= 1;
+        this.removeFromShoppingList(selectedRecipe);
+      } 
+    });
+  }
+
+  private updateShoppingList(selectedRecipe:Recipe): void {
+    selectedRecipe.ingredients.forEach(ingredient => {
+      this.shoppingList.add(new ShoppingListItem(ingredient));
+    });
+  }
+
+  private removeFromShoppingList(selectedRecipe:Recipe): void {
+    selectedRecipe.ingredients.forEach(ingredient => {
+      this.shoppingList.remove(new ShoppingListItem(ingredient));
+    });
   }
 }
 

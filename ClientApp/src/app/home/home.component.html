@@ -1,21 +1,67 @@
-<h1 id="tableLabel">Recipes</h1>
+<br><br><br>
+
+<h1 id="tableLabel">Shopping List Helper</h1>
 
 <p>This demonstrates the selection of a recipe and the generation of a shopping list.</p>
 
 <p *ngIf="!recipes"><em>Loading...</em></p>
 
+<div class="sidebar-opener" (click)="sidebarShow = !sidebarShow">
+    <button mat-fab class="bg-dark text-light">
+        <mat-icon>shopping_cart</mat-icon>({{totalSelectedRecipes}})
+    </button>
+</div>
+
 <div class="row" *ngIf="recipes">
-    <div class="col-lg-3 p-2" *ngFor="let recipe of recipes">
-        <div class="card @_userTheme-card" style="background-color: #444; border: none; color: #f2f2f2">
-            <div class="card-header @_userTheme-card-header">
+    <div class="input-group mb-3">
+        <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for a specific recipe...">
+    </div>
+
+    <div class="col-lg-3 col-sm-5 p-2" *ngFor="let recipe of recipes | filterRecipeNamePipe : searchText">
+        <div class="card" style="background-color: #212529; border: none; color: #f2f2f2">
+            <div class="card-header">
                 <p>
                     <span style="float: left">{{ recipe.name }}</span>
-                    <span style="float: right">£{{ recipe.totalCost.toFixed(2) }}p</span>
+                    <span style="float: right">£{{ recipe.totalCost.toFixed(2) }}</span>
                 </p>
             </div>
-            <div class="recipe-image">
-                <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" class="img-responsive img-rounded recipe-image">
+            <div class="card-body p-0">
+                <div class="recipe-image">
+                    <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" class="img-responsive img-rounded recipe-image">
+                </div>
             </div>
+            <div class="card-footer p-0">
+                <button type="button" class="btn btn-primary" style="float:right" (click)="selectRecipe(recipe)">+</button>
+                <button *ngIf="(recipe.selectedAmount > 0)" type="button" class="btn btn-warning" style="float:left" (click)="unselectRecipe(recipe)">-</button>
+            </div>
+            <div class="totalAmount" *ngIf="recipe.selectedAmount > 0">
+                <span class="badge bg-light text-dark">x{{recipe.selectedAmount}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sidebar-slider bg-dark text-light" style="z-index: 2" [class.sidebar-slide-in]="sidebarShow">
+  <div class="sidebar-close p-2" (click)="sidebarShow = !sidebarShow">X</div>
+  <br>
+    <div class="sidebar-content">
+        <p class="p-0">Total: £{{shoppingList.getTotalCost()}}</p>
+        <div class="row p-2">
+            <h4 style="text-decoration: underline">Selected Recipes</h4>
+            <ul style="list-style:none">
+                <li *ngFor="let recipe of recipes">
+                    <span *ngIf="recipe.selectedAmount > 0">
+                        {{recipe.name}} x{{recipe.selectedAmount}}
+                    </span>
+                </li>
+            </ul>
+            <br>
+            <h4 style="text-decoration: underline">Shopping List</h4>
+            <ul style="list-style:none">
+                <li *ngFor="let item of shoppingList.items">
+                    <span *ngIf="(item.amount > 0)">{{item.getShoppingListString()}}</span>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

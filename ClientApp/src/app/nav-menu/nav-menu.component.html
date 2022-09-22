@@ -1,5 +1,5 @@
-<header>
-  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<header style="position: fixed; width: 100%; z-index: 1">
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark order-bottom box-shadow mb-3">
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">Afoodable</a>
       <button
@@ -20,7 +20,7 @@
             class="nav-item"
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+            <a class="nav-link text-light" [routerLink]="['/']">Home</a>
           </li>
         </ul>
       </div>

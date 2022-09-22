@@ -1,6 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
 
-/* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
 }
@@ -14,4 +13,33 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+s
+html, body { 
+  height: 100%; 
+  font-family: Rubik, sans-serif; 
+}
 
+body { 
+  margin: 0; 
+  background-color: #c0c0c0;
+}
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: rgba(0,0,0,0.0);
+}
+
+::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: rgba(0,0,0,0.0);
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}

@@ -1,14 +1,64 @@
 .recipe-image{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 12px;
-    overflow: hidden;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow: hidden !important;
 }
 
-img{
-    object-fit: cover !important;
-    height: 100% !important;
-    width: 100% !important;
-    padding: 5px !important;
+.recipe-image img{
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+}
+
+.totalAmount{
+    position: relative;
+    font-weight: bolder;
+}
+
+.totalAmount span{
+    font-weight: bolder;
+    position: absolute;
+    bottom: 2%;
+    left: 46%;
+}
+
+.sidebar-opener {
+    cursor: pointer;
+    position: fixed;
+    top: 8%;
+    right: 2%;
+}
+
+.sidebar-slider {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #222;
+    transform: translateX(+100%);
+    transition: ease-in-out 300ms transform;
+    width: 300px;
+}
+
+.sidebar-slider.sidebar-slide-in {
+    transform: translateX(0);
+    transition: ease-in-out 600ms transform;
+}
+
+.sidebar-close {
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: white;
+    cursor: pointer;
+    padding: 16px;
+}
+
+.sidebar-content {
+    justify-content: space-around;
+    color: white;
+    font-size: 16px;
+    padding: 16px;
+    height: 100%;
 }
