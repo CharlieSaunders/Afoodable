@@ -6,6 +6,7 @@
 }
 
 .recipe-image img{
+    cursor: pointer;
     object-fit: cover;
     width: 100%;
     height: auto;
