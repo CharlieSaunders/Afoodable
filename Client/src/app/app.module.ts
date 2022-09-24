@@ -18,6 +18,7 @@ import { RecipePageComponent } from './recipe-page/recipe-page.component';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
+    RecipePageComponent,
     FilterRecipeNamePipe
   ],
   imports: [

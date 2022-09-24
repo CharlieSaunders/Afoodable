@@ -17,23 +17,28 @@ export class HomeComponent {
   public router!: Router;
   public recipes!: Array<Recipe>;
   public shoppingList: ShoppingList = new ShoppingList;
-  //public subscriptions: Array<Subscriptions> = [];
 
   constructor(_router: Router, private recipeService: RecipeService) {
     this.router = _router;
   }
 
   public ngOnInit(): void {
-    this.recipeService.getRecipes().subscribe(  
-      (response) => { 
-        console.log(response); 
-      },
-      (error) => { console.log(error); 
-    });
+    let x = this.recipeService.getRecipes().subscribe((data:Array<Recipe>) => {
+      let recipesFromApi: Array<Recipe> = [];
+      data.forEach(recipe => {
+        let recipeItems: Array<RecipeItem> = [];
+        recipe.ingredients.forEach(ingredient => {
+          let ingredientObject = JSON.parse(ingredient.toString());
+          recipeItems.push(new RecipeItem(ingredientObject.name, ingredientObject.quantity, ingredientObject.cost, ingredientObject.servingSize, ingredientObject.servingMetric));
+        })
+        recipesFromApi.push(new Recipe(recipe.reference, recipe.name, recipe.type, recipe.rating, recipe.imageUrl, recipeItems, recipe._id, recipe.description))
+      })
+      this.recipes = recipesFromApi;
+    })
   }
 
-  public navigateToRecipe(id: number) : void {
-    this.router.navigate([`/recipe/${id}`]);
+  public navigateToRecipe(dbReference: string) : void {
+    this.router.navigate([`/recipe/${dbReference}`]);
   }
 
   public selectRecipe(recipe:Recipe) : void {

@@ -22,12 +22,12 @@
             <div class="card-header">
                 <p>
                     <span style="float: left">{{ recipe.name }}</span>
-                    <span style="float: right">£{{ recipe.totalCost.toFixed(2) }}</span>
+                    <span style="float: right">~£{{ recipe.totalCost.toFixed(2) }}</span>
                 </p>
             </div>
             <div class="card-body p-0">
                 <div class="recipe-image">
-                    <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" class="img-responsive img-rounded recipe-image" (click)="navigateToRecipe(recipe.id)">
+                    <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" class="img-responsive img-rounded recipe-image" (click)="navigateToRecipe(recipe._id)">
                 </div>
             </div>
             <div class="card-footer p-0">

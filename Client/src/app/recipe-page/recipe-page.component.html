@@ -1,1 +1,37 @@
-<p>recipe-page works!</p>
+<div class = "card-wrapper" *ngIf="recipe">
+    <div class = "card">
+      <!-- card left -->
+      <div class = "product-imgs">
+        <div class = "img-display">
+          <div class = "img-showcase">
+            <img src = "../../assets/images/recipes/{{ recipe.imageUrl }}">
+          </div>
+        </div>
+      </div>
+      <!-- card right -->
+      <div class = "product-content">
+        <h2 class = "product-title">{{recipe.name}}</h2>
+        <div class = "product-rating">
+            <span>Rating: {{recipe.rating}}</span>
+            &nbsp;
+            <span class="new-price">Approx: 
+                <span>£{{recipe.totalCost.toFixed(2)}}</span>
+            </span>
+        </div>
+
+        <div class="product-price">
+          
+        </div>
+
+        <div class = "product-detail">
+          <h2>About This Item: </h2>
+            <p>{{recipe.description}}</p>
+          <br>
+          <h4 class="p-0 m-0">Ingredients: </h4>
+          <ul class="p-0 m-0" *ngFor="let ingredient of recipe.ingredients">
+            <li>{{ingredient.name}} {{ingredient.quantity}}{{ingredient.servingMetric}} (~£{{ingredient.cost}})</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

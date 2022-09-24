@@ -1,18 +1,19 @@
 
 export class Recipe {
-  id: number;
   reference: string;
   name: string;
   type: string;
   rating: number;
   imageUrl: string;
   ingredients: Array<RecipeItem>;
+  description: string;
   totalCost: number;
   selectedAmount: number;
+  _id: string;
 
-  constructor(_id: number, _reference: string, _name: string, _type: string, _rating: number, _imageUrl: string, _ingredients: Array<RecipeItem>) {
-    this.id = _id;
+  constructor( _reference: string, _name: string, _type: string, _rating: number, _imageUrl: string, _ingredients: Array<RecipeItem>, _dbId: string, _description: string) {
     this.reference = _reference;
+    this._id = _dbId;
     this.name = _name;
     this.type = _type;
     this.rating = _rating;
@@ -20,6 +21,7 @@ export class Recipe {
     this.ingredients = _ingredients;
     this.totalCost = this.TotalCost(_ingredients);
     this.selectedAmount = 0;
+    this.description = _description;
   }
 
   private TotalCost(items: Array<RecipeItem>) : number {
