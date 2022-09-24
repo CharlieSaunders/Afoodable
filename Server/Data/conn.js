@@ -14,7 +14,7 @@ module.exports = {
         return callback(err);
       }
 
-      dbConnection = db.db('cs1995-cluster');
+      dbConnection = db.db('afoodable');
       console.log('Successfully connected to MongoDB.');
 
       return callback();

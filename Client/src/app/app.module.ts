@@ -32,7 +32,9 @@ import { RecipePageComponent } from './recipe-page/recipe-page.component';
     MatButtonModule,
     MatIconModule
   ],
-  providers: [],
+  providers: [
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

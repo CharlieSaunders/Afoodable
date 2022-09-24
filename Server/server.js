@@ -14,7 +14,7 @@ app.use(require('./routes/recipe'));
 // Global error handling
 app.use(function (err, _req, res) {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  //res.status(500).send('Something broke!');
 });
 
 // perform a database connection when the server starts
