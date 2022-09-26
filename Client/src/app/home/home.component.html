@@ -2,13 +2,15 @@
 
 <h1 id="tableLabel">Shopping List Helper</h1>
 
-<p>This demonstrates the selection of a recipe and the generation of a shopping list.</p>
+<p> 
+    Select the recipes you want for the shopping list. Currently it is configured for 1 recipe per person. <br>
+</p>
 
 <p *ngIf="!recipes"><em>Loading...</em></p>
 
 <div class="sidebar-opener" (click)="sidebarShow = !sidebarShow">
     <button mat-fab class="bg-dark text-light">
-        <mat-icon>shopping_cart</mat-icon>({{totalSelectedRecipes}})
+        <span class="icon-emoji">🛒</span>({{totalSelectedRecipes}})
     </button>
 </div>
 

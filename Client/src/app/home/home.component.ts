@@ -27,11 +27,12 @@ export class HomeComponent {
       let recipesFromApi: Array<Recipe> = [];
       data.forEach(recipe => {
         let recipeItems: Array<RecipeItem> = [];
+        let steps: Array<string> = [];
         recipe.ingredients.forEach(ingredient => {
           let ingredientObject = JSON.parse(ingredient.toString());
           recipeItems.push(new RecipeItem(ingredientObject.name, ingredientObject.quantity, ingredientObject.cost, ingredientObject.servingSize, ingredientObject.servingMetric));
         })
-        recipesFromApi.push(new Recipe(recipe.reference, recipe.name, recipe.type, recipe.rating, recipe.imageUrl, recipeItems, recipe._id, recipe.description))
+        recipesFromApi.push(new Recipe(recipe.reference, recipe.name, recipe.type, recipe.rating, recipe.imageUrl, recipeItems, recipe._id, steps, recipe.description))
       })
       this.recipes = recipesFromApi;
     })

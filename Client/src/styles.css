@@ -3,7 +3,9 @@
 a {
   color: #0366d6;
 }
-
+.icon-emoji{
+  font-size: 1.1rem;
+}
 code {
   color: #e01a76;
 }

@@ -28,20 +28,6 @@ img{
 .img-showcase img{
     min-width: 100%;
 }
-.img-select{
-    display: flex;
-}
-.img-item{
-    margin: 0.3rem;
-}
-.img-item:nth-child(1),
-.img-item:nth-child(2),
-.img-item:nth-child(3){
-    margin-right: 0;
-}
-.img-item:hover{
-    opacity: 0.8;
-}
 .product-content{
     padding: 2rem 1rem;
 }
@@ -51,21 +37,6 @@ img{
     position: relative;
     color: #12263a;
     margin: 1rem 0;
-}
-.product-link{
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 400;
-    font-size: 0.9rem;
-    display: inline-block;
-    margin-bottom: 0.5rem;
-    background: #256eff;
-    color: #fff;
-    padding: 0 0.3rem;
-    transition: all 0.5s ease;
-}
-.product-link:hover{
-    opacity: 0.9;
 }
 .product-rating{
     color: #ffc107;
@@ -81,10 +52,6 @@ img{
 }
 .product-price span{
     font-weight: 400;
-}
-.last-price span{
-    color: #f64749;
-    text-decoration: line-through;
 }
 .new-price span{
     color: #256eff;
@@ -114,57 +81,63 @@ img{
 .product-detail ul li span{
     font-weight: 400;
 }
-.purchase-info{
-    margin: 1.5rem 0;
+.edit-cta{
+    position: absolute;
+    top: 8%;
+    right: 2%;
+    transition: 0.25s ease-in;
+    z-index: 1;
 }
-.purchase-info input,
-.purchase-info .btn{
-    border: 1.5px solid #ddd;
-    border-radius: 25px;
-    text-align: center;
-    padding: 0.45rem 0.8rem;
-    outline: 0;
-    margin-right: 0.2rem;
-    margin-bottom: 1rem;
+
+.save-cta{
+    position: absolute;
+    top: 8%;
+    right: 2%;
+    transition: 0.25s ease-in;
+    animation: pulse 2s infinite;
+    z-index: 1;
 }
-.purchase-info input{
-    width: 60px;
+
+.cancel-cta{
+    position: absolute;
+    top: 8%;
+    right: 6%;
+    transition: 0.25s ease-in;
+    animation: pulse 2s infinite;
+    z-index: 1;
 }
-.purchase-info .btn{
-    cursor: pointer;
-    color: #fff;
+
+.amendIngredientDown{
+    font-size: 1.0rem;
+    padding: 0;
+    float: left; 
+    cursor: pointer; 
+    font-weight: 900; 
+    margin-right: 15px;
+    color: red;
 }
-.purchase-info .btn:first-of-type{
-    background: #256eff;
+
+.amendIngredientUp{
+    font-size: 1.0rem;
+    padding: 0;
+    float: right; 
+    cursor: pointer; 
+    font-weight: 900;  
+    color: green;
 }
-.purchase-info .btn:last-of-type{
-    background: #f64749;
-}
-.purchase-info .btn:hover{
-    opacity: 0.9;
-}
-.social-links{
-    display: flex;
-    align-items: center;
-}
-.social-links a{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    color: #000;
-    border: 1px solid #000;
-    margin: 0 0.2rem;
-    border-radius: 50%;
-    text-decoration: none;
-    font-size: 0.8rem;
-    transition: all 0.5s ease;
-}
-.social-links a:hover{
-    background: #000;
-    border-color: transparent;
-    color: #fff;
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.85);
+	}
+
+	70% {
+		transform: scale(1);
+	}
+
+	100% {
+		transform: scale(0.85);
+	}
 }
 
 @media screen and (min-width: 992px){
@@ -174,8 +147,7 @@ img{
         grid-gap: 1.5rem;
     }
     .card-wrapper{
-        height: 100vh;
-        display: flex;
+        position: relative;
         justify-content: center;
         align-items: center;
     }

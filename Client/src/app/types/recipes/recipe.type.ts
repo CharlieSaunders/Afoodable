@@ -9,9 +9,10 @@ export class Recipe {
   description: string;
   totalCost: number;
   selectedAmount: number;
+  steps: Array<string>;
   _id: string;
 
-  constructor( _reference: string, _name: string, _type: string, _rating: number, _imageUrl: string, _ingredients: Array<RecipeItem>, _dbId: string, _description: string) {
+  constructor( _reference: string, _name: string, _type: string, _rating: number, _imageUrl: string, _ingredients: Array<RecipeItem>, _dbId: string, _steps: Array<string>, _description: string) {
     this.reference = _reference;
     this._id = _dbId;
     this.name = _name;
@@ -22,6 +23,7 @@ export class Recipe {
     this.totalCost = this.TotalCost(_ingredients);
     this.selectedAmount = 0;
     this.description = _description;
+    this.steps = _steps;
   }
 
   private TotalCost(items: Array<RecipeItem>) : number {
@@ -32,6 +34,14 @@ export class Recipe {
     })
 
     return runningTotal;
+  }
+
+  public getCost(): string {
+    var total = 0;
+    this.ingredients.forEach(ingredient => {
+      total += ingredient.getCost();
+    });
+    return total.toFixed(2);
   }
 }
 
@@ -48,5 +58,9 @@ export class RecipeItem {
     this.cost = _quantity * _cost;
     this.servingSize = _servingSize;
     this.servingMetric = _servingMetric;
+  }
+
+  public getCost(): number{
+    return this.cost * this.quantity;
   }
 }
