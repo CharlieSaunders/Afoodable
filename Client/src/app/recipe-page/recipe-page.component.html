@@ -11,6 +11,12 @@
   </button>
 </div>
 
+<div *ngIf="editMode" class="cancel-cta" (click)="cancel()">
+  <button mat-fab class="bg-danger text-dark">
+    <span class="icon-emoji">🗑️</span>
+  </button>
+</div>
+
 <div class="card-wrapper" *ngIf="recipe">
     <div class="card">
       <!-- card left -->

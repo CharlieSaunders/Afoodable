@@ -34,4 +34,25 @@ recipeRoutes.route('/api/recipes/:recipe').get(async function (_req, res) {
   });
 });
 
+recipeRoutes.route('/api/recipes').post(async function (_req, res) {
+  const dbConnect = dbo.getDb();
+  dbConnect.collection('recipes').update(
+      { 
+        _id: new mongoDb.ObjectId(_req.body._id) 
+      },
+      {
+        $set: { 
+          'description': _req.body.description, 
+          'imageUrl': _req.body.imageUrl,
+          'ingredients': _req.body.ingredients,
+          'name': _req.body.name,
+          'rating': _req.body.rating,
+          'reference': _req.body.reference,
+          'type': _req.body.type,
+          'steps': _req.body.steps
+        }
+      }
+    );
+});
+
 module.exports = recipeRoutes;

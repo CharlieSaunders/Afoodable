@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Recipe, RecipeItem } from '../types/recipes/recipe.type';
+import { UpdateRecipeDto } from '../types/recipes/update-recipe-dto.type';
 import { RecipeService } from '../services/recipes/recipe.service';
 import { ActivatedRoute } from '@angular/router';
 import { Ingredient } from '../types/ingredients/ingredient.type';
@@ -31,13 +32,13 @@ export class RecipePageComponent{
     let routeParams = this.route.snapshot.paramMap;
     let x = this.recipeService.getRecipe(String(routeParams.get('id'))).subscribe((recipe:any) => {
       let context = recipe[0];
+      console.log(context);
         let recipeItems: Array<RecipeItem> = [];
-        let steps: Array<string> = [];
         context.ingredients.forEach((ingredient: any) => {
           let ingredientObject = JSON.parse(ingredient.toString());
           recipeItems.push(new RecipeItem(ingredientObject.name, ingredientObject.quantity, ingredientObject.cost, ingredientObject.servingSize, ingredientObject.servingMetric));
         })
-        this.recipe = new Recipe(context.reference, context.name, context.type, context.rating, context.imageUrl, recipeItems, context._id, steps, context.description);
+        this.recipe = new Recipe(context.reference, context.name, context.type, context.rating, context.imageUrl, recipeItems, context._id, context.steps, context.description);
         this.totalCost = this.recipe.totalCost.toFixed(2);
     });
 
@@ -47,14 +48,23 @@ export class RecipePageComponent{
   }
 
   public edit(): void{
-    console.log("Edit mode enabled");
+    console.log("Edit selected");
     this.editMode = true;
   }
 
   public save(): void{
     console.log("Save selected");
     this.updateRecipe();
+    this.recipeService.updateRecipe(new UpdateRecipeDto(this.recipe)).subscribe((data:any)=>{
+      console.log(data);
+    });
     this.editMode = false;
+  }
+
+  public cancel(): void{
+    console.log("Cancel selected")
+    this.editMode = false;
+    this.ngOnInit();
   }
 
   public addIngredient(ingredient: Ingredient): void{
@@ -86,7 +96,6 @@ export class RecipePageComponent{
     if(newDescription != null)
       this.recipe.description = newDescription;
 
-    console.log(this.recipe);
     this.totalCost = this.recipe.getCost();
   }
 
