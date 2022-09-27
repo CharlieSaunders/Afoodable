@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -23,6 +23,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NavMenuComponent,
     HomeComponent,
     RecipePageComponent,
+    RecipesComponent,
+    IngredientsComponent,
+    RecipesComponent,
     FilterRecipeNamePipe,
     FilterIngredientNamePipe
   ],
@@ -30,6 +33,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatButtonModule,
     RouterModule.forRoot([

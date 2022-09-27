@@ -35,7 +35,7 @@
           <span *ngIf="editMode" class="icon-emoji">✏️</span>
         </h2>
         <div class="product-rating">
-            <span>Rating: {{recipe.rating}}</span>
+            <span>Rating: <ng-container *ngFor="let _ of [].constructor(recipe.rating)">⭐</ng-container></span>
             &nbsp;
             <span class="new-price">Approx: 
                 <span>£{{totalCost}}</span>
@@ -50,7 +50,7 @@
             <p *ngIf="editMode" contenteditable="true" id="newDescription">{{recipe.description}}</p>
             
           <br>
-          <h4 class="p-0 m-0">Ingredients: <span *ngIf="editMode" (click)="open(content)">↩</span></h4>
+          <h4 class="p-0 m-0">Ingredients: <span *ngIf="editMode" (click)="open(addNewIngredient)">↩</span></h4>
           <ul class="p-0 m-0" *ngFor="let ingredient of recipe.ingredients; let i=index;">
             <li>
               <span *ngIf="editMode"><span class="amendIngredientDown" (click)="updateIngredient(i, -1)">➖</span></span>
@@ -63,7 +63,8 @@
     </div>
     <br>
     <div class="input-group">
-      <input class="form-control" type="text" [(ngModel)]="newStepString" autocomplete="off" placeholder="Add a new step for the recipe..."><span class="amendIngredientUp" (click)="addStep()">➕</span>
+      <input class="form-control" type="text" [(ngModel)]="newStepString" autocomplete="off" placeholder="Add a new step for the recipe...">
+      <button style="float: right; margin-right: 5px;" mat-mini-fab color="accent" (click)="addStep()">➕</button>
     </div>
     <br>
     <div *ngIf="recipe.steps.length == 0">
@@ -72,31 +73,40 @@
       </div>
     </div>
     <div *ngIf="!editMode">
-      <div class="card-body" style="background-color: #f2f2f2;" *ngFor="let step of recipe.steps; let i=index;">Step {{i+1}} - {{step}}</div>
+      <div class="card-body" style="background-color: #f2f2f2;" *ngFor="let step of recipe.steps; let i=index;" >Step {{i+1}} - {{step}}</div>
     </div>
-    <div *ngIf="editMode" cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-      <div class="card-body"  style="background-color: #f2f2f2;"*ngFor="let step of recipe.steps; let i=index;" cdkDrag><p style="width: 90%">🔃 Step {{i+1}} - {{step}}</p></div>
+    <div *ngIf="editMode" cdkDropList (cdkDropListDropped)="drop($event)">
+      <div class="card-body" style="background-color: #f2f2f2;"*ngFor="let step of recipe.steps; let i=index;" cdkDrag>
+        <div style="width: 90%">🔃 Step {{i+1}} - 
+          <p contenteditable="true"><span id="recipeStep{{i}}">{{step}}</span>
+            <span style="float: right" (click)="deleteRecipeStep(i)">🗑️</span>
+            <span style="float: right" (click)="updateRecipeStep(i)">✔️</span>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 
-  <ng-template #content let-modal>
-    <div class="modal-wrapper p-1 m-1">
+  <ng-template #addNewIngredient let-modal>
+    <div class="modal-wrapper">
       <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Add Ingredient</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body p-1 m-2">
         <div class="input-group">
           <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for a specific ingredient...">
         </div>
-          <ul *ngFor="let ingredient of allIngredients | filterIngredientNamePipe : searchText">
-            <li (click)="addIngredient(ingredient)" style="cursor:pointer">
+          <ul class="m-1 p-1" *ngFor="let ingredient of allIngredients | filterIngredientNamePipe : searchText">
+            <li *ngIf="allIngredients.length > 10">Please use more details to refine the search</li>
+            <li *ngIf="allIngredients.length < 10" (click)="addIngredient(ingredient)" style="cursor:pointer" >
               {{ingredient.name}}
             </li>
           </ul>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Done')">Done</button>
+        <button type="button" class="btn btn-success" (click)="modal.close('Done')">Save</button>
+        <button type="button" class="btn btn-danger" (click)="modal.close('Done')">Cancel</button>
       </div>
     </div>
   </ng-template>

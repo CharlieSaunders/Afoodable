@@ -5,7 +5,7 @@ var mongoDb = require('mongodb');
 
 recipeRoutes.route('/api/recipes').get(async function (_req, res) {
   const dbConnect = dbo.getDb();
-  dbConnect
+  await dbConnect
     .collection('recipes')
     .find({})
     .limit(50)
@@ -21,7 +21,7 @@ recipeRoutes.route('/api/recipes').get(async function (_req, res) {
 recipeRoutes.route('/api/recipes/:recipe').get(async function (_req, res) {
   let docReference = _req.params.recipe;
   const dbConnect = dbo.getDb();
-  dbConnect
+  await dbConnect
     .collection('recipes')
     .find({"_id": new mongoDb.ObjectId(docReference)})
     .limit(1)
@@ -36,7 +36,7 @@ recipeRoutes.route('/api/recipes/:recipe').get(async function (_req, res) {
 
 recipeRoutes.route('/api/recipes').post(async function (_req, res) {
   const dbConnect = dbo.getDb();
-  dbConnect.collection('recipes').update(
+  await dbConnect.collection('recipes').updateOne(
       { 
         _id: new mongoDb.ObjectId(_req.body._id) 
       },

@@ -3,6 +3,7 @@ import { Recipe, RecipeItem } from '../types/recipes/recipe.type';
 import { ShoppingList, ShoppingListItem } from '../types/recipes/shopping-list.type';
 import { Router } from '@angular/router';
 import { RecipeService } from '../services/recipes/recipe.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -11,10 +12,12 @@ import { RecipeService } from '../services/recipes/recipe.service';
   providers: [ RecipeService ]
 })
 export class HomeComponent {
+  private readonly subscriptions: Subscription = new Subscription();
   public sidebarShow: boolean = false;
-  public totalSelectedRecipes: number = 0;
   public searchText: string = "";
   public router!: Router;
+
+  public totalSelectedRecipes: number = 0;
   public recipes!: Array<Recipe>;
   public shoppingList: ShoppingList = new ShoppingList;
 
@@ -23,19 +26,11 @@ export class HomeComponent {
   }
 
   public ngOnInit(): void {
-    let x = this.recipeService.getRecipes().subscribe((data:Array<Recipe>) => {
-      let recipesFromApi: Array<Recipe> = [];
-      data.forEach(recipe => {
-        let recipeItems: Array<RecipeItem> = [];
-        let steps: Array<string> = [];
-        recipe.ingredients.forEach(ingredient => {
-          let ingredientObject = JSON.parse(ingredient.toString());
-          recipeItems.push(new RecipeItem(ingredientObject.name, ingredientObject.quantity, ingredientObject.cost, ingredientObject.servingSize, ingredientObject.servingMetric));
-        })
-        recipesFromApi.push(new Recipe(recipe.reference, recipe.name, recipe.type, recipe.rating, recipe.imageUrl, recipeItems, recipe._id, steps, recipe.description))
+    this.subscriptions.add(
+      this.recipeService.getRecipes().subscribe((data:Array<Recipe>) => {
+        this.recipes = data;
       })
-      this.recipes = recipesFromApi;
-    })
+    );
   }
 
   public navigateToRecipe(dbReference: string) : void {

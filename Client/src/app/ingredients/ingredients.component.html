@@ -1,2 +1,86 @@
 <br><br><br><br>
-<p>ingredients works!</p>
+<div class="input-group">
+  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for a specific ingredient...">
+</div>
+<table class="ingredients-table">
+  <thead>
+      <tr>
+          <th>Name</th>
+          <th>Cost</th>
+          <th>Serving Size</th>
+          <th>Serving Metric</th>
+          <th><button style="float: right;" mat-mini-fab class="bg-success" (click)="openEmpty(newIngredient)">➕</button></th>
+      </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ingredient of ingredients | filterIngredientNamePipe : searchText">
+      <td>{{ ingredient.name }}</td>
+      <td>£{{ ingredient.cost }}</td>
+      <td>{{ ingredient.servingSize }}</td>
+      <td>{{ ingredient.servingMetric }}</td>
+      <td>        
+        <button style="float: right;" mat-mini-fab color="warn" (click)="deleteIngredient(ingredient._id)">🗑️</button>
+        &nbsp;
+        <button style="float: right; margin-right: 5px;" mat-mini-fab color="accent" (click)="open(updateIngredient, ingredient)">✏️</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #newIngredient let-modal>
+  <div class="modal-wrapper">
+    <div class="modal-header p-1 m-1">
+      <h4 class="modal-title" id="modal-basic-title">New Ingredient</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body p-1 m-2">
+      <form [formGroup]="newIngredientForm" (ngSubmit)="addNewIngredient()">
+        <div class="input-group m-1">
+          <input class="form-control" type="text" autocomplete="off" placeholder="Name..." formControlName="name">
+        </div>
+        <div class="input-group m-1">
+          <input class="form-control" type="number" autocomplete="off" placeholder="Cost..." formControlName="cost">
+        </div>
+        <div class="input-group m-1">
+          <input class="form-control" type="number" autocomplete="off" placeholder="Serving size..." formControlName="servingSize">
+        </div>
+        <div class="input-group m-1">
+          <input class="form-control" type="text" autocomplete="off" placeholder="Serving metric..." formControlName="servingMetric">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer p-1 m-1">
+      <button type="button" class="btn btn-success" (click)="addNewIngredient()">Save</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Done')">Cancel</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #updateIngredient let-modal>
+  <div class="modal-wrapper">
+    <div class="modal-header p-1 m-1">
+      <h4 class="modal-title" id="modal-basic-title">Update Ingredient</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body p-1 m-2">
+      <form [formGroup]="updateIngredientForm" (ngSubmit)="updateExistingIngredient()">
+        <div class="input-group m-1">
+          <input class="form-control" type="text" autocomplete="off" placeholder="Name..." formControlName="name">
+        </div>
+        <div class="input-group m-1">
+          <input class="form-control" type="number" autocomplete="off" placeholder="Cost..." formControlName="cost">
+        </div>
+        <div class="input-group m-1">
+          <input class="form-control" type="number" autocomplete="off" placeholder="Serving size..." formControlName="servingSize">
+        </div>
+        <div class="input-group m-1">
+          <input class="form-control" type="text" autocomplete="off" placeholder="Serving metric..." formControlName="servingMetric">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer p-1 m-1">
+      <button type="button" class="btn btn-success" (click)="updateExistingIngredient()">Save</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Done')">Cancel</button>
+    </div>
+  </div>
+</ng-template>

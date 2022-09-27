@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Ingredient } from '../types/ingredients/ingredient.type';
 import { ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop' 
+import { IngredientService } from '../services/ingredients/ingredient.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-page',
@@ -14,37 +16,38 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
   providers: [RecipeService]
 })
 export class RecipePageComponent{
+  private readonly subscriptions: Subscription = new Subscription();
   public recipe!: Recipe;
-  public editMode: boolean = false;
   public totalCost!: string;
-  public searchText!: string;
   public newStepString: string = "";
-  public allIngredients!: Array<Ingredient>;
+
+  public editMode: boolean = false;
+  public searchText!: string;
   public closeResult = '';
+
+  public allIngredients!: Array<Ingredient>;
+
 
   constructor(
     private route: ActivatedRoute, 
     private recipeService: RecipeService,
+    private ingredientService: IngredientService,
     private modalService: NgbModal) 
     { }
 
   public ngOnInit(): void {
     let routeParams = this.route.snapshot.paramMap;
-    let x = this.recipeService.getRecipe(String(routeParams.get('id'))).subscribe((recipe:any) => {
-      let context = recipe[0];
-      console.log(context);
-        let recipeItems: Array<RecipeItem> = [];
-        context.ingredients.forEach((ingredient: any) => {
-          let ingredientObject = JSON.parse(ingredient.toString());
-          recipeItems.push(new RecipeItem(ingredientObject.name, ingredientObject.quantity, ingredientObject.cost, ingredientObject.servingSize, ingredientObject.servingMetric));
-        })
-        this.recipe = new Recipe(context.reference, context.name, context.type, context.rating, context.imageUrl, recipeItems, context._id, context.steps, context.description);
+    this.subscriptions.add(
+      this.recipeService.getRecipe(String(routeParams.get('id'))).subscribe((recipe:any) => {
+        this.recipe = recipe;
         this.totalCost = this.recipe.totalCost.toFixed(2);
-    });
-
-    this.allIngredients = [
-      new Ingredient("Cheese"), new Ingredient("Tomato"), new Ingredient("Pear")
-    ];
+      })
+    );
+    this.subscriptions.add(
+      this.ingredientService.getIngredients().subscribe((data:Array<Ingredient>) => {
+        this.allIngredients = data;
+      })
+    );
   }
 
   public edit(): void{
@@ -55,9 +58,7 @@ export class RecipePageComponent{
   public save(): void{
     console.log("Save selected");
     this.updateRecipe();
-    this.recipeService.updateRecipe(new UpdateRecipeDto(this.recipe)).subscribe((data:any)=>{
-      console.log(data);
-    });
+    this.recipeService.updateRecipe(new UpdateRecipeDto(this.recipe)).subscribe((data:any)=>{});
     this.editMode = false;
   }
 
@@ -68,7 +69,8 @@ export class RecipePageComponent{
   }
 
   public addIngredient(ingredient: Ingredient): void{
-    console.log(ingredient);
+    this.recipe.ingredients.push(new RecipeItem(ingredient.name, 1, ingredient.cost, ingredient.servingSize, ingredient.servingMetric));
+    this.modalService.dismissAll();
   }
 
   public updateIngredient(index: number, changeValue: number): void{
@@ -117,7 +119,18 @@ export class RecipePageComponent{
     }
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  public updateRecipeStep(index:number): void{
+    let newStep = document.getElementById(`recipeStep${index}`)?.innerText;
+    console.log(newStep)
+    if(newStep != null && newStep.length > 1)
+      this.recipe.steps[index] = newStep;
+  }
+
+  public deleteRecipeStep(index:number): void{
+    this.recipe.steps.splice(index, 1);
+  }
+
+  public drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.recipe.steps, event.previousIndex, event.currentIndex);
   }
 }

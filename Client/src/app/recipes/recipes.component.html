@@ -1,2 +1,28 @@
 <br><br><br><br>
-<p>recipes works!</p>
+<div class="input-group mb-3">
+  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for a specific recipe...">
+</div>
+<table class="recipe-table">
+  <thead>
+      <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Cost</th>
+          <th>Rating</th>
+          <th><button style="float: right;" mat-mini-fab class="bg-success">➕</button></th>
+      </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let recipe of recipes.slice(0,9) | filterRecipeNamePipe : searchText">
+      <td>{{ recipe.name }}</td>
+      <td>{{ recipe.type }}</td>
+      <td>£{{ recipe.totalCost.toFixed(2) }}</td>
+      <td><ng-container *ngFor="let _ of [].constructor(recipe.rating)">⭐</ng-container></td>
+      <td>        
+        <button style="float: right;" mat-mini-fab color="warn">🗑️</button>
+        &nbsp;
+        <button style="float: right; margin-right: 5px;" mat-mini-fab color="accent" (click)="navigateToRecipe(recipe._id)">✏️</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
