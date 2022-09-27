@@ -55,12 +55,25 @@ export class RecipeItem {
   constructor(_name: string, _quantity: number, _cost: number, _servingSize: number, _servingMetric: string) {
     this.name = _name;
     this.quantity = _quantity;
-    this.cost = _quantity * _cost;
+    this.cost = _cost;
     this.servingSize = _servingSize;
     this.servingMetric = _servingMetric;
   }
 
+  public getTotalRequired(): string{
+    let amount = this.quantity * this.servingSize;
+    return `${amount} ${this.servingMetric}`;
+  }
+
   public getCost(): number{
     return this.cost * this.quantity;
+  }
+}
+
+export class RecipeBuilder{
+  public static fromForm(name:any, type:any, description:any): Recipe{
+    return new Recipe(
+        "ref", name, type, 0, "no-image.jpeg", [], "id", [], description
+      );
   }
 }

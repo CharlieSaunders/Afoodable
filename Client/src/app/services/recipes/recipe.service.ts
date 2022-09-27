@@ -26,7 +26,15 @@ export class RecipeService {
   }
 
   public updateRecipe(request: UpdateRecipeDto): Observable<Recipe>{
-    return this.httpClient.post<any>(`${this.baseUrl}`, request, {});
+    return this.httpClient.patch<Recipe>(`${this.baseUrl}`, request, {});
+  }
+
+  public createNewRecipe(request: Recipe): Observable<Recipe>{
+    return this.httpClient.post<Recipe>(this.baseUrl, request);
+  }
+
+  public deleteRecipe(id:string): Observable<Recipe>{
+    return this.httpClient.delete<Recipe>(`${this.baseUrl}/${id}`);
   }
 }
 

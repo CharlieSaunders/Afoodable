@@ -9,20 +9,46 @@
           <th>Type</th>
           <th>Cost</th>
           <th>Rating</th>
-          <th><button style="float: right;" mat-mini-fab class="bg-success">➕</button></th>
+          <th><button style="float: right;" mat-mini-fab class="bg-success" (click)="open(newRecipe)">➕</button></th>
       </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let recipe of recipes.slice(0,9) | filterRecipeNamePipe : searchText">
+    <tr *ngFor="let recipe of recipes | filterRecipeNamePipe : searchText">
       <td>{{ recipe.name }}</td>
       <td>{{ recipe.type }}</td>
       <td>£{{ recipe.totalCost.toFixed(2) }}</td>
       <td><ng-container *ngFor="let _ of [].constructor(recipe.rating)">⭐</ng-container></td>
       <td>        
-        <button style="float: right;" mat-mini-fab color="warn">🗑️</button>
+        <button style="float: right;" mat-mini-fab color="warn" (click)="deleteRecipe(recipe._id)">🗑️</button>
         &nbsp;
         <button style="float: right; margin-right: 5px;" mat-mini-fab color="accent" (click)="navigateToRecipe(recipe._id)">✏️</button>
       </td>
     </tr>
   </tbody>
 </table>
+
+<ng-template #newRecipe let-modal>
+  <div class="modal-wrapper">
+    <div class="modal-header p-1 m-1">
+      <h4 class="modal-title" id="modal-basic-title">New Recipe</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body p-1 m-2">
+      <form [formGroup]="newRecipeForm" (ngSubmit)="addNewRecipe()">
+        <div class="input-group m-1">
+          <input class="form-control" type="text" autocomplete="off" placeholder="Name..." formControlName="name">
+        </div>
+        <div class="input-group m-1">
+          <input class="form-control" type="text" autocomplete="off" placeholder="Type..." formControlName="type">
+        </div>
+        <div class="input-group m-1">
+          <input class="form-control" type="text" autocomplete="off" placeholder="Description" formControlName="description">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer p-1 m-1">
+      <button type="button" class="btn btn-success" (click)="addNewRecipe()">Save</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Done')">Cancel</button>
+    </div>
+  </div>
+</ng-template>

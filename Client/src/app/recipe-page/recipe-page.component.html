@@ -44,17 +44,15 @@
         <br>
 
         <div class="product-detail">
-          <h4>About This Item: <span *ngIf="editMode" class="icon-emoji">✏️</span></h4>
+          <h4>About This Recipe: <span *ngIf="editMode" class="icon-emoji">✏️</span></h4>
             <p *ngIf="!editMode">{{recipe.description}}</p>
-            
             <p *ngIf="editMode" contenteditable="true" id="newDescription">{{recipe.description}}</p>
-            
           <br>
           <h4 class="p-0 m-0">Ingredients: <span *ngIf="editMode" (click)="open(addNewIngredient)">↩</span></h4>
           <ul class="p-0 m-0" *ngFor="let ingredient of recipe.ingredients; let i=index;">
             <li>
               <span *ngIf="editMode"><span class="amendIngredientDown" (click)="updateIngredient(i, -1)">➖</span></span>
-                {{ingredient.name}} {{ingredient.quantity}}{{ingredient.servingMetric}} (~£{{ingredient.getCost()}})
+                {{ingredient.name}}: {{ingredient.getTotalRequired()}} (~£{{ingredient.getCost()}})
               <span *ngIf="editMode"><span class="amendIngredientUp" (click)="updateIngredient(i, 1)">➕</span></span>
             </li>
           </ul>
