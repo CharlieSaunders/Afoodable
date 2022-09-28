@@ -1,4 +1,5 @@
-<br><br><br><br>
+<br><br><br>
+<p>Only the first 10 results are returned. Please use the search bar to refine your search</p>
 <div class="input-group mb-3">
   <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for a specific recipe...">
 </div>
@@ -13,12 +14,12 @@
       </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let recipe of recipes | filterRecipeNamePipe : searchText">
-      <td>{{ recipe.name }}</td>
-      <td>{{ recipe.type }}</td>
-      <td>£{{ recipe.totalCost.toFixed(2) }}</td>
-      <td><ng-container *ngFor="let _ of [].constructor(recipe.rating)">⭐</ng-container></td>
-      <td>        
+    <tr *ngFor="let recipe of recipes | filterRecipeNamePipe : searchText; index as i">
+      <td *ngIf="i<10">{{ recipe.name }}</td>
+      <td *ngIf="i<10">{{ recipe.type }}</td>
+      <td *ngIf="i<10">£{{ recipe.totalCost.toFixed(2) }}</td>
+      <td *ngIf="i<10"><ng-container *ngFor="let i of [].constructor(recipe.roundedRating)">⭐</ng-container>({{recipe.rating.toFixed(2)}} - {{recipe.ratings}})</td>
+      <td *ngIf="i<10">        
         <button style="float: right;" mat-mini-fab color="warn" (click)="deleteRecipe(recipe._id)">🗑️</button>
         &nbsp;
         <button style="float: right; margin-right: 5px;" mat-mini-fab color="accent" (click)="navigateToRecipe(recipe._id)">✏️</button>

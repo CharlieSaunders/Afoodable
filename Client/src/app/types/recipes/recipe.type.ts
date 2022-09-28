@@ -1,9 +1,10 @@
 
 export class Recipe {
-  reference: string;
   name: string;
   type: string;
+  roundedRating: number;
   rating: number;
+  ratings: number;
   imageUrl: string;
   ingredients: Array<RecipeItem>;
   description: string;
@@ -12,18 +13,19 @@ export class Recipe {
   steps: Array<string>;
   _id: string;
 
-  constructor( _reference: string, _name: string, _type: string, _rating: number, _imageUrl: string, _ingredients: Array<RecipeItem>, _dbId: string, _steps: Array<string>, _description: string) {
-    this.reference = _reference;
+  constructor(_name: string, _type: string, _rating: number, _ratings: number, _imageUrl: string, _ingredients: Array<RecipeItem>, _dbId: string, _steps: Array<string>, _description: string) {
     this._id = _dbId;
     this.name = _name;
     this.type = _type;
     this.rating = _rating;
+    this.ratings = _ratings;
     this.imageUrl = _imageUrl;
     this.ingredients = _ingredients;
     this.totalCost = this.TotalCost(_ingredients);
     this.selectedAmount = 0;
     this.description = _description;
     this.steps = _steps;
+    this.roundedRating = Math.floor(_rating);
   }
 
   private TotalCost(items: Array<RecipeItem>) : number {
@@ -43,6 +45,7 @@ export class Recipe {
     });
     return total.toFixed(2);
   }
+
 }
 
 export class RecipeItem {
@@ -73,7 +76,7 @@ export class RecipeItem {
 export class RecipeBuilder{
   public static fromForm(name:any, type:any, description:any): Recipe{
     return new Recipe(
-        "ref", name, type, 0, "no-image.jpeg", [], "id", [], description
+        name, type, 0, 0, "no-image.jpeg", [], "id", [], description
       );
   }
 }

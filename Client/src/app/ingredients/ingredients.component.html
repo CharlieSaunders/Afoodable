@@ -1,4 +1,5 @@
-<br><br><br><br>
+<br><br><br>
+<p>Only the first 10 results are returned. Please use the search bar to refine your search</p>
 <div class="input-group">
   <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for a specific ingredient...">
 </div>
@@ -13,16 +14,16 @@
       </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let ingredient of ingredients | filterIngredientNamePipe : searchText">
-      <td>{{ ingredient.name }}</td>
-      <td>£{{ ingredient.cost }}</td>
-      <td>{{ ingredient.servingSize }}</td>
-      <td>{{ ingredient.servingMetric }}</td>
-      <td>        
-        <button style="float: right;" mat-mini-fab color="warn" (click)="deleteIngredient(ingredient._id)">🗑️</button>
-        &nbsp;
-        <button style="float: right; margin-right: 5px;" mat-mini-fab color="accent" (click)="open(updateIngredient, ingredient)">✏️</button>
-      </td>
+    <tr *ngFor="let ingredient of ingredients | filterIngredientNamePipe : searchText; index as i">
+        <td *ngIf="i<10">{{ ingredient.name }}</td>
+        <td *ngIf="i<10">£{{ ingredient.cost }}</td>
+        <td *ngIf="i<10">{{ ingredient.servingSize }}</td>
+        <td *ngIf="i<10">{{ ingredient.servingMetric }}</td>
+        <td *ngIf="i<10">        
+          <button style="float: right;" mat-mini-fab color="warn" (click)="deleteIngredient(ingredient._id)">🗑️</button>
+          &nbsp;
+          <button style="float: right; margin-right: 5px;" mat-mini-fab color="accent" (click)="open(updateIngredient, ingredient)">✏️</button>
+        </td>
     </tr>
   </tbody>
 </table>

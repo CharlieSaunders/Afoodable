@@ -8,6 +8,7 @@ import { ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop' 
 import { IngredientService } from '../services/ingredients/ingredient.service';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-recipe-page',
@@ -22,6 +23,7 @@ export class RecipePageComponent{
   public newStepString: string = "";
 
   public editMode: boolean = false;
+  public hasBeenRated: boolean = false;
   public searchText!: string;
   public closeResult = '';
 
@@ -32,7 +34,8 @@ export class RecipePageComponent{
     private route: ActivatedRoute, 
     private recipeService: RecipeService,
     private ingredientService: IngredientService,
-    private modalService: NgbModal) 
+    private modalService: NgbModal,
+    private toasterService: ToastrService) 
     { }
 
   public ngOnInit(): void {
@@ -51,19 +54,17 @@ export class RecipePageComponent{
   }
 
   public edit(): void{
-    console.log("Edit selected");
     this.editMode = true;
   }
 
   public save(): void{
-    console.log("Save selected");
     this.updateRecipe();
     this.recipeService.updateRecipe(new UpdateRecipeDto(this.recipe)).subscribe((data:any)=>{});
+    this.toasterService.success(`Successfully updated ${this.recipe.name}`);
     this.editMode = false;
   }
 
   public cancel(): void{
-    console.log("Cancel selected")
     this.editMode = false;
     this.ngOnInit();
   }
@@ -128,6 +129,28 @@ export class RecipePageComponent{
 
   public deleteRecipeStep(index:number): void{
     this.recipe.steps.splice(index, 1);
+  }
+
+  public newRating(rating:number): void{
+    this.hasBeenRated = true;
+    let newRating = 0;
+    let newRatings = this.recipe.ratings + 1;
+    if(this.recipe.rating > 0 && this.recipe.ratings > 0){
+      let total = this.recipe.rating * this.recipe.ratings + rating;
+      newRating = total / newRatings;
+    }else{
+      newRating = rating;
+    }
+    this.recipeService.addRating(this.recipe._id, newRating, newRatings).subscribe((data:any)=>{});
+    this.toasterService.success(`Successfully added rating`);
+  }
+
+  public onFileChanged(event: any): void{
+    const file = event.target.files[0];
+    this.recipeService.updateImage(file, this.recipe).subscribe((data:any)=>{});
+    this.toasterService.success(`Successfully updated image`);
+    this.editMode = false;
+    this.ngOnInit();
   }
 
   public drop(event: CdkDragDrop<string[]>) {

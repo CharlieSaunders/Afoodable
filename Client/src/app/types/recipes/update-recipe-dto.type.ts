@@ -6,7 +6,6 @@ export class UpdateRecipeDto {
 	ingredients: Array<string>;
 	name: string;
 	rating: number;
-	reference: string;
 	type: string;
 	steps: Array<string>;
 	_id: string;
@@ -19,7 +18,6 @@ export class UpdateRecipeDto {
 		});
 		this.name = _recipe.name;
 		this.type = _recipe.type;
-		this.reference = _recipe.reference;
 		this.rating = _recipe.rating;
 		this.steps = _recipe.steps;
 		this._id = _recipe._id;

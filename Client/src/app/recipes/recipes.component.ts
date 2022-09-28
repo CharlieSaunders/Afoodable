@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscribable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { RecipeService } from '../services/recipes/recipe.service';
 import { Recipe, RecipeBuilder } from '../types/recipes/recipe.type';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-recipes',
@@ -28,6 +29,7 @@ export class RecipesComponent  {
   constructor(
     private recipeService: RecipeService,
     private modalService: NgbModal,
+    private toasterService: ToastrService,
     _router: Router
   ) 
   { 
@@ -65,18 +67,32 @@ export class RecipesComponent  {
   }
 
   public addNewRecipe(): void{
-    let newRecipe = RecipeBuilder.fromForm(
+    let exists = false;
+    this.recipes.forEach((recipe:Recipe) => {
+      let name = recipe.name;
+      if(name.toLowerCase() == this.newRecipeForm.value.name?.toLowerCase()){
+        exists = true;
+        this.toasterService.warning(`${name} - Already exists`);
+      }
+    });
+
+    if(!exists){
+      let newRecipe = RecipeBuilder.fromForm(
         this.newRecipeForm.value.name,
         this.newRecipeForm.value.type,
         this.newRecipeForm.value.description
       );
-    this.recipeService.createNewRecipe(newRecipe).subscribe((data:any)=>{});
+      this.recipeService.createNewRecipe(newRecipe).subscribe((data:any)=>{});
+      this.toasterService.success(`Successfully created ${newRecipe.name}`);
+    }
+
     this.modalService.dismissAll();
     this.ngOnInit();
   }
 
   public deleteRecipe(id:string): void{
     this.recipeService.deleteRecipe(id).subscribe((data:any)=> {});
+    this.toasterService.success(`Successfully deleted recipe`);
     this.modalService.dismissAll();
     this.ngOnInit();
   }

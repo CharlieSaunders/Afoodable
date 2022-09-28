@@ -36,6 +36,16 @@ export class RecipeService {
   public deleteRecipe(id:string): Observable<Recipe>{
     return this.httpClient.delete<Recipe>(`${this.baseUrl}/${id}`);
   }
+
+  public addRating(id:string, rating:number, ratings:number): Observable<Recipe>{
+    return this.httpClient.post<Recipe>(`${this.baseUrl}/rating/${id}`, {rating, ratings});
+  }
+
+  public updateImage(image:File, recipe:Recipe){
+    let formData = new FormData();
+    formData.append('recipeImage', image, recipe._id);
+    return this.httpClient.post<Recipe>(`${this.baseUrl}/image/${recipe._id}`, formData);
+  }
 }
 
 class RecipeMapper {
@@ -47,7 +57,7 @@ class RecipeMapper {
         let ingredientObject = JSON.parse(ingredient.toString());
         recipeItems.push(new RecipeItem(ingredientObject.name, ingredientObject.quantity, ingredientObject.cost, ingredientObject.servingSize, ingredientObject.servingMetric));
       })
-      recipesFromApi.push(new Recipe(recipe.reference, recipe.name, recipe.type, recipe.rating, recipe.imageUrl, recipeItems, recipe._id, recipe.steps, recipe.description))
+      recipesFromApi.push(new Recipe(recipe.name, recipe.type, recipe.rating, recipe.ratings, recipe.imageUrl, recipeItems, recipe._id, recipe.steps, recipe.description))
     })
     return recipesFromApi;
   }
@@ -59,6 +69,6 @@ class RecipeMapper {
       let ingredientObject = JSON.parse(ingredient.toString());
       recipeItems.push(new RecipeItem(ingredientObject.name, ingredientObject.quantity, ingredientObject.cost, ingredientObject.servingSize, ingredientObject.servingMetric));
     })
-    return new Recipe(context.reference, context.name, context.type, context.rating, context.imageUrl, recipeItems, context._id, context.steps, context.description);
+    return new Recipe(context.name, context.type, context.rating, context.ratings, context.imageUrl, recipeItems, context._id, context.steps, context.description);
   }
 }

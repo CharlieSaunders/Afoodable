@@ -1,11 +1,23 @@
 const express = require('express');
 const recipeRoutes = express.Router();
 const dbo = require('../Data/conn');
+const multer = require('multer');
 var mongoDb = require('mongodb');
+
+const storage = multer.diskStorage({
+  destination: function(req, file, callBack){
+    callBack(null, '../Client/src/assets/images/recipes/');
+  },
+  filename: function(req, file, callBack){
+    callBack(null, `${file.originalname}.${file.mimetype.split("/")[1]}`);
+  }
+});
+
+const upload = multer({storage: storage});
 
 recipeRoutes.route('/api/recipes').get(async function (_req, res) {
   const dbConnect = dbo.getDb();
-  dbConnect
+  await dbConnect
     .collection('recipes')
     .find({})
     .limit(50)
@@ -21,7 +33,7 @@ recipeRoutes.route('/api/recipes').get(async function (_req, res) {
 recipeRoutes.route('/api/recipes/:recipe').get(async function (_req, res) {
   let docReference = _req.params.recipe;
   const dbConnect = dbo.getDb();
-  dbConnect
+  await dbConnect
     .collection('recipes')
     .find({"_id": new mongoDb.ObjectId(docReference)})
     .limit(1)
@@ -36,7 +48,7 @@ recipeRoutes.route('/api/recipes/:recipe').get(async function (_req, res) {
 
 recipeRoutes.route('/api/recipes').patch(async function (_req, res) {
   const dbConnect = dbo.getDb();
-  dbConnect.collection('recipes').updateOne(
+  await dbConnect.collection('recipes').updateOne(
       { 
         _id: new mongoDb.ObjectId(_req.body._id) 
       },
@@ -47,9 +59,8 @@ recipeRoutes.route('/api/recipes').patch(async function (_req, res) {
           'ingredients': _req.body.ingredients,
           'name': _req.body.name,
           'rating': _req.body.rating,
-          'reference': _req.body.reference,
           'type': _req.body.type,
-          'steps': _req.body.steps
+          'steps': _req.body.steps,
         }
       }
     );
@@ -57,7 +68,7 @@ recipeRoutes.route('/api/recipes').patch(async function (_req, res) {
 
 recipeRoutes.route('/api/recipes').post(async function (_req, res) {
   const dbConnect = dbo.getDb();
-  dbConnect.collection('recipes').insertOne(
+  await dbConnect.collection('recipes').insertOne(
   {
     'reference': _req.body.reference,
     'name': _req.body.name,
@@ -73,9 +84,40 @@ recipeRoutes.route('/api/recipes').post(async function (_req, res) {
 recipeRoutes.route('/api/recipes/:id').delete(async function(_req, res) {
   let docReference = _req.params.id;
   const dbConnect = dbo.getDb();
-  adbConnect.collection('recipes').deleteOne({
+  await dbConnect.collection('recipes').deleteOne({
     _id: new mongoDb.ObjectId(docReference) 
   });
 })
+
+recipeRoutes.route('/api/recipes/rating/:id').post(async function(_req, res){
+  let docReference = _req.params.id;
+  const dbConnect = dbo.getDb();
+  await dbConnect.collection('recipes').updateOne(
+    { 
+      _id: new mongoDb.ObjectId(docReference) 
+    },
+    {
+      $set: { 
+        'rating': _req.body.rating,
+        'ratings': _req.body.ratings
+      }
+    }
+  );
+})
+
+recipeRoutes.route('/api/recipes/image/:id').post(upload.single('recipeImage'), (_req, res, next) => {
+  let docReference = _req.params.id;
+  const dbConnect = dbo.getDb();
+  dbConnect.collection('recipes').updateOne(
+    { 
+      _id: new mongoDb.ObjectId(docReference) 
+    },
+    {
+      $set: { 
+        'imageUrl': _req.file.filename
+      }
+    }
+  );
+});
 
 module.exports = recipeRoutes;

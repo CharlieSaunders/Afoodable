@@ -4,6 +4,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { IngredientService } from '../services/ingredients/ingredient.service';
 import { Ingredient, IngredientBuilder } from '../types/ingredients/ingredient.type';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-ingredients',
@@ -35,7 +36,8 @@ export class IngredientsComponent {
 
   constructor(
     private ingredientService: IngredientService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toasterService: ToastrService
     ) { }
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class IngredientsComponent {
       this.ingredientService.getIngredients().subscribe((result:Array<Ingredient>) => {
         this.ingredients = result;
       })
-    )
+    );
   }
 
   public open(content:any, ingredient: Ingredient) {
@@ -90,29 +92,44 @@ export class IngredientsComponent {
       this.updateIngredientForm.value.servingMetric,
       this.updateIngredientForm.value._id
     );
-
+    
     this.ingredientService.updateIngredient(ingredient).subscribe((data:any) => {})
+    this.toasterService.success(`Successfully updated ${ingredient.name}`);
     this.modalService.dismissAll();
     this.ngOnInit();
   }
 
   public addNewIngredient(): void{
-    let newIngredient = IngredientBuilder.fromForm(
-      this.newIngredientForm.value.name,
-      this.newIngredientForm.value.cost,
-      this.newIngredientForm.value.servingSize,
-      this.newIngredientForm.value.servingMetric,
-      this.newIngredientForm.value._id
-    );
+    let exists = false;
+    this.ingredients.forEach((ingredient:Ingredient) => {
+      let name = ingredient.name;
+      if(name.toLowerCase() == this.newIngredientForm.value.name?.toLowerCase()){
+        exists = true;
+        this.toasterService.warning(`${name} - Already exists`)
+      }
+    });
 
-    this.ingredientService.newIngredient(newIngredient).subscribe((data:any) => {})
-    this.newIngredientForm.reset();
+    if(!exists){
+      let newIngredient = IngredientBuilder.fromForm(
+        this.newIngredientForm.value.name,
+        this.newIngredientForm.value.cost,
+        this.newIngredientForm.value.servingSize,
+        this.newIngredientForm.value.servingMetric,
+        this.newIngredientForm.value._id
+      );
+  
+      this.ingredientService.newIngredient(newIngredient).subscribe((data:any) => {})
+      this.toasterService.success(`Successfully created ${newIngredient.name}`);
+      this.newIngredientForm.reset();
+    }
+
     this.modalService.dismissAll();
     this.ngOnInit();
   }
 
   public deleteIngredient(id: string){
     this.ingredientService.deleteIngredient(id).subscribe((data:any) => {});
+    this.toasterService.success(`Successfully deleted`);
     this.ngOnInit();
   }
 

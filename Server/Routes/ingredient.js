@@ -5,7 +5,7 @@ var mongoDb = require('mongodb');
 
 ingredientRoutes.route('/api/ingredients').get(async function (_req, res) {
   const dbConnect = dbo.getDb();
-  dbConnect.collection('ingredients')
+  await dbConnect.collection('ingredients')
     .find({})
     .limit(50)
     .toArray(function (err, result) {
@@ -19,7 +19,7 @@ ingredientRoutes.route('/api/ingredients').get(async function (_req, res) {
 
 ingredientRoutes.route('/api/ingredients').post(async function (_req, res) {
   const dbConnect = dbo.getDb();
-  dbConnect.collection('ingredients').insertOne(
+  await dbConnect.collection('ingredients').insertOne(
       { 
         'name': _req.body.name, 
         'cost': _req.body.cost,
@@ -31,7 +31,7 @@ ingredientRoutes.route('/api/ingredients').post(async function (_req, res) {
 
 ingredientRoutes.route('/api/ingredients').patch(async function(_req, res) {
   const dbConnect = dbo.getDb();
-  dbConnect.collection('ingredients').updateOne(
+  await dbConnect.collection('ingredients').updateOne(
     { 
       _id: new mongoDb.ObjectId(_req.body._id) 
     },
@@ -49,7 +49,7 @@ ingredientRoutes.route('/api/ingredients').patch(async function(_req, res) {
 ingredientRoutes.route('/api/ingredients/:id').delete(async function(_req, res){
   let docReference = _req.params.id;
   const dbConnect = dbo.getDb();
-  dbConnect.collection('ingredients').deleteOne({ 
+  await dbConnect.collection('ingredients').deleteOne({ 
     _id: new mongoDb.ObjectId(docReference) 
   });
 })

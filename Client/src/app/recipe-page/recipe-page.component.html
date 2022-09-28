@@ -19,6 +19,12 @@
 
 <div class="card-wrapper" *ngIf="recipe">
     <div class="card">
+      <div *ngIf="editMode" class="image-cta">
+        <button mat-fab class="bg-info text-dark">
+          <label for="file-upload" >📷</label>
+          <input type="file" id="file-upload" (change)="onFileChanged($event)">
+        </button>
+      </div>
       <!-- card left -->
       <div class="product-imgs">
         <div class="img-display">
@@ -35,13 +41,14 @@
           <span *ngIf="editMode" class="icon-emoji">✏️</span>
         </h2>
         <div class="product-rating">
-            <span>Rating: <ng-container *ngFor="let _ of [].constructor(recipe.rating)">⭐</ng-container></span>
+            <span>Rating: <ng-container *ngFor="let _ of [].constructor(recipe.roundedRating)">⭐</ng-container>({{recipe.ratings}})</span>
             &nbsp;
             <span class="new-price">Approx: 
                 <span>£{{totalCost}}</span>
             </span>
+            <br>
         </div>
-        <br>
+        <br><br>
 
         <div class="product-detail">
           <h4>About This Recipe: <span *ngIf="editMode" class="icon-emoji">✏️</span></h4>
@@ -71,19 +78,44 @@
       </div>
     </div>
     <div *ngIf="!editMode">
-      <div class="card-body" style="background-color: #f2f2f2;" *ngFor="let step of recipe.steps; let i=index;" >Step {{i+1}} - {{step}}</div>
+      <div  style="min-width: 90%" class="card p-1" style="display: block" *ngFor="let step of recipe.steps; let i=index;" >
+         <p><span style="text-decoration: underline;">Step {{i+1}}</span> - {{step}}</p>
+      </div>
     </div>
     <div *ngIf="editMode" cdkDropList (cdkDropListDropped)="drop($event)">
-      <div class="card-body" style="background-color: #f2f2f2;"*ngFor="let step of recipe.steps; let i=index;" cdkDrag>
-        <div style="width: 90%">🔃 Step {{i+1}} - 
-          <p contenteditable="true"><span id="recipeStep{{i}}">{{step}}</span>
-            <span style="float: right" (click)="deleteRecipeStep(i)">🗑️</span>
-            <span style="float: right" (click)="updateRecipeStep(i)">✔️</span>
-          </p>
+      <div class="card p-1" style="display: block"*ngFor="let step of recipe.steps; let i=index;" cdkDrag>
+        <div>🔃 Step {{i+1}} - 
+            <p style="min-width: 90%" contenteditable="true" id="recipeStep{{i}}">{{step}}</p>
+            <span style="float: right; cursor: pointer;" (click)="deleteRecipeStep(i)">🗑️</span>
+            <span style="float: right; cursor: pointer;" (click)="updateRecipeStep(i)">✔️</span>
+        </div>
+        <br>
+      </div>
+    </div>
+    <br>
+
+    <div class="card p-1" >
+      <div class="card-body" *ngIf="hasBeenRated">
+        <p>Thanks for rating the recipe!</p>
+      </div>
+      <div class="card-body" *ngIf="!hasBeenRated">
+        <div class="card-title">Rate the recipe:</div>
+        <div class="rate">
+          <input type="radio" id="star5" name="rate" value="5" (click)="newRating(5)"/>
+          <label for="star5" title="5">5 stars</label>
+          <input type="radio" id="star4" name="rate" value="4" (click)="newRating(4)" />
+          <label for="star4" title="4">4 stars</label>
+          <input type="radio" id="star3" name="rate" value="3" (click)="newRating(3)" />
+          <label for="star3" title="3">3 stars</label>
+          <input type="radio" id="star2" name="rate" value="2" (click)="newRating(2)" />
+          <label for="star2" title="2">2 stars</label>
+          <input type="radio" id="star1" name="rate" value="1" (click)="newRating(1)" />
+          <label for="star1" title="1">1 star</label>
         </div>
       </div>
     </div>
   </div>
+  <br>
 
   <ng-template #addNewIngredient let-modal>
     <div class="modal-wrapper">
@@ -95,9 +127,8 @@
         <div class="input-group">
           <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for a specific ingredient...">
         </div>
-          <ul class="m-1 p-1" *ngFor="let ingredient of allIngredients | filterIngredientNamePipe : searchText">
-            <li *ngIf="allIngredients.length > 10">Please use more details to refine the search</li>
-            <li *ngIf="allIngredients.length < 10" (click)="addIngredient(ingredient)" style="cursor:pointer" >
+          <ul class="m-1 p-1" *ngFor="let ingredient of allIngredients | filterIngredientNamePipe : searchText; index as i">
+            <li *ngIf="i<10" (click)="addIngredient(ingredient)" style="cursor:pointer" >
               {{ingredient.name}}
             </li>
           </ul>
