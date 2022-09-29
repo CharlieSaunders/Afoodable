@@ -45,3 +45,14 @@ body {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #555;
 }
+
+footer{
+	width:  90%;
+	margin-left:  5%;
+	margin-right:  5%;
+	text-align:  center;
+	justify-content: center;
+	align-items: center;
+	margin: 2%;
+	height:  10%;
+}

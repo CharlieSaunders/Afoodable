@@ -3,6 +3,9 @@
     justify-content: center !important;
     align-items: center !important;
     overflow: hidden !important;
+    background-image: url('../../assets/images/recipes/image_loading.gif') !important;
+    background-repeat: no-repea !important;
+    background-size: contain !important;
 }
 
 .recipe-image img{
