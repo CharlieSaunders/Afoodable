@@ -1,10 +1,13 @@
 const express = require('express');
-const recipeRoutes = express.Router();
-const dbo = require('../Data/conn');
 const multer = require('multer');
-var mongoDb = require('mongodb');
+const dbo = require('../Data/conn');
+const GenericCache = require('./Caches/genericCache');
 
-const storage = multer.diskStorage({
+let mongoDb = require('mongodb');
+let recipeRoutes = express.Router();
+let recipesCache = new GenericCache("Recipe Cache");
+
+let storage = multer.diskStorage({
   destination: function(req, file, callBack){
     callBack(null, '../Client/src/assets/images/recipes/');
   },
@@ -13,44 +16,54 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({storage: storage});
+let upload = multer({storage: storage});
 
+// GET ALL RECIPES
 recipeRoutes.route('/api/recipes').get(async function (_req, res) {
-  const dbConnect = dbo.getDb();
-  await dbConnect
-    .collection('recipes')
-    .find({})
-    .limit(50)
-    .toArray(function (err, result) {
-    if (err) {
-      res.status(400).send('Error fetching listings!');
-      } else {
-      res.json(result);
-    }
-  });
+  if(recipesCache.setup){
+    res.json(recipesCache.get());
+  }else{
+    const dbConnect = dbo.getDb();
+    await dbConnect
+      .collection('recipes')
+      .find({})
+      .limit(50)
+      .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send('Error fetching listings!');
+        } else {
+        res.json(result);
+        recipesCache.set(result);
+      }
+    });
+  }
 });
 
+// GET RECIPE BY ID
 recipeRoutes.route('/api/recipes/:recipe').get(async function (_req, res) {
   let docReference = _req.params.recipe;
-  const dbConnect = dbo.getDb();
-  await dbConnect
-    .collection('recipes')
-    .find({"_id": new mongoDb.ObjectId(docReference)})
-    .limit(1)
-    .toArray(function (err, result) {
-    if (err) {
-      res.status(400).send('Error fetching listings!');
-      } else {
-      res.json(result);
-    }
-  });
+  let cacheRecipe = recipesCache.getSingle(docReference);
+
+  if(cacheRecipe != undefined){
+    res.json(cacheRecipe);
+  }else{
+    const dbConnect = dbo.getDb();
+    let recipe = await dbConnect
+      .collection('recipes')
+      .findOne({"_id": new mongoDb.ObjectId(docReference)});
+    
+    res.json(recipe);
+    recipesCache.setSingle(recipe);
+  }
 });
 
+// UPDATE RECIPE
 recipeRoutes.route('/api/recipes').patch(async function (_req, res) {
+  let docId = _req.body._id;
   const dbConnect = dbo.getDb();
   await dbConnect.collection('recipes').updateOne(
       { 
-        _id: new mongoDb.ObjectId(_req.body._id) 
+        _id: new mongoDb.ObjectId(docId) 
       },
       {
         $set: { 
@@ -64,11 +77,13 @@ recipeRoutes.route('/api/recipes').patch(async function (_req, res) {
         }
       }
     );
+  recipesCache.setSingle(await getSingleRecipe(docId));
 });
 
+// CREATE NEW RECIPE
 recipeRoutes.route('/api/recipes').post(async function (_req, res) {
   const dbConnect = dbo.getDb();
-  await dbConnect.collection('recipes').insertOne(
+  let newRecipe = await dbConnect.collection('recipes').insertOne(
   {
     'reference': _req.body.reference,
     'name': _req.body.name,
@@ -78,17 +93,21 @@ recipeRoutes.route('/api/recipes').post(async function (_req, res) {
     'description': _req.body.description,
     'steps': [],
     'ingredients': []
-  })
-})
+  });
+  recipesCache.setSingle(await getSingleRecipe(newRecipe.insertedId.toString()));
+});
 
+// DELETE RECIPE
 recipeRoutes.route('/api/recipes/:id').delete(async function(_req, res) {
   let docReference = _req.params.id;
   const dbConnect = dbo.getDb();
   await dbConnect.collection('recipes').deleteOne({
     _id: new mongoDb.ObjectId(docReference) 
   });
+  recipesCache.unset(docReference);
 })
 
+// RATE RECIPE
 recipeRoutes.route('/api/recipes/rating/:id').post(async function(_req, res){
   let docReference = _req.params.id;
   const dbConnect = dbo.getDb();
@@ -103,12 +122,14 @@ recipeRoutes.route('/api/recipes/rating/:id').post(async function(_req, res){
       }
     }
   );
-})
+  recipesCache.setSingle(await getSingleRecipe(docReference));
+});
 
-recipeRoutes.route('/api/recipes/image/:id').post(upload.single('recipeImage'), (_req, res, next) => {
+// UPDATE RECIPE IMAGE
+recipeRoutes.route('/api/recipes/image/:id').post(upload.single('recipeImage'), async function (_req, res){
   let docReference = _req.params.id;
   const dbConnect = dbo.getDb();
-  dbConnect.collection('recipes').updateOne(
+  await dbConnect.collection('recipes').updateOne(
     { 
       _id: new mongoDb.ObjectId(docReference) 
     },
@@ -118,6 +139,16 @@ recipeRoutes.route('/api/recipes/image/:id').post(upload.single('recipeImage'), 
       }
     }
   );
+  recipesCache.setSingle(await getSingleRecipe(docReference));
 });
+
+
+async function getSingleRecipe(id){
+  const dbConnect = dbo.getDb();
+  let recipe = await dbConnect
+    .collection('recipes')
+    .findOne({"_id": new mongoDb.ObjectId(id)});
+  return recipe;
+}
 
 module.exports = recipeRoutes;

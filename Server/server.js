@@ -8,18 +8,15 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Register 'controller routes'
 app.use(require('./routes/recipe'));
 app.use(require('./routes/ingredient'));
-
-// Global error handling
-app.use(function (err, _req, res) {
-  console.log(`Error stack => ${err.stack}`);
-});
 
 // perform a database connection when the server starts
 dbo.connectToServer(function (err) {
   if (err) {
-    console.log(`There was an error: ${err}`);
+    console.log(`There was an error connecting to MongoDB. The application has been terminated:\n${err}`);
     process.exit();
   }
 

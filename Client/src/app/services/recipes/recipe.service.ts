@@ -51,24 +51,30 @@ export class RecipeService {
 class RecipeMapper {
   public static map(result: any): Array<Recipe>{
     let recipesFromApi: Array<Recipe> = [];
+
     result.forEach((recipe: any) => {
       let recipeItems: Array<RecipeItem> = [];
+
       recipe.ingredients.forEach((ingredient: any) => {
         let ingredientObject = JSON.parse(ingredient.toString());
         recipeItems.push(new RecipeItem(ingredientObject.name, ingredientObject.quantity, ingredientObject.cost, ingredientObject.servingSize, ingredientObject.servingMetric));
       })
       recipesFromApi.push(new Recipe(recipe.name, recipe.type, recipe.rating, recipe.ratings, recipe.imageUrl, recipeItems, recipe._id, recipe.steps, recipe.description))
     })
+    
     return recipesFromApi;
   }
 
   public static mapSingle(result: any): Recipe {
-    let context = result[0];
+    if(result.length != undefined)
+      result = result[0];
+
     let recipeItems: Array<RecipeItem> = [];
-    context.ingredients.forEach((ingredient: any) => {
+    result.ingredients.forEach((ingredient: any) => {
       let ingredientObject = JSON.parse(ingredient.toString());
       recipeItems.push(new RecipeItem(ingredientObject.name, ingredientObject.quantity, ingredientObject.cost, ingredientObject.servingSize, ingredientObject.servingMetric));
     })
-    return new Recipe(context.name, context.type, context.rating, context.ratings, context.imageUrl, recipeItems, context._id, context.steps, context.description);
+
+    return new Recipe(result.name, result.type, result.rating, result.ratings, result.imageUrl, recipeItems, result._id, result.steps, result.description);
   }
 }
