@@ -45,7 +45,7 @@ class CacheLogger {
     }
 
     static LogSet(cacheName, id){
-        console.log('\x1b[34m%s\x1b[0m', `==> Getting ${cacheName} object: ID --> ${id}`);
+        console.log('\x1b[34m%s\x1b[0m', `==> Setting ${cacheName} object: ID --> ${id}`);
     }
 
     static LogGet(cacheName, id){
