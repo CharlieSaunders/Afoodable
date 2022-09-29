@@ -64,3 +64,14 @@
     padding: 16px;
     height: 100%;
 }
+
+#servesContainer{
+    position: absolute;
+    bottom: 13%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: rgba(50,50,50,0.5);
+    z-index: 0;
+}

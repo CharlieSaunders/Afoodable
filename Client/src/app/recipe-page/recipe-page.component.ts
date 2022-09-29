@@ -99,6 +99,11 @@ export class RecipePageComponent{
     if(newDescription != null)
       this.recipe.description = newDescription;
 
+
+    let recipesServes = document.getElementById("recipeServes")?.innerText;
+    if(recipesServes != null)
+      this.recipe.serves = parseInt(recipesServes);
+
     this.totalCost = this.recipe.getCost();
   }
 
@@ -122,13 +127,15 @@ export class RecipePageComponent{
 
   public updateRecipeStep(index:number): void{
     let newStep = document.getElementById(`recipeStep${index}`)?.innerText;
-    console.log(newStep)
     if(newStep != null && newStep.length > 1)
       this.recipe.steps[index] = newStep;
+    
+    this.toasterService.success("Added step");
   }
 
   public deleteRecipeStep(index:number): void{
     this.recipe.steps.splice(index, 1);
+    this.toasterService.success("Deleted step");
   }
 
   public newRating(rating:number): void{

@@ -74,6 +74,7 @@ recipeRoutes.route('/api/recipes').patch(async function (_req, res) {
           'rating': _req.body.rating,
           'type': _req.body.type,
           'steps': _req.body.steps,
+          'serves': _req.body.serves
         }
       }
     );
@@ -92,7 +93,8 @@ recipeRoutes.route('/api/recipes').post(async function (_req, res) {
     'imageUrl': _req.body.imageUrl,
     'description': _req.body.description,
     'steps': [],
-    'ingredients': []
+    'ingredients': [],
+    'serves': _req.body.serves
   });
   recipesCache.setSingle(await getSingleRecipe(newRecipe.insertedId.toString()));
 });

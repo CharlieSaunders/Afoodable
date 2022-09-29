@@ -1,9 +1,9 @@
 <br><br><br>
 
-<h1 id="tableLabel">Shopping List Helper</h1>
+<h1 id="tableLabel"></h1>
 
 <p> 
-    Select the recipes you want for the shopping list. Currently it is configured for 1 recipe per person. <br>
+    Select the recipes you want for the shopping list <br>
 </p>
 
 <p *ngIf="!recipes"><em>Loading...</em></p>
@@ -30,6 +30,7 @@
             <div class="card-body p-0">
                 <div class="recipe-image">
                     <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" class="img-responsive img-rounded recipe-image" (click)="navigateToRecipe(recipe._id)">
+                    <span id="servesContainer"><ng-container *ngFor="let _ of [].constructor(recipe.serves)">😋</ng-container></span>
                 </div>
             </div>
             <div class="card-footer p-0">

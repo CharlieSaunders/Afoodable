@@ -8,6 +8,7 @@ export class UpdateRecipeDto {
 	rating: number;
 	type: string;
 	steps: Array<string>;
+	serves: number;
 	_id: string;
 	constructor(_recipe: Recipe){
 		this.description = _recipe.description;
@@ -21,5 +22,6 @@ export class UpdateRecipeDto {
 		this.rating = _recipe.rating;
 		this.steps = _recipe.steps;
 		this._id = _recipe._id;
+		this.serves = _recipe.serves;
 	}
 }

@@ -59,9 +59,9 @@ class RecipeMapper {
         let ingredientObject = JSON.parse(ingredient.toString());
         recipeItems.push(new RecipeItem(ingredientObject.name, ingredientObject.quantity, ingredientObject.cost, ingredientObject.servingSize, ingredientObject.servingMetric));
       })
-      recipesFromApi.push(new Recipe(recipe.name, recipe.type, recipe.rating, recipe.ratings, recipe.imageUrl, recipeItems, recipe._id, recipe.steps, recipe.description))
+      recipesFromApi.push(new Recipe(recipe.name, recipe.type, recipe.rating, recipe.ratings, recipe.imageUrl, recipeItems, recipe._id, recipe.steps, recipe.description, recipe.serves))
     })
-    
+
     return recipesFromApi;
   }
 
@@ -75,6 +75,6 @@ class RecipeMapper {
       recipeItems.push(new RecipeItem(ingredientObject.name, ingredientObject.quantity, ingredientObject.cost, ingredientObject.servingSize, ingredientObject.servingMetric));
     })
 
-    return new Recipe(result.name, result.type, result.rating, result.ratings, result.imageUrl, recipeItems, result._id, result.steps, result.description);
+    return new Recipe(result.name, result.type, result.rating, result.ratings, result.imageUrl, recipeItems, result._id, result.steps, result.description, result.serves);
   }
 }

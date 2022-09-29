@@ -41,6 +41,9 @@
           <span *ngIf="editMode" class="icon-emoji">✏️</span>
         </h2>
         <div class="product-rating">
+            <span *ngIf="editMode" >✏️ Serves: <span id="recipeServes" contenteditable="true" >{{recipe.serves}}</span></span>
+            <span *ngIf="!editMode">Serves: <ng-container *ngFor="let _ of [].constructor(recipe.serves)">😋</ng-container></span>
+            &nbsp;
             <span>Rating: <ng-container *ngFor="let _ of [].constructor(recipe.roundedRating)">⭐</ng-container>({{recipe.ratings}})</span>
             &nbsp;
             <span class="new-price">Approx: 
@@ -83,7 +86,7 @@
       </div>
     </div>
     <div *ngIf="editMode" cdkDropList (cdkDropListDropped)="drop($event)">
-      <div class="card p-1" style="display: block"*ngFor="let step of recipe.steps; let i=index;" cdkDrag>
+      <div class="card p-1 m-1" style="display: block"*ngFor="let step of recipe.steps; let i=index;" cdkDrag>
         <div>🔃 Step {{i+1}} - 
             <p style="min-width: 90%" contenteditable="true" id="recipeStep{{i}}">{{step}}</p>
             <span style="float: right; cursor: pointer;" (click)="deleteRecipeStep(i)">🗑️</span>
