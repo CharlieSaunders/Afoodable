@@ -30,7 +30,6 @@
     "@popperjs/core": "^2.10.2",
     "angular": "^1.6.10",
     "bootstrap": "^5.1.3",
-    "firebase": "^9.10.0",
     "jquery": "^3.6.0",
     "ngb-modal": "^2.0.3",
     "ngx-toastr": "^15.0.0",
