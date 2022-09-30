@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Recipe, RecipeItem } from 'src/app/types/recipes/recipe.type';
 import { map, Observable } from 'rxjs';
 import { UpdateRecipeDto } from '../../types/recipes/update-recipe-dto.type';
+import { ApiResponseMapper, CreateResponse, DeletedResponse, UpdateResponse } from 'src/app/types/generics/api-response.type';
 
 @Injectable()
 export class RecipeService {
@@ -25,26 +26,34 @@ export class RecipeService {
     );
   }
 
-  public updateRecipe(request: UpdateRecipeDto): Observable<Recipe>{
-    return this.httpClient.patch<Recipe>(`${this.baseUrl}`, request, {});
+  public updateRecipe(request: UpdateRecipeDto): Observable<UpdateResponse>{
+    return this.httpClient.patch<UpdateResponse>(`${this.baseUrl}`, request, {}).pipe(
+      map((result) => ApiResponseMapper.mapUpdate(result))
+    );
   }
 
-  public createNewRecipe(request: Recipe): Observable<Recipe>{
-    return this.httpClient.post<Recipe>(this.baseUrl, request);
+  public createNewRecipe(request: Recipe): Observable<CreateResponse>{
+    return this.httpClient.post<CreateResponse>(this.baseUrl, request).pipe(
+      map((result) => ApiResponseMapper.mapCreate(result))
+    );
   }
 
-  public deleteRecipe(id:string): Observable<Recipe>{
-    return this.httpClient.delete<Recipe>(`${this.baseUrl}/${id}`);
+  public deleteRecipe(id:string): Observable<DeletedResponse>{
+    return this.httpClient.delete<Recipe>(`${this.baseUrl}/${id}`).pipe(
+      map((result) => ApiResponseMapper.mapDelete(result))
+    );
   }
 
-  public addRating(id:string, rating:number, ratings:number): Observable<Recipe>{
-    return this.httpClient.post<Recipe>(`${this.baseUrl}/rating/${id}`, {rating, ratings});
+  public addRating(id:string, rating:number, ratings:number): Observable<UpdateResponse>{
+    return this.httpClient.post<UpdateResponse>(`${this.baseUrl}/rating/${id}`, {rating, ratings});
   }
 
-  public updateImage(image:File, recipe:Recipe){
+  public updateImage(image:File, recipe:Recipe): Observable<UpdateResponse>{
     let formData = new FormData();
     formData.append('recipeImage', image, recipe._id);
-    return this.httpClient.post<Recipe>(`${this.baseUrl}/image/${recipe._id}`, formData);
+    return this.httpClient.post<Recipe>(`${this.baseUrl}/image/${recipe._id}`, formData).pipe(
+      map((result) => ApiResponseMapper.mapUpdate(result))
+    );
   }
 }
 

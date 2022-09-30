@@ -31,7 +31,7 @@ class GenericCache {
 
     unset(id){
         CacheLogger.LogDelete(this.cacheName, id);
-        let values = this.getObjects();
+        let values = this.get();
         let index = values.map(x => x._id.toString()).indexOf(id);
         values.splice(index, 1);
         this.set(values);
@@ -55,7 +55,7 @@ class CacheLogger {
             console.log('\x1b[35m%s\x1b[0m', `==> Getting ${cacheName} object. ID --> ${id}`);
     }
 
-    static LogDelete(cacheName){
+    static LogDelete(cacheName, id){
         console.log(`\x1b[31m%s\x1b[0m`, `==> Deleting ${cacheName} object. ID --> ${id}`);
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { RecipeService } from '../services/recipes/recipe.service';
@@ -6,6 +6,7 @@ import { Recipe, RecipeBuilder } from '../types/recipes/recipe.type';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { CreateResponse } from '../types/generics/api-response.type';
 
 @Component({
   selector: 'app-recipes',
@@ -41,8 +42,12 @@ export class RecipesComponent  {
       this.recipeService.getRecipes().subscribe((data:Array<Recipe>) => {
         this.recipes = data;
       })
-    )
+    );
   }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  } 
 
   public open(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -66,7 +71,7 @@ export class RecipesComponent  {
     this.router.navigate([`/recipe/${dbReference}`]);
   }
 
-  public addNewRecipe(): void{
+  public async addNewRecipe(): Promise<void>{
     let exists = false;
     this.recipes.forEach((recipe:Recipe) => {
       let name = recipe.name;
@@ -82,8 +87,13 @@ export class RecipesComponent  {
         this.newRecipeForm.value.type,
         this.newRecipeForm.value.description
       );
-      this.recipeService.createNewRecipe(newRecipe).subscribe((data:any)=>{});
-      this.toasterService.success(`Successfully created ${newRecipe.name}`);
+
+      let created = this.recipeService.createNewRecipe(newRecipe).subscribe((data:CreateResponse)=>{return data.acknowledged});
+
+      if(created)
+        this.toasterService.success(`Successfully created ${newRecipe.name}`);
+      else
+        this.toasterService.warning(`Failed to create ${newRecipe.name}`);
     }
 
     this.modalService.dismissAll();
@@ -91,8 +101,12 @@ export class RecipesComponent  {
   }
 
   public deleteRecipe(id:string): void{
-    this.recipeService.deleteRecipe(id).subscribe((data:any)=> {});
-    this.toasterService.success(`Successfully deleted recipe`);
+    let deleted = this.recipeService.deleteRecipe(id).subscribe((data:any)=> {return data.acknowledged});
+    if(deleted)
+      this.toasterService.success(`Successfully deleted recipe`);
+    else
+      this.toasterService.success(`Failed to delete recipe`);
+
     this.modalService.dismissAll();
     this.ngOnInit();
   }

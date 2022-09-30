@@ -9,6 +9,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
 import { IngredientService } from '../services/ingredients/ingredient.service';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { UpdateResponse } from '../types/generics/api-response.type';
 
 @Component({
   selector: 'app-recipe-page',
@@ -58,9 +59,16 @@ export class RecipePageComponent{
 
   public save(): void{
     this.updateRecipe();
-    this.recipeService.updateRecipe(new UpdateRecipeDto(this.recipe)).subscribe((data:any)=>{});
-    this.toasterService.success(`Successfully updated ${this.recipe.name}`);
+
+    let updated = this.recipeService.updateRecipe(new UpdateRecipeDto(this.recipe)).subscribe((data:any)=>{ return data.acknowledged});
+
+    if(updated)
+      this.toasterService.success(`Successfully updated ${this.recipe.name}`);
+    else
+      this.toasterService.warning(`Failed to update ${this.recipe.name}`);
+
     this.editMode = false;
+    this.ngOnInit();
   }
 
   public cancel(): void{
@@ -147,14 +155,24 @@ export class RecipePageComponent{
     }else{
       newRating = rating;
     }
-    this.recipeService.addRating(this.recipe._id, newRating, newRatings).subscribe((data:any)=>{});
-    this.toasterService.success(`Successfully added rating`);
+    let updated = this.recipeService.addRating(this.recipe._id, newRating, newRatings).subscribe((data:UpdateResponse)=>{return data.acknowledged});
+    if(updated)
+      this.toasterService.success(`Successfully added rating`);
+    else
+      this.toasterService.warning(`Failed to add rating`);
+
+    this.editMode = false;
+    this.ngOnInit();
   }
 
   public onFileChanged(event: any): void{
     const file = event.target.files[0];
-    this.recipeService.updateImage(file, this.recipe).subscribe((data:any)=>{});
-    this.toasterService.success(`Successfully updated image`);
+    let updated = this.recipeService.updateImage(file, this.recipe).subscribe((data:UpdateResponse)=>{return data.acknowledged});
+    if(updated)
+      this.toasterService.success(`Successfully updated image`);
+    else
+      this.toasterService.warning(`Failed to update image`);
+
     this.editMode = false;
     this.ngOnInit();
   }

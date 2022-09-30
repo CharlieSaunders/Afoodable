@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { IngredientService } from '../services/ingredients/ingredient.service';
 import { Ingredient, IngredientBuilder } from '../types/ingredients/ingredient.type';
 import { ToastrService } from 'ngx-toastr';
+import { CreateResponse, DeletedResponse, UpdateResponse } from '../types/generics/api-response.type';
 
 @Component({
   selector: 'app-ingredients',
@@ -93,8 +94,12 @@ export class IngredientsComponent {
       this.updateIngredientForm.value._id
     );
     
-    this.ingredientService.updateIngredient(ingredient).subscribe((data:any) => {})
-    this.toasterService.success(`Successfully updated ${ingredient.name}`);
+    let updated = this.ingredientService.updateIngredient(ingredient).subscribe((data:UpdateResponse) => {return data.acknowledged});
+    if(updated)
+      this.toasterService.success(`Successfully updated ${ingredient.name}`);
+    else
+      this.toasterService.success(`Failed to update ${ingredient.name}`);
+
     this.modalService.dismissAll();
     this.ngOnInit();
   }
@@ -118,8 +123,12 @@ export class IngredientsComponent {
         this.newIngredientForm.value._id
       );
   
-      this.ingredientService.newIngredient(newIngredient).subscribe((data:any) => {})
-      this.toasterService.success(`Successfully created ${newIngredient.name}`);
+      let created = this.ingredientService.newIngredient(newIngredient).subscribe((data:CreateResponse) => {return data.acknowledged});
+      if(created)
+        this.toasterService.success(`Successfully created ${newIngredient.name}`);
+      else
+        this.toasterService.success(`Failed to create ${newIngredient.name}`);
+
       this.newIngredientForm.reset();
     }
 
@@ -128,8 +137,11 @@ export class IngredientsComponent {
   }
 
   public deleteIngredient(id: string){
-    this.ingredientService.deleteIngredient(id).subscribe((data:any) => {});
-    this.toasterService.success(`Successfully deleted`);
+    let deleted = this.ingredientService.deleteIngredient(id).subscribe((data:DeletedResponse) => {return data.acknowledged});
+    if(deleted)
+      this.toasterService.success(`Successfully deleted ingredient`);
+    else
+      this.toasterService.success(`Failed to delete ingredient`);
     this.ngOnInit();
   }
 }

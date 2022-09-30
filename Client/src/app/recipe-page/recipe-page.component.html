@@ -71,7 +71,7 @@
 
       </div>
     </div><br>
-    
+
     <div class="input-group">
       <input class="form-control" type="text" [(ngModel)]="newStepString" autocomplete="off" placeholder="Add a new step for the recipe...">
       <button style="float: right; margin-right: 5px;" mat-mini-fab color="accent" (click)="addStep()">➕</button>
@@ -90,7 +90,7 @@
     <div *ngIf="editMode" cdkDropList (cdkDropListDropped)="drop($event)">
       <div class="card p-1 m-1" style="display: block"*ngFor="let step of recipe.steps; let i=index;" cdkDrag>
         <div>🔃 Step {{i+1}} - 
-            <p style="min-width: 90%" contenteditable="true" id="recipeStep{{i}}">{{step}}</p>
+            <p style="min-width: 90%" contenteditable="true" id="recipeStep{{i}}" (mousedown)="$event.stopPropagation()">{{step}}</p>
             <span style="float: right; cursor: pointer;" (click)="deleteRecipeStep(i)">🗑️</span>
             <span style="float: right; cursor: pointer;" (click)="updateRecipeStep(i)">✔️</span>
         </div>

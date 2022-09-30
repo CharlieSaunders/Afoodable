@@ -61,7 +61,7 @@ recipeRoutes.route('/api/recipes/:recipe').get(async function (_req, res) {
 recipeRoutes.route('/api/recipes').patch(async function (_req, res) {
   let docId = _req.body._id;
   const dbConnect = dbo.getDb();
-  await dbConnect.collection('recipes').updateOne(
+  var response = await dbConnect.collection('recipes').updateOne(
       { 
         _id: new mongoDb.ObjectId(docId) 
       },
@@ -79,6 +79,7 @@ recipeRoutes.route('/api/recipes').patch(async function (_req, res) {
       }
     );
   recipesCache.setSingle(await getSingleRecipe(docId));
+  res.json(response);
 });
 
 // CREATE NEW RECIPE
@@ -97,23 +98,25 @@ recipeRoutes.route('/api/recipes').post(async function (_req, res) {
     'serves': _req.body.serves
   });
   recipesCache.setSingle(await getSingleRecipe(newRecipe.insertedId.toString()));
+  res.json(newRecipe);
 });
 
 // DELETE RECIPE
 recipeRoutes.route('/api/recipes/:id').delete(async function(_req, res) {
   let docReference = _req.params.id;
   const dbConnect = dbo.getDb();
-  await dbConnect.collection('recipes').deleteOne({
+  let deleted = await dbConnect.collection('recipes').deleteOne({
     _id: new mongoDb.ObjectId(docReference) 
   });
   recipesCache.unset(docReference);
+  res.json(deleted);
 })
 
 // RATE RECIPE
 recipeRoutes.route('/api/recipes/rating/:id').post(async function(_req, res){
   let docReference = _req.params.id;
   const dbConnect = dbo.getDb();
-  await dbConnect.collection('recipes').updateOne(
+  let updated = await dbConnect.collection('recipes').updateOne(
     { 
       _id: new mongoDb.ObjectId(docReference) 
     },
@@ -125,13 +128,14 @@ recipeRoutes.route('/api/recipes/rating/:id').post(async function(_req, res){
     }
   );
   recipesCache.setSingle(await getSingleRecipe(docReference));
+  res.json(updated);
 });
 
 // UPDATE RECIPE IMAGE
 recipeRoutes.route('/api/recipes/image/:id').post(upload.single('recipeImage'), async function (_req, res){
   let docReference = _req.params.id;
   const dbConnect = dbo.getDb();
-  await dbConnect.collection('recipes').updateOne(
+  let udpated = await dbConnect.collection('recipes').updateOne(
     { 
       _id: new mongoDb.ObjectId(docReference) 
     },
@@ -142,6 +146,7 @@ recipeRoutes.route('/api/recipes/image/:id').post(upload.single('recipeImage'), 
     }
   );
   recipesCache.setSingle(await getSingleRecipe(docReference));
+  res.json(udpated);
 });
 
 
