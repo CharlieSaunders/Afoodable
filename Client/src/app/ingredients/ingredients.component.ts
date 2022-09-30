@@ -132,5 +132,4 @@ export class IngredientsComponent {
     this.toasterService.success(`Successfully deleted`);
     this.ngOnInit();
   }
-
 }

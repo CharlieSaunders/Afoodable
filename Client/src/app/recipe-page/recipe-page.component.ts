@@ -29,7 +29,6 @@ export class RecipePageComponent{
 
   public allIngredients!: Array<Ingredient>;
 
-
   constructor(
     private route: ActivatedRoute, 
     private recipeService: RecipeService,

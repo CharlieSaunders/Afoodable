@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
-
 body{
     line-height: 1.5;
 }
@@ -40,15 +38,8 @@ img{
     font-weight: 600;
     color: #252525;
 }
-.product-price{
-    margin: 1rem 0;
-    font-size: 1rem;
-    font-weight: 700;
-}
+
 .product-price span{
-    font-weight: 400;
-}
-.new-price span{
     color: #256eff;
 }
 .product-detail h2{

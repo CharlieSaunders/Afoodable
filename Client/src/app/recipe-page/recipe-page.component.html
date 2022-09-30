@@ -40,13 +40,14 @@
           <span *ngIf="editMode" contenteditable="true" id="newRecipeName">{{recipe.name}}</span>
           <span *ngIf="editMode" class="icon-emoji">✏️</span>
         </h2>
+
         <div class="product-rating">
             <span *ngIf="editMode" >✏️ Serves: <span id="recipeServes" contenteditable="true" >{{recipe.serves}}</span></span>
             <span *ngIf="!editMode">Serves: <ng-container *ngFor="let _ of [].constructor(recipe.serves)">😋</ng-container></span>
             &nbsp;
             <span>Rating: <ng-container *ngFor="let _ of [].constructor(recipe.roundedRating)">⭐</ng-container>({{recipe.ratings}})</span>
             &nbsp;
-            <span class="new-price">Approx: 
+            <span class="product-price">Approx: 
                 <span>£{{totalCost}}</span>
             </span>
             <br>
@@ -67,9 +68,10 @@
             </li>
           </ul>
         </div>
+
       </div>
-    </div>
-    <br>
+    </div><br>
+    
     <div class="input-group">
       <input class="form-control" type="text" [(ngModel)]="newStepString" autocomplete="off" placeholder="Add a new step for the recipe...">
       <button style="float: right; margin-right: 5px;" mat-mini-fab color="accent" (click)="addStep()">➕</button>

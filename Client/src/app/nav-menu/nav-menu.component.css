@@ -18,3 +18,8 @@ html {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
+header{
+  position: fixed; 
+  width: 100%; 
+  z-index: 1
+}

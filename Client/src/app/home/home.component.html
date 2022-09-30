@@ -1,11 +1,6 @@
 <br><br><br>
 
-<h1 id="tableLabel"></h1>
-
-<p> 
-    Select the recipes you want for the shopping list <br>
-</p>
-
+<p> Select the recipes you want for the shopping list <br> </p>
 <p *ngIf="!recipes"><em>Loading...</em></p>
 
 <div class="sidebar-opener" (click)="sidebarShow = !sidebarShow">
@@ -45,8 +40,7 @@
 </div>
 
 <div class="sidebar-slider bg-dark text-light" style="z-index: 2" [class.sidebar-slide-in]="sidebarShow">
-  <div class="sidebar-close p-2" (click)="sidebarShow = !sidebarShow">X</div>
-  <br>
+  <div class="sidebar-close p-2" (click)="sidebarShow = !sidebarShow">X</div><br>
     <div class="sidebar-content">
         <p class="p-0">Total: £{{shoppingList.getTotalCost()}}</p>
         <div class="row p-2">
@@ -60,7 +54,7 @@
             </ul>
             <br>
             <h4 style="text-decoration: underline">Shopping List</h4>
-            <ul style="list-style:none">
+            <ul style="list-style: none">
                 <li *ngFor="let item of shoppingList.items">
                     <span *ngIf="(item.amount > 0)">{{item.getShoppingListString()}}</span>
                 </li>

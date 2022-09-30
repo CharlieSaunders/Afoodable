@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Recipe, RecipeItem } from '../types/recipes/recipe.type';
+import { Recipe } from '../types/recipes/recipe.type';
 import { ShoppingList, ShoppingListItem } from '../types/recipes/shopping-list.type';
 import { Router } from '@angular/router';
 import { RecipeService } from '../services/recipes/recipe.service';
