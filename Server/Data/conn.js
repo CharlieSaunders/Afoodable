@@ -12,7 +12,7 @@ module.exports = {
     client.connect(function (err, db) {
       if (err || !db) {
         return callback(err);
-      }
+      } 
 
       dbConnection = db.db('afoodable');
       console.log('Successfully connected to MongoDB.');

@@ -16,6 +16,9 @@ import { IngredientsComponent } from './ingredients/ingredients.component';
 import { FilterIngredientNamePipe } from './helpers/pipes/filter-ingredient-name';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { GenericTableComponent } from './components/generic-table/generic-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     IngredientsComponent,
     RecipesComponent,
     FilterRecipeNamePipe,
-    FilterIngredientNamePipe
+    FilterIngredientNamePipe,
+    GenericTableComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -37,6 +41,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     MatButtonModule,
+    MatTableModule,
+    MatPaginatorModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'recipe/:id', component: RecipePageComponent },
