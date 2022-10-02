@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
+import { Recipe } from '../../types/recipes/recipe.type'
 
 @Component({
   selector: 'app-generic-table',
@@ -11,18 +12,14 @@ import { MatTable } from '@angular/material/table';
 export class GenericTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<any>;
-  @Input() dataSource!: Array<any>;
-  @Input() displayedColumns: Array<string> = [];
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+  @Input() data!: Array<Recipe>;
+  @Input() headers!: Array<string>;
 
   constructor() {
   }
 
   ngAfterViewInit(): void {
-    this.table.dataSource = this.dataSource;
-
-    //this.dataSource.sort = this.sort;
-    //this.dataSource.paginator = this.paginator;
+    //this.data.sort = this.sort;
+    //this.data.paginator = this.paginator;
   }
 }
