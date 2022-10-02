@@ -33,6 +33,10 @@ export class HomeComponent {
     );
   }
 
+  public toggleSidebar = (): void => {
+    this.sidebarShow = !this.sidebarShow;
+  }
+
   public navigateToRecipe = (dbReference: string): void => {
     this.router.navigate([`/recipe/${dbReference}`]);
   }

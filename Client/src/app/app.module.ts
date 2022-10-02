@@ -20,6 +20,7 @@ import { GenericTableComponent } from './components/generic-table/generic-table.
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { RecipeCardComponent } from './components/recipe-card/recipe-card.component'
+import { SidebarComponent } from './components/sidebar/sidebar.component'
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { RecipeCardComponent } from './components/recipe-card/recipe-card.compon
     FilterRecipeNamePipe,
     FilterIngredientNamePipe,
     GenericTableComponent,
-    RecipeCardComponent
+    RecipeCardComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

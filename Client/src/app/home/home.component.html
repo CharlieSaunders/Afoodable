@@ -3,7 +3,7 @@
 <p> Select the recipes you want for the shopping list <br> </p>
 <p *ngIf="!recipes"><em>Loading...</em></p>
 
-<div class="sidebar-opener" (click)="sidebarShow = !sidebarShow">
+<div class="sidebar-opener" (click)="toggleSidebar()">
     <button mat-fab class="bg-dark text-light">
         <span class="icon-emoji">🛒</span>({{totalSelectedRecipes}})
     </button>
@@ -26,26 +26,10 @@
     </div>
 </div>
 
-<div class="sidebar-slider bg-dark text-light" style="z-index: 2" [class.sidebar-slide-in]="sidebarShow">
-  <div class="sidebar-close p-2" (click)="sidebarShow = !sidebarShow">X</div><br>
-    <div class="sidebar-content">
-        <p class="p-0">Total: £{{shoppingList.getTotalCost()}}</p>
-        <div class="row p-2">
-            <h4 style="text-decoration: underline">Selected Recipes</h4>
-            <ul style="list-style:none">
-                <li *ngFor="let recipe of recipes">
-                    <span *ngIf="recipe.selectedAmount > 0">
-                        {{recipe.name}} x{{recipe.selectedAmount}}
-                    </span>
-                </li>
-            </ul>
-            <br>
-            <h4 style="text-decoration: underline">Shopping List</h4>
-            <ul style="list-style: none">
-                <li *ngFor="let item of shoppingList.items">
-                    <span *ngIf="(item.amount > 0)">{{item.getShoppingListString()}}</span>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+<app-sidebar 
+    *ngIf="sidebarShow"
+    [display]="sidebarShow"
+    [toggleSidebar]="toggleSidebar"
+    [shoppingList]="shoppingList"
+    [recipes]="recipes">
+</app-sidebar>
