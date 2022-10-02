@@ -1,0 +1,39 @@
+.recipe-image{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow: hidden !important;
+    background-image: url('../../../assets/images/recipes/image_loading.gif') !important;
+    background-repeat: no-repea !important;
+    background-size: contain !important;
+}
+
+.recipe-image img{
+    cursor: pointer;
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+}
+
+.totalAmount{
+    position: relative;
+    font-weight: bolder;
+}
+
+.totalAmount span{
+    font-weight: bolder;
+    position: absolute;
+    bottom: 2%;
+    left: 46%;
+}
+
+#servesContainer{
+    position: absolute;
+    bottom: 13%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: rgba(50,50,50,0.5);
+    z-index: 0;
+}

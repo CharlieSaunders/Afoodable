@@ -19,6 +19,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { GenericTableComponent } from './components/generic-table/generic-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { RecipeCardComponent } from './components/recipe-card/recipe-card.component'
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     RecipesComponent,
     FilterRecipeNamePipe,
     FilterIngredientNamePipe,
-    GenericTableComponent
+    GenericTableComponent,
+    RecipeCardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -33,11 +33,11 @@ export class HomeComponent {
     );
   }
 
-  public navigateToRecipe(dbReference: string) : void {
+  public navigateToRecipe = (dbReference: string): void => {
     this.router.navigate([`/recipe/${dbReference}`]);
   }
 
-  public selectRecipe(recipe:Recipe) : void {
+  public selectRecipe = (recipe:Recipe): void => {
     this.recipes.forEach((selectedRecipe) => {
       if(selectedRecipe.name == recipe.name)
       {
@@ -48,7 +48,7 @@ export class HomeComponent {
     });
   }
 
-  public unselectRecipe(recipe:Recipe) : void {
+  public unselectRecipe = (recipe:Recipe): void => {
     this.recipes.forEach((selectedRecipe) => {
       if(selectedRecipe.name == recipe.name)
       {
@@ -59,13 +59,13 @@ export class HomeComponent {
     });
   }
 
-  private updateShoppingList(selectedRecipe:Recipe): void {
+  public updateShoppingList = (selectedRecipe:Recipe): void => {
     selectedRecipe.ingredients.forEach(ingredient => {
       this.shoppingList.add(new ShoppingListItem(ingredient));
     });
   }
 
-  private removeFromShoppingList(selectedRecipe: Recipe): void {
+  public removeFromShoppingList = (selectedRecipe: Recipe): void =>{
     selectedRecipe.ingredients.forEach(ingredient => {
       this.shoppingList.remove(new ShoppingListItem(ingredient));
     });
