@@ -16,7 +16,6 @@ import { IngredientsComponent } from './ingredients/ingredients.component';
 import { FilterIngredientNamePipe } from './helpers/pipes/filter-ingredient-name';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { GenericTableComponent } from './components/generic-table/generic-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { RecipeCardComponent } from './components/recipe-card/recipe-card.component'
@@ -33,7 +32,6 @@ import { SidebarComponent } from './components/sidebar/sidebar.component'
     RecipesComponent,
     FilterRecipeNamePipe,
     FilterIngredientNamePipe,
-    GenericTableComponent,
     RecipeCardComponent,
     SidebarComponent
   ],

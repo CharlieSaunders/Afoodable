@@ -8,7 +8,7 @@ export class Recipe {
   imageUrl: string;
   ingredients: Array<RecipeItem>;
   description: string;
-  totalCost: number;
+  totalCost: string;
   selectedAmount: number;
   steps: Array<string>;
   serves: number;
@@ -22,7 +22,7 @@ export class Recipe {
     this.ratings = _ratings;
     this.imageUrl = _imageUrl;
     this.ingredients = _ingredients;
-    this.totalCost = this.TotalCost(_ingredients);
+    this.totalCost = this.TotalCost(_ingredients).toFixed(2);
     this.selectedAmount = 0;
     this.description = _description;
     this.steps = _steps;
@@ -39,15 +39,6 @@ export class Recipe {
 
     return runningTotal;
   }
-
-  public getCost(): string {
-    var total = 0;
-    this.ingredients.forEach(ingredient => {
-      total += ingredient.getCost();
-    });
-    return total.toFixed(2);
-  }
-
 }
 
 export class RecipeItem {

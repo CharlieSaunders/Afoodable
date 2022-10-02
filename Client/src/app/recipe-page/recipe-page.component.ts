@@ -20,7 +20,6 @@ import { UpdateResponse } from '../types/generics/api-response.type';
 export class RecipePageComponent{
   private readonly subscriptions: Subscription = new Subscription();
   public recipe!: Recipe;
-  public totalCost!: string;
   public newStepString: string = "";
 
   public editMode: boolean = false;
@@ -43,7 +42,6 @@ export class RecipePageComponent{
     this.subscriptions.add(
       this.recipeService.getRecipe(String(routeParams.get('id'))).subscribe((recipe:any) => {
         this.recipe = recipe;
-        this.totalCost = this.recipe.totalCost.toFixed(2);
       })
     );
     this.subscriptions.add(
@@ -111,7 +109,6 @@ export class RecipePageComponent{
     if(recipesServes != null)
       this.recipe.serves = parseInt(recipesServes);
 
-    this.totalCost = this.recipe.getCost();
   }
 
   public open(content:any) {

@@ -4,10 +4,6 @@
   <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for a specific recipe...">
 </div>
 
-<!-- <app-generic-table 
-  [data]="recipes" 
-  [headers]="['name', 'type', 'cost', 'rating']">
-</app-generic-table> -->
 <table class="recipe-table">
   <thead>
       <tr>
@@ -22,7 +18,7 @@
     <tr *ngFor="let recipe of recipes | filterRecipeNamePipe : searchText; index as i">
       <td *ngIf="i<10">{{ recipe.name }}</td>
       <td *ngIf="i<10">{{ recipe.type }}</td>
-      <td *ngIf="i<10">£{{ recipe.totalCost.toFixed(2) }}</td>
+      <td *ngIf="i<10">£{{ recipe.totalCost }}</td>
       <td *ngIf="i<10"><ng-container *ngFor="let i of [].constructor(recipe.roundedRating)">⭐</ng-container>({{recipe.rating.toFixed(2)}} - {{recipe.ratings}})</td>
       <td *ngIf="i<10">        
         <button style="float: right;" mat-mini-fab color="warn" (click)="deleteRecipe(recipe._id)">🗑️</button>
