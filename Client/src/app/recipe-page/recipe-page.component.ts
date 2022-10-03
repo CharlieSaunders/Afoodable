@@ -146,13 +146,18 @@ export class RecipePageComponent{
     this.hasBeenRated = true;
     let newRating = 0;
     let newRatings = this.recipe.ratings + 1;
+    
     if(this.recipe.rating > 0 && this.recipe.ratings > 0){
       let total = this.recipe.rating * this.recipe.ratings + rating;
       newRating = total / newRatings;
     }else{
       newRating = rating;
     }
-    let updated = this.recipeService.addRating(this.recipe._id, newRating, newRatings).subscribe((data:UpdateResponse)=>{return data.acknowledged});
+
+    let updated = this.recipeService.addRating(this.recipe._id, newRating, newRatings).subscribe(
+      (data:UpdateResponse)=>{return data.acknowledged
+    });
+
     if(updated)
       this.toasterService.success(`Successfully added rating`);
     else

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { ApiResponseMapper, CreateResponse, DeletedResponse, UpdateResponse } from 'src/app/types/generics/api-response.type';
+import { ApiResponseMapper, CreateResponse, DeleteResponse, UpdateResponse } from 'src/app/types/generics/api-response.type';
 import { Ingredient } from 'src/app/types/ingredients/ingredient.type';
 
 @Injectable({
@@ -34,7 +34,7 @@ export class IngredientService {
     );
   }
 
-  public deleteIngredient(id:string): Observable<DeletedResponse>{
+  public deleteIngredient(id:string): Observable<DeleteResponse>{
     return this.http.delete<Ingredient>(`${this.baseUrl}/${id}`).pipe(
       map((result) => ApiResponseMapper.mapDelete(result))
     );

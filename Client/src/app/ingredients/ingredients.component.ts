@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { IngredientService } from '../services/ingredients/ingredient.service';
 import { Ingredient, IngredientBuilder } from '../types/ingredients/ingredient.type';
 import { ToastrService } from 'ngx-toastr';
-import { CreateResponse, DeletedResponse, UpdateResponse } from '../types/generics/api-response.type';
+import { CreateResponse, DeleteResponse, UpdateResponse } from '../types/generics/api-response.type';
 
 @Component({
   selector: 'app-ingredients',
@@ -94,7 +94,10 @@ export class IngredientsComponent {
       this.updateIngredientForm.value._id
     );
     
-    let updated = this.ingredientService.updateIngredient(ingredient).subscribe((data:UpdateResponse) => {return data.acknowledged});
+    let updated = this.ingredientService.updateIngredient(ingredient).subscribe(
+      (data:UpdateResponse) => {return data.acknowledged
+    });
+    
     if(updated)
       this.toasterService.success(`Successfully updated ${ingredient.name}`);
     else
@@ -123,7 +126,10 @@ export class IngredientsComponent {
         this.newIngredientForm.value._id
       );
   
-      let created = this.ingredientService.newIngredient(newIngredient).subscribe((data:CreateResponse) => {return data.acknowledged});
+      let created = this.ingredientService.newIngredient(newIngredient).subscribe(
+        (data:CreateResponse) => {return data.acknowledged
+      });
+
       if(created)
         this.toasterService.success(`Successfully created ${newIngredient.name}`);
       else
@@ -137,7 +143,10 @@ export class IngredientsComponent {
   }
 
   public deleteIngredient(id: string){
-    let deleted = this.ingredientService.deleteIngredient(id).subscribe((data:DeletedResponse) => {return data.acknowledged});
+    let deleted = this.ingredientService.deleteIngredient(id).subscribe(
+      (data:DeleteResponse) => {return data.acknowledged
+    });
+
     if(deleted)
       this.toasterService.success(`Successfully deleted ingredient`);
     else

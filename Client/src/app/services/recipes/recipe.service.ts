@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Recipe, RecipeItem } from 'src/app/types/recipes/recipe.type';
 import { map, Observable } from 'rxjs';
 import { UpdateRecipeDto } from '../../types/recipes/update-recipe-dto.type';
-import { ApiResponseMapper, CreateResponse, DeletedResponse, UpdateResponse } from 'src/app/types/generics/api-response.type';
+import { ApiResponseMapper, CreateResponse, DeleteResponse, UpdateResponse } from 'src/app/types/generics/api-response.type';
 
 @Injectable()
 export class RecipeService {
@@ -38,7 +38,7 @@ export class RecipeService {
     );
   }
 
-  public deleteRecipe(id:string): Observable<DeletedResponse>{
+  public deleteRecipe(id:string): Observable<DeleteResponse>{
     return this.httpClient.delete<Recipe>(`${this.baseUrl}/${id}`).pipe(
       map((result) => ApiResponseMapper.mapDelete(result))
     );

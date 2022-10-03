@@ -6,7 +6,7 @@ import { Recipe, RecipeBuilder } from '../types/recipes/recipe.type';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { CreateResponse } from '../types/generics/api-response.type';
+import { CreateResponse, DeleteResponse } from '../types/generics/api-response.type';
 
 @Component({
   selector: 'app-recipes',
@@ -101,7 +101,7 @@ export class RecipesComponent  {
   }
 
   public deleteRecipe(id:string): void{
-    let deleted = this.recipeService.deleteRecipe(id).subscribe((data:any)=> {return data.acknowledged});
+    let deleted = this.recipeService.deleteRecipe(id).subscribe((data:DeleteResponse)=> {return data.acknowledged});
     if(deleted)
       this.toasterService.success(`Successfully deleted recipe`);
     else

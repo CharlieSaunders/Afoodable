@@ -7,7 +7,7 @@ export class CreateResponse{
     }
 }
 
-export class DeletedResponse{
+export class DeleteResponse{
     public acknowledged: boolean;
     public deletedId: any;
     constructor(_ack: boolean, _deletedId: any){
@@ -37,8 +37,8 @@ export class ApiResponseMapper{
         return new CreateResponse(result.acknowledged, result.insertedId);
     }
 
-    public static mapDelete(result:any): DeletedResponse {
-        return new DeletedResponse(result.acknowledged, result.deletedId);
+    public static mapDelete(result:any): DeleteResponse {
+        return new DeleteResponse(result.acknowledged, result.deletedId);
     }
 
     public static mapUpdate(result: any): UpdateResponse{
