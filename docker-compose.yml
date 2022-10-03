@@ -1,0 +1,30 @@
+services:
+ server:
+  container_name: server-container
+  build:
+   context: ./
+   dockerfile: ./Server/Dockerfile
+  ports: 
+   - 9999:9999
+  networks:
+   afoodable:
+    ipv4_address: 192.168.11.6
+
+ client:
+  container_name: client-container
+  build:
+   context: ./
+   dockerfile: ./Client/Dockerfile
+  ports:
+   - 9998:9998
+  networks:
+   afoodable:
+    ipv4_address: 192.168.11.5
+
+networks:
+  afoodable:
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.11.0/24"
+        - subnet: "2001:3984:3989::/64"
