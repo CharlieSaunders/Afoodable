@@ -18,7 +18,7 @@
 </div>
 
 <div class="card-wrapper" *ngIf="recipe">
-    <div class="card">
+    <div class="card shadow">
       <div *ngIf="editMode" class="image-cta">
         <button mat-fab class="bg-info text-dark">
           <label for="file-upload" >📷</label>
@@ -77,21 +77,21 @@
       <button style="float: right; margin-right: 5px;" mat-mini-fab color="accent" (click)="addStep()">➕</button>
     </div>
     <br>
-    <div *ngIf="recipe.steps.length == 0">
-      <div class="card p-1">
+    <div *ngIf="recipe.steps.length === 0">
+      <div class="card p-1 shadow">
         <p>There are no steps configured for this recipe...</p>
       </div>
     </div>
     <div *ngIf="!editMode">
-      <div  style="min-width: 90%" class="card p-1" style="display: block" *ngFor="let step of recipe.steps; let i=index;" >
+      <div  style="min-width: 90%" class="card shadow p-2 m-2" style="display: block" *ngFor="let step of recipe.steps; let i=index;" >
          <p><span style="text-decoration: underline;">Step {{i+1}}</span> - {{step}}</p>
       </div>
     </div>
     <div *ngIf="editMode" cdkDropList (cdkDropListDropped)="drop($event)">
-      <div class="card p-1 m-1" style="display: block"*ngFor="let step of recipe.steps; let i=index;" cdkDrag>
+      <div class="card shadow p-2 m-2" id="editableRecipeStep" style="display: block" *ngFor="let step of recipe.steps; let i=index;" cdkDrag>
         <div>🔃 Step {{i+1}} - 
             <p style="min-width: 90%" contenteditable="true" id="recipeStep{{i}}" (mousedown)="$event.stopPropagation()">{{step}}</p>
-            <span style="float: right; cursor: pointer;" (click)="deleteRecipeStep(i)">🗑️</span>
+            <span style="float: left; cursor: pointer;" (click)="deleteRecipeStep(i)">🗑️</span>
             <span style="float: right; cursor: pointer;" (click)="updateRecipeStep(i)">✔️</span>
         </div>
         <br>
@@ -99,26 +99,26 @@
     </div>
     <br>
 
-    <div class="card p-1" >
-      <div class="card-body" *ngIf="hasBeenRated">
+    <div class="card shadow p-1" *ngIf="hasBeenRated">
+      <div class="card-body" >
         <p>Thanks for rating the recipe!</p>
       </div>
-      <div class="card-body" *ngIf="!hasBeenRated">
-        <div class="card-title">Rate the recipe:</div>
+    </div>
+    <div class="card shadow" *ngIf="!hasBeenRated">
         <div class="rate">
-          <input type="radio" id="star5" name="rate" value="5" (click)="newRating(5)"/>
-          <label for="star5" title="5">5 stars</label>
-          <input type="radio" id="star4" name="rate" value="4" (click)="newRating(4)" />
-          <label for="star4" title="4">4 stars</label>
-          <input type="radio" id="star3" name="rate" value="3" (click)="newRating(3)" />
-          <label for="star3" title="3">3 stars</label>
-          <input type="radio" id="star2" name="rate" value="2" (click)="newRating(2)" />
-          <label for="star2" title="2">2 stars</label>
+          <p class="p-1 m-1" style="float: left">Please rate the recipe: </p>
           <input type="radio" id="star1" name="rate" value="1" (click)="newRating(1)" />
           <label for="star1" title="1">1 star</label>
+          <input type="radio" id="star2" name="rate" value="2" (click)="newRating(2)" />
+          <label for="star2" title="2">2 stars</label>
+          <input type="radio" id="star3" name="rate" value="3" (click)="newRating(3)" />
+          <label for="star3" title="3">3 stars</label>
+          <input type="radio" id="star4" name="rate" value="4" (click)="newRating(4)" />
+          <label for="star4" title="4">4 stars</label>
+          <input type="radio" id="star5" name="rate" value="5" (click)="newRating(5)"/>
+          <label for="star5" title="5">5 stars</label>
         </div>
       </div>
-    </div>
   </div>
   <br>
 

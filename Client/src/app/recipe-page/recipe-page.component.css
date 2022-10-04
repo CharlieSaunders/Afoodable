@@ -110,7 +110,6 @@ input[type="file"] {
     padding: 0;
     float: left; 
     cursor: pointer; 
-    font-weight: 900; 
     margin-right: 15px;
     color: red;
 }
@@ -119,9 +118,17 @@ input[type="file"] {
     font-size: 1.0rem;
     padding: 0;
     float: right; 
-    cursor: pointer; 
-    font-weight: 900;  
+    cursor: pointer;   
     color: green;
+}
+
+#editableRecipeStep{
+    transition: 0.25s ease-in;
+}
+
+#editableRecipeStep:hover{
+    transition: 0.25s ease-in;
+    background-color: #d2f8d2;
 }
 
 @keyframes pulse {
@@ -139,16 +146,13 @@ input[type="file"] {
 }
 
 .rate {
-    float: left;
-    height: 46px;
-    padding: 0 10px;
+    align-items: left;
 }
-.rate:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
+.rate:not(:checked) > input {   
+    visibility: hidden;
 }
 .rate:not(:checked) > label {
-    float:right;
+    float: right;
     width:1em;
     overflow:hidden;
     white-space:nowrap;

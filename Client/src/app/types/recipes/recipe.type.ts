@@ -1,4 +1,3 @@
-
 export class Recipe {
   name: string;
   type: string;
@@ -14,7 +13,7 @@ export class Recipe {
   serves: number;
   _id: string;
 
-  constructor(_name: string, _type: string, _rating: number, _ratings: number, _imageUrl: string, _ingredients: Array<RecipeItem>, _dbId: string, _steps: Array<string>, _description: string, _serves:number) {
+  constructor(_name: string, _type: string, _rating: number, _ratings: number, _imageUrl: string, _ingredients: Array<RecipeItem>, _dbId: string, _steps: Array<string>, _description: string, _serves: number) {
     this._id = _dbId;
     this.name = _name;
     this.type = _type;
@@ -30,12 +29,12 @@ export class Recipe {
     this.serves = _serves;
   }
 
-  private TotalCost(items: Array<RecipeItem>) : number {
-    var runningTotal = 0;
+  private TotalCost(items: Array<RecipeItem>): number {
+    let runningTotal = 0;
 
     items.forEach((item) => {
-      runningTotal += item.cost
-    })
+      runningTotal += item.cost;
+    });
 
     return runningTotal;
   }
@@ -56,20 +55,18 @@ export class RecipeItem {
     this.servingMetric = _servingMetric;
   }
 
-  public getTotalRequired(): string{
-    let amount = this.quantity * this.servingSize;
+  public getTotalRequired(): string {
+    const amount = this.quantity * this.servingSize;
     return `${amount} ${this.servingMetric}`;
   }
 
-  public getCost(): number{
+  public getCost(): number {
     return this.cost * this.quantity;
   }
 }
 
-export class RecipeBuilder{
-  public static fromForm(name:any, type:any, description:any): Recipe{
-    return new Recipe(
-        name, type, 0, 0, "no-image.jpeg", [], "id", [], description, 1
-      );
+export class RecipeBuilder {
+  public static fromForm(name: any, type: any, description: any): Recipe {
+    return new Recipe(name, type, 0, 0, "no-image.jpeg", [], "id", [], description, 1);
   }
 }

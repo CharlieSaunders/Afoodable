@@ -1,21 +1,21 @@
-        <div class="card" style="background-color: #212529; border: none; color: #f2f2f2">
-            <div class="card-header">
-                <p>
-                    <span style="float: left">{{ recipe.name }}</span>
-                    <span style="float: right">£{{ recipe.totalCost }}</span>
-                </p>
-            </div>
-            <div class="card-body p-0">
-                <div class="recipe-image">
-                    <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" class="img-responsive img-rounded recipe-image" (click)="navigateToRecipe(recipe._id)">
-                    <span id="servesContainer"><ng-container *ngFor="let _ of [].constructor(recipe.serves)">😋</ng-container></span>
-                </div>
-            </div>
-            <div class="card-footer p-0">
-                <button type="button" class="btn btn-primary" style="float:right" (click)="selectRecipe(recipe)">+</button>
-                <button *ngIf="(recipe.selectedAmount > 0)" type="button" class="btn btn-warning" style="float:left" (click)="unselectRecipe(recipe)">-</button>
-            </div>
-            <div class="totalAmount" *ngIf="recipe.selectedAmount > 0">
-                <span class="badge bg-light text-dark">x{{recipe.selectedAmount}}</span>
-            </div>
+<div class="card" style="background-color: #212529; border: none; color: #f2f2f2">
+    <div class="card-header">
+        <p>
+            <span style="float: left">{{ recipe.name }}</span>
+            <span style="float: right">£{{ recipe.totalCost }}</span>
+        </p>
+    </div>
+    <div class="card-body p-0">
+        <div class="recipe-image">
+            <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" class="img-responsive img-rounded recipe-image" (click)="navigateToRecipe(recipe._id)">
+            <span id="servesContainer"><ng-container *ngFor="let _ of [].constructor(recipe.serves)">😋</ng-container></span>
         </div>
+    </div>
+    <div class="card-footer p-0">
+        <button type="button" class="btn btn-primary" style="float:right" (click)="selectRecipe(recipe)">+</button>
+        <button *ngIf="(recipe.selectedAmount > 0)" type="button" class="btn btn-warning" style="float:left" (click)="unselectRecipe(recipe)">-</button>
+    </div>
+    <div class="totalAmount" *ngIf="recipe.selectedAmount > 0">
+        <span class="badge bg-light text-dark">x{{recipe.selectedAmount}}</span>
+    </div>
+</div>
