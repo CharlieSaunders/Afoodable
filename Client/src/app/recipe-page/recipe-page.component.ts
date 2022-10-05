@@ -102,7 +102,7 @@ export class RecipePageComponent implements OnInit{
     if (ingredient.quantity + changeValue === 0) {
       this.recipe.ingredients.splice(index, 1);
     }
- else {
+    else {
       this.recipe.ingredients[index].quantity += changeValue;
     }
   }
@@ -149,10 +149,10 @@ export class RecipePageComponent implements OnInit{
     if (reason === ModalDismissReasons.ESC) {
       return "by pressing ESC";
     }
- else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return "by clicking on a backdrop";
     }
- else {
+    else {
       return `with: ${reason}`;
     }
   }
@@ -180,20 +180,18 @@ export class RecipePageComponent implements OnInit{
       const total = this.recipe.rating * this.recipe.ratings + rating;
       newRating = total / newRatings;
     }
- else {
+    else {
       newRating = rating;
     }
 
-    const updated = this.recipeService
-      .addRating(this.recipe._id, newRating, newRatings)
-      .subscribe((data: UpdateResponse) => {
-        return data.acknowledged;
-      });
+    const updated = this.recipeService.addRating(this.recipe._id, newRating, newRatings).subscribe((data: UpdateResponse) => {
+      return data.acknowledged;
+    });
 
     if (updated) {
       this.toasterService.success(`Successfully added rating`);
     }
- else {
+    else {
       this.toasterService.warning(`Failed to add rating`);
     }
 
@@ -203,15 +201,14 @@ export class RecipePageComponent implements OnInit{
 
   public onFileChanged(event: any): void {
     const file = event.target.files[0];
-    const updated = this.recipeService
-      .updateImage(file, this.recipe)
-      .subscribe((data: UpdateResponse) => {
-        return data.acknowledged;
-      });
+    const updated = this.recipeService.updateImage(file, this.recipe).subscribe((data: UpdateResponse) => {
+      return data.acknowledged;
+    });
+
     if (updated) {
       this.toasterService.success(`Successfully updated image`);
     }
- else {
+    else {
       this.toasterService.warning(`Failed to update image`);
     }
 

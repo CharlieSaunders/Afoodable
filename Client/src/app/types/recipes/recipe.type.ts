@@ -8,6 +8,7 @@ export class Recipe {
   ingredients: Array<RecipeItem>;
   description: string;
   totalCost: string;
+  cost: number;
   selectedAmount: number;
   steps: Array<string>;
   serves: number;
@@ -21,7 +22,8 @@ export class Recipe {
     this.ratings = _ratings;
     this.imageUrl = _imageUrl;
     this.ingredients = _ingredients;
-    this.totalCost = this.TotalCost(_ingredients).toFixed(2);
+    this.cost = this.TotalCost(_ingredients);
+    this.totalCost = this.cost.toFixed(2);
     this.selectedAmount = 0;
     this.description = _description;
     this.steps = _steps;
