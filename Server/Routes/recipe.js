@@ -91,6 +91,7 @@ recipeRoutes.route('/api/recipes').post(async function (_req, res) {
     'name': _req.body.name,
     'type': _req.body.type,
     'rating': _req.body.rating,
+    'ratings': 0,
     'imageUrl': _req.body.imageUrl,
     'description': _req.body.description,
     'steps': [],
