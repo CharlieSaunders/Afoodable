@@ -20,6 +20,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { RecipeCardComponent } from "./components/recipe-card/recipe-card.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
+import { InventoryComponent } from "./inventory/inventory.component"
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { SidebarComponent } from "./components/sidebar/sidebar.component";
       { path: "recipe/:id", component: RecipePageComponent },
       { path: "recipes", component: RecipesComponent },
       { path: "ingredients", component: IngredientsComponent },
+      { path: "inventory", component: InventoryComponent },
     ]),
     NgbModule,
     DragDropModule,

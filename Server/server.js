@@ -12,6 +12,7 @@ app.use(express.json());
 // Register 'controller routes'
 app.use(require('./routes/recipe'));
 app.use(require('./routes/ingredient'));
+app.use(require('./routes/imageRecognition'));
 
 // perform a database connection when the server starts
 dbo.connectToServer(function (err) {
