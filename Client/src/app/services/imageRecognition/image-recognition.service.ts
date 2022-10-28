@@ -15,7 +15,7 @@ export class ImageRecognitionService {
 
   public getTextFromImage(image: File): Observable<any> {
     const formData = new FormData();
-    formData.append("recipeImage", image);
+    formData.append("image", image);
     return this.httpClient
       .post<any>(`${this.baseUrl}`, formData)
       .pipe(map((result) => Mapper.map(result)));

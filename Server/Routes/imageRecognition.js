@@ -1,24 +1,35 @@
 const tesseract = require('tesseract.js');
 const express = require('express');
 const imageRecognitionRoutes = express.Router();
-const dbo = require('../Data/conn');
+const multer = require('multer');
+const fs = require('fs')
+const { promisify } = require('util')
+const unlinkAsync = promisify(fs.unlink)
 
-// Test OCR
-imageRecognitionRoutes.route('/api/ai/imageRecognition').post(async function (_req, res){
-  console.log(_req.file);
-  var response = await getTextFromImage(_req.file);
-  res.json(response);
+let storage = multer.diskStorage({
+  destination: function(req, file, callBack){
+    callBack(null, '../Client/src/assets/images/temp/');
+  },
+  filename: function(req, file, callBack){
+    callBack(null, file.originalname);
+  }
 });
 
-async function getTextFromImage(file) {
+let upload = multer({storage: storage});
+
+// Test OCR
+imageRecognitionRoutes.route('/api/ai/imageRecognition').post(upload.single('image'), async function (_req, res){
+  
+  let imageUrl = `../Client/src/assets/images/temp/${_req.file.originalname}`;
   tesseract.recognize(
-  '../Client/src/assets/testReceipt.jpeg',
+  imageUrl,
   'eng',
-  { 
-    logger: m => console.log(m) }
+  {}
   ).then(({ data: { text } }) => {
-    console.log(text);
+    unlinkAsync(imageUrl);
+    res.json(text);
   })
-}
+});
+
 
 module.exports = imageRecognitionRoutes;
