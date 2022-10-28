@@ -1,4 +1,3 @@
-const tesseract = require('tesseract.js');
 const express = require('express');
 const imageRecognitionRoutes = express.Router();
 const multer = require('multer');
@@ -18,18 +17,21 @@ let storage = multer.diskStorage({
 let upload = multer({storage: storage});
 
 // Test OCR
-imageRecognitionRoutes.route('/api/ai/imageRecognition').post(upload.single('image'), async function (_req, res){
-  
-  let imageUrl = `../Client/src/assets/images/temp/${_req.file.originalname}`;
-  tesseract.recognize(
-  imageUrl,
-  'eng',
-  {}
-  ).then(({ data: { text } }) => {
-    unlinkAsync(imageUrl);
-    res.json(text);
-  })
+imageRecognitionRoutes.route('/api/ai/uploadReceipt').post(upload.single('image'), async function (_req, res){
+  res.json("uploaded image");
 });
 
+imageRecognitionRoutes.route('/api/ai/deleteReceipt').post(upload.single('image'), async function (_req, res){
+  fs.readdir('../Client/src/assets/images/temp/', (err, files) => {
+    if (err) throw err;
+  
+    for (const file of files) {
+      console.log(file)
+      unlinkAsync(`../Client/src/assets/images/temp/${file}`);
+    }
+  });
+
+  res.json("deleted image");
+});
 
 module.exports = imageRecognitionRoutes;

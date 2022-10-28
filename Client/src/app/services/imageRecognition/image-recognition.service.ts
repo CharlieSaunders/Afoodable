@@ -7,18 +7,24 @@ import { Observable, map } from "rxjs";
 })
 export class ImageRecognitionService {
   private httpClient!: HttpClient;
-  private baseUrl = "http://localhost:54321/api/ai/imageRecognition";
+  private baseUrl = "http://localhost:54321/api/ai";
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
   }
 
-  public getTextFromImage(image: File): Observable<any> {
+  public uploadReceipt(image: File): Observable<any> {
     const formData = new FormData();
     formData.append("image", image);
     return this.httpClient
-      .post<any>(`${this.baseUrl}`, formData)
+      .post<any>(`${this.baseUrl}/uploadReceipt`, formData)
       .pipe(map((result) => Mapper.map(result)));
+  }
+
+  public deleteReceipt() : Observable<any> {
+    return this.httpClient
+    .post<any>(`${this.baseUrl}/deleteReceipt`, {})
+    .pipe(map((result) => Mapper.map(result)));
   }
 }
 

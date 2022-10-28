@@ -35,6 +35,7 @@ import { InventoryComponent } from "./inventory/inventory.component"
     FilterIngredientNamePipe,
     RecipeCardComponent,
     SidebarComponent,
+    InventoryComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -54,7 +55,7 @@ import { InventoryComponent } from "./inventory/inventory.component"
       { path: "inventory", component: InventoryComponent },
     ]),
     NgbModule,
-    DragDropModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -7,4 +7,13 @@
           <input type="file" id="file-upload" (change)="onFileChanged($event)">
         </button>
     </div>
+    <div class="card shadow">
+      <button mat-fab class="bg-info text-dark" (click)="inspect()">Inspect
+      </button>
+  </div>
 </div>
+
+<!-- <div class="row" *ngIf="analysing">
+  <p *ngFor="let status of statuses">{{status.Progress}}</p>
+</div> -->
+  
