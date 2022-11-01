@@ -13,7 +13,7 @@
   </div>
 </div>
 
-<!-- <div class="row" *ngIf="analysing">
-  <p *ngFor="let status of statuses">{{status.Progress}}</p>
-</div> -->
+<div class="row" *ngIf="analysing">
+  <p *ngFor="let status of statuses | keyvalue"> {{status.key}} {{status.value.Progress}}</p>
+</div>
   

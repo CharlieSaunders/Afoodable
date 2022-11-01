@@ -19,7 +19,7 @@ class Status {
 })
 export class InventoryComponent implements OnInit {
   private file: any;
-  public statuses: any = {};
+  public statuses = new Map<string, Status>;
   public analysing: boolean = false;
 
   constructor(private imageRecognitionService: ImageRecognitionService) { }
@@ -37,7 +37,8 @@ export class InventoryComponent implements OnInit {
     this.analysing = true;
     const worker = await Tesseract.createWorker({
       logger: m => {
-        this.statuses[m.status] = new Status(m.status, m.progress);
+        updateStatuses(m.status, m.progress);
+        this.statuses.set(m.status, new Status(m.status, m.progress));
       }
     });
     
@@ -47,7 +48,12 @@ export class InventoryComponent implements OnInit {
     await worker.recognize(`../assets/images/temp/${this.file.name}`);
     await worker.terminate();
 
-    console.log(this.statuses);
     this.imageRecognitionService.deleteReceipt().subscribe((data:any)=>{});
+  }
+
+  private updateStatuses(status: string, progress: number){
+    if(this.statuses.has(status)){
+      status.set(status, )
+    }
   }
 }
