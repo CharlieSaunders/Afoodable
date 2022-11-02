@@ -14,6 +14,14 @@
 </div>
 
 <div class="row" *ngIf="analysing">
-  <p *ngFor="let status of statuses | keyvalue"> {{status.key}} {{status.value.Progress}}</p>
+  <div *ngFor="let status of statuses"> 
+    <p id="statusText">{{status.Name}} <span *ngIf="status.DisplayProgress">{{status.getProgress()}}</span></p>
+  </div>
+</div>
+
+<div class="row" *ngIf="analysed">
+  <pre>
+    <code id="analysedText">{{analysedText.data.text}}</code>
+  </pre>
 </div>
   

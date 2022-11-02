@@ -3,11 +3,22 @@ import { ImageRecognitionService } from '../services/imageRecognition/image-reco
 import * as Tesseract from 'tesseract.js';
 
 class Status {
+  DisplayProgress: boolean;
   Name: string;
   Progress: number;
   constructor(name: string, progress: number){
+    this.DisplayProgress = false;
+
+    if(name == "recognizing text")
+      this.DisplayProgress = true;
+
     this.Name = name;
     this.Progress = progress;
+  }
+
+  getProgress(): string {
+    let percentage = (this.Progress*100).toFixed(2);
+    return `${percentage}%`
   }
 }
 
@@ -19,8 +30,10 @@ class Status {
 })
 export class InventoryComponent implements OnInit {
   private file: any;
-  public statuses = new Map<string, Status>;
+  public statuses : Array<Status> = [];
   public analysing: boolean = false;
+  public analysed: boolean = false;
+  public analysedText!: Tesseract.RecognizeResult;
 
   constructor(private imageRecognitionService: ImageRecognitionService) { }
 
@@ -35,25 +48,32 @@ export class InventoryComponent implements OnInit {
 
   public async inspect(): Promise<void>{
     this.analysing = true;
-    const worker = await Tesseract.createWorker({
+    const worker = Tesseract.createWorker({
       logger: m => {
-        updateStatuses(m.status, m.progress);
-        this.statuses.set(m.status, new Status(m.status, m.progress));
+        this.updateStatuses(m.status, m.progress);
       }
     });
     
     await worker.load();
     await worker.loadLanguage('eng');
     await worker.initialize('eng');
-    await worker.recognize(`../assets/images/temp/${this.file.name}`);
+    this.analysedText = await worker.recognize(`../assets/images/temp/${this.file.name}`);
+    console.log(this.analysedText);
+    this.analysed = true;
     await worker.terminate();
 
+
     this.imageRecognitionService.deleteReceipt().subscribe((data:any)=>{});
+    console.log(this.statuses)
   }
 
   private updateStatuses(status: string, progress: number){
-    if(this.statuses.has(status)){
-      status.set(status, )
+    var index = this.statuses.findIndex(x => x.Name == status);
+
+    if(index == -1){
+      this.statuses.push(new Status(status, progress));
+    }else{
+      this.statuses[index].Progress = progress;
     }
   }
 }
