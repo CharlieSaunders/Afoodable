@@ -34,6 +34,7 @@ export class InventoryComponent implements OnInit {
   public analysing: boolean = false;
   public analysed: boolean = false;
   public analysedText!: Tesseract.RecognizeResult;
+  public purchasedItems!: Array<string>;
 
   constructor(private imageRecognitionService: ImageRecognitionService) { }
 
@@ -58,13 +59,21 @@ export class InventoryComponent implements OnInit {
     await worker.loadLanguage('eng');
     await worker.initialize('eng');
     this.analysedText = await worker.recognize(`../assets/images/temp/${this.file.name}`);
-    console.log(this.analysedText);
     this.analysed = true;
     await worker.terminate();
 
 
     this.imageRecognitionService.deleteReceipt().subscribe((data:any)=>{});
-    console.log(this.statuses)
+
+
+    this.purchasedItems = new Array<string>();
+    for(let i=0; i<this.analysedText.data.lines.length; i++){
+      let node = this.analysedText.data.lines[i].text;
+      if(node.includes("£")){
+
+      }
+    }
+
   }
 
   private updateStatuses(status: string, progress: number){

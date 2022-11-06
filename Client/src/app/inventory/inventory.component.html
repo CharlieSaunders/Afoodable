@@ -1,16 +1,11 @@
 <br><br><br><br>
 
 <div class="card-wrapper">
-    <div class="card shadow">
-        <button mat-fab class="bg-info text-dark">
-          <label for="file-upload" >📷</label>
-          <input type="file" id="file-upload" (change)="onFileChanged($event)">
-        </button>
-    </div>
-    <div class="card shadow">
-      <button mat-fab class="bg-info text-dark" (click)="inspect()">Inspect
-      </button>
-  </div>
+  <button mat-fab class="bg-info text-dark"> 
+    <label for="file-upload" >📷</label>
+      <input type="file" id="file-upload" (change)="onFileChanged($event)">
+  </button>
+  <button mat-fab class="bg-info text-dark" (click)="inspect()">Inspect</button>
 </div>
 
 <div class="row" *ngIf="analysing">
@@ -21,7 +16,7 @@
 
 <div class="row" *ngIf="analysed">
   <pre>
-    <code id="analysedText">{{analysedText.data.text}}</code>
+    <code id="analysedText" *ngFor="let item of purchasedItems">{{item}}</code>
   </pre>
 </div>
   
