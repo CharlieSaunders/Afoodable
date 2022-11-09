@@ -70,10 +70,11 @@ export class InventoryComponent implements OnInit {
     for(let i=0; i<this.analysedText.data.lines.length; i++){
       let node = this.analysedText.data.lines[i].text;
       if(node.includes("£")){
-
+        let tokens = node.split(" ");
+        tokens.splice(tokens.length-2, 1);
+        console.log(tokens.join(" "))
       }
     }
-
   }
 
   private updateStatuses(status: string, progress: number){
