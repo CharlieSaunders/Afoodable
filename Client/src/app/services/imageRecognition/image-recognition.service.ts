@@ -18,13 +18,17 @@ export class ImageRecognitionService {
     formData.append("image", image);
     return this.httpClient
       .post<any>(`${this.baseUrl}/uploadReceipt`, formData)
-      .pipe(map((result) => Mapper.map(result)));
+      .pipe(
+        map(Mapper.map)
+      );
   }
 
   public deleteReceipt() : Observable<any> {
     return this.httpClient
     .post<any>(`${this.baseUrl}/deleteReceipt`, {})
-    .pipe(map((result) => Mapper.map(result)));
+          .pipe(
+        map(Mapper.map)
+      );
   }
 }
 

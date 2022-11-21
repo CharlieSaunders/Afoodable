@@ -18,25 +18,33 @@ export class IngredientService {
   public getIngredients(): Observable<Array<Ingredient>> {
     return this.httpClient
       .get<Array<Ingredient>>(this.baseUrl)
-      .pipe(map((result) => IngredientMapper.map(result)));
+      .pipe(
+        map(IngredientMapper.map)
+        );
   }
 
   public newIngredient(ingredient: Ingredient): Observable<CreateResponse> {
     return this.httpClient
       .post<Ingredient>(this.baseUrl, ingredient)
-      .pipe(map((result) => ApiResponseMapper.mapCreate(result)));
+      .pipe(
+        map(ApiResponseMapper.mapCreate)
+        );
   }
 
   public updateIngredient(ingredient: Ingredient): Observable<UpdateResponse> {
     return this.httpClient
       .patch<Ingredient>(this.baseUrl, ingredient)
-      .pipe(map((result) => ApiResponseMapper.mapUpdate(result)));
+      .pipe(
+        map(ApiResponseMapper.mapUpdate)
+        );
   }
 
   public deleteIngredient(id: string): Observable<DeleteResponse> {
     return this.http
       .delete<Ingredient>(`${this.baseUrl}/${id}`)
-      .pipe(map((result) => ApiResponseMapper.mapDelete(result)));
+      .pipe(
+        map(ApiResponseMapper.mapDelete)
+        );
   }
 }
 

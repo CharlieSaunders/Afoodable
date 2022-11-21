@@ -17,38 +17,44 @@ export class RecipeService {
   public getRecipes(): Observable<Array<Recipe>> {
     return this.httpClient
       .get(this.baseUrl)
-      .pipe(map((result) => RecipeMapper.map(result)));
+      .pipe(
+        map(RecipeMapper.map)
+        );
   }
 
   public getRecipe(id: string): Observable<Recipe> {
     return this.httpClient
       .get<Recipe>(`${this.baseUrl}/${id}`)
-      .pipe(map((result) => RecipeMapper.mapSingle(result)));
+      .pipe(
+        map(RecipeMapper.mapSingle)
+        );
   }
 
   public updateRecipe(request: UpdateRecipeDto): Observable<UpdateResponse> {
     return this.httpClient
       .patch<UpdateResponse>(`${this.baseUrl}`, request, {})
-      .pipe(map((result) => ApiResponseMapper.mapUpdate(result)));
+      .pipe(
+        map(ApiResponseMapper.mapUpdate)
+        );
   }
 
   public createNewRecipe(request: Recipe): Observable<CreateResponse> {
     return this.httpClient
       .post<CreateResponse>(this.baseUrl, request)
-      .pipe(map((result) => ApiResponseMapper.mapCreate(result)));
+      .pipe(
+        map(ApiResponseMapper.mapCreate)
+        );
   }
 
   public deleteRecipe(id: string): Observable<DeleteResponse> {
     return this.httpClient
       .delete<Recipe>(`${this.baseUrl}/${id}`)
-      .pipe(map((result) => ApiResponseMapper.mapDelete(result)));
+      .pipe(
+        map(ApiResponseMapper.mapDelete)
+        );
   }
 
-  public addRating(
-    id: string,
-    rating: number,
-    ratings: number
-  ): Observable<UpdateResponse> {
+  public addRating(id: string, rating: number, ratings: number): Observable<UpdateResponse> {
     return this.httpClient.post<UpdateResponse>(
       `${this.baseUrl}/rating/${id}`,
       { rating, ratings }
@@ -60,7 +66,9 @@ export class RecipeService {
     formData.append("recipeImage", image, recipe._id);
     return this.httpClient
       .post<Recipe>(`${this.baseUrl}/image/${recipe._id}`, formData)
-      .pipe(map((result) => ApiResponseMapper.mapUpdate(result)));
+      .pipe(
+        map(ApiResponseMapper.mapUpdate)
+        );
   }
 }
 
