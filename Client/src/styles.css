@@ -50,9 +50,10 @@ footer{
 	width:  90%;
 	margin-left:  5%;
 	margin-right:  5%;
+	margin-top: 2%;
+	margin-bottom: 0;
 	text-align:  center;
 	justify-content: center;
 	align-items: center;
-	margin: 2%;
-	height:  10%;
+	height:  5%;
 }

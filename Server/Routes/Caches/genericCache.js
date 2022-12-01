@@ -6,6 +6,9 @@ class GenericCache {
     }
 
     set(cacheObjects){
+        if(this.setup)
+            CacheLogger.LogResetting(this.cacheName);
+
         this.setup = true;
         this.objects = {};
         cacheObjects.forEach(element => {
@@ -57,6 +60,10 @@ class CacheLogger {
 
     static LogDelete(cacheName, id){
         console.log(`\x1b[31m%s\x1b[0m`, `==> Deleting ${cacheName} object. ID --> ${id}`);
+    }
+
+    static LogResetting(cacheName){
+        console.log('\x1b[32m%s\x1b[0m', `==> Resetting cache objects for ${cacheName}. This is due to a deletion`);
     }
 }
 
