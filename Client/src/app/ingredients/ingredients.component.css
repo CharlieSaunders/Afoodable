@@ -1,35 +1,49 @@
-.ingredients-table {
-    border-collapse: collapse;
-    margin: 25px 0;
+.mat-table{
+    font-family: Rubik, sans-serif !important; 
+    border-collapse: collapse !important;
+    margin: 25px 0 !important;
+    font-size: 1.1rem !important;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15) !important;
+    width: 100% !important;
+    background-color: #f2f2f2!important;
+    color: #212529 !important;
+    text-align: left !important;
+}
+
+.mat-table th{
+    font-size: 16px!important;
+    font-weight: 500;
+    background-color: #212529 !important;
+    color: #f2f2f2 !important;
+    text-align: left !important;
+    padding: 12px 15px !important;
+}
+
+.mat-table td {
+    padding: 12px 15px !important;
     font-size: 1.1rem;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    width: 100%;
+    color: #212529 !important;
 }
 
-.ingredients-table thead tr {
-    background-color: #212529;
-    color: #f2f2f2;
-    text-align: left;
+.mat-table tr {
+    border-bottom: 1px solid #dddddd !important;
 }
 
-.ingredients-table th,
-.ingredients-table td {
-    padding: 12px 15px;
+.mat-table tr:nth-of-type(even) {
+    background-color: #C0C0C0;
 }
 
-.ingredients-table tbody tr {
-    border-bottom: 1px solid #dddddd;
+.mat-table tr:last-of-type {
+    border-bottom: 2px solid #212529 !important;
 }
 
-.ingredients-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+.mat-table tr.active-row {
+    font-weight: bold !important;
+    color: #212529 !important;
 }
 
-.ingredients-table tbody tr:last-of-type {
-    border-bottom: 2px solid #212529;
-}
-
-.ingredients-table tbody tr.active-row {
-    font-weight: bold;
-    color: #212529;
+.mat-paginator{
+    background-color: #212529 !important;
+    color: #f2f2f2 !important;
+    text-align: left !important;
 }

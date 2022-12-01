@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ViewChild} from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Subscription } from "rxjs";
@@ -7,6 +7,9 @@ import { Ingredient, IngredientBuilder } from "../types/ingredients/ingredient.t
 import { ToastrService } from "ngx-toastr";
 import { CreateResponse, DeleteResponse, UpdateResponse } from "../types/generics/api-response.type";
 import { PageHelpers } from "../helpers/page-helpers";
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource} from '@angular/material/table';
+import { MatSort } from "@angular/material/sort";
 
 @Component({
   selector: "app-ingredients",
@@ -14,11 +17,16 @@ import { PageHelpers } from "../helpers/page-helpers";
   styleUrls: ["./ingredients.component.css"],
   providers: [IngredientService],
 })
-export class IngredientsComponent implements OnInit {
+export class IngredientsComponent implements AfterViewInit {
   private readonly subscription: Subscription = new Subscription();
   public ingredients!: Array<Ingredient>;
+  public dataSource!: MatTableDataSource<Ingredient>;
   public searchText = "";
   public closeResult = "";
+
+  @ViewChild(MatPaginator) paginator! : MatPaginator;
+  @ViewChild(MatSort) sort! : MatSort;
+  public displayedColumns: string[] = ['name', 'cost', 'servingSize', 'servingMetric', 'actions'];
 
   newIngredientForm = new FormGroup({
     name: new FormControl(""),
@@ -42,12 +50,15 @@ export class IngredientsComponent implements OnInit {
     private toasterService: ToastrService
   ) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.subscription.add(
       this.ingredientService
         .getIngredients()
         .subscribe((result: Array<Ingredient>) => {
           this.ingredients = result;
+          this.dataSource = new MatTableDataSource<Ingredient>(this.ingredients);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
         })
     );
   }
@@ -123,7 +134,7 @@ export class IngredientsComponent implements OnInit {
     }
 
     this.modalService.dismissAll();
-    this.ngOnInit();
+    this.ngAfterViewInit();
   }
 
   public addNewIngredient(): void {
@@ -164,7 +175,7 @@ export class IngredientsComponent implements OnInit {
     }
 
     this.modalService.dismissAll();
-    this.ngOnInit();
+    this.ngAfterViewInit();
   }
 
   public deleteIngredient(id: string) {
@@ -180,6 +191,6 @@ export class IngredientsComponent implements OnInit {
     else {
       this.toasterService.success(`Failed to delete ingredient`);
     }
-    this.ngOnInit();
+    this.ngAfterViewInit();
   }
 }

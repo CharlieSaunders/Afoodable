@@ -11,6 +11,10 @@ export class Ingredient {
     this.servingMetric = _servingMetric;
     this._id = _id;
   }
+
+  getCost() : string {
+    return `${this.cost.toFixed(2)}`;
+  }
 }
 
 export class IngredientBuilder {

@@ -21,6 +21,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { RecipeCardComponent } from "./components/recipe-card/recipe-card.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { InventoryComponent } from "./inventory/inventory.component"
+import { MatSortModule } from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { InventoryComponent } from "./inventory/inventory.component"
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
     RouterModule.forRoot([
       { path: "", component: HomeComponent, pathMatch: "full" },
       { path: "recipe/:id", component: RecipePageComponent },
