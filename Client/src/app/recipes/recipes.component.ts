@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { RecipeService } from "../services/recipes/recipe.service";
@@ -8,6 +8,9 @@ import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { CreateResponse, DeleteResponse } from "../types/generics/api-response.type";
 import { PageHelpers } from "../helpers/page-helpers";
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource} from '@angular/material/table';
+import { MatSort } from "@angular/material/sort";
 
 @Component({
   selector: "app-recipes",
@@ -15,12 +18,17 @@ import { PageHelpers } from "../helpers/page-helpers";
   styleUrls: ["./recipes.component.css"],
   providers: [RecipeService],
 })
-export class RecipesComponent implements OnInit, OnDestroy{
+export class RecipesComponent implements AfterViewInit, OnDestroy{
   private readonly subscription: Subscription = new Subscription();
   public router!: Router;
   public recipes!: Array<Recipe>;
+  public dataSource!: MatTableDataSource<Recipe>;
   public searchText = "";
   public closeResult = "";
+
+  @ViewChild(MatPaginator) paginator! : MatPaginator;
+  @ViewChild(MatSort) sort! : MatSort;
+  public displayedColumns: string[] = ['name', 'type', 'totalCost', 'rating', 'actions'];
 
   public newRecipeForm = new FormGroup({
     name: new FormControl(""),
@@ -37,10 +45,13 @@ export class RecipesComponent implements OnInit, OnDestroy{
     this.router = _router;
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.subscription.add(
       this.recipeService.getRecipes().subscribe((data: Array<Recipe>) => {
         this.recipes = data;
+        this.dataSource = new MatTableDataSource<Recipe>(this.recipes);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       })
     );
   }

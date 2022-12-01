@@ -1,33 +1,45 @@
-<br><br><br>
-<p>Only the first 10 results are returned. Please use the search bar to refine your search</p>
-<div class="input-group mb-3">
-  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for a specific recipe...">
-</div>
+<br><br>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort class="recipes-table">
 
-<table class="recipe-table">
-  <thead>
-      <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Cost</th>
-          <th>Rating</th>
-          <th><button style="float: right;" mat-mini-fab class="bg-success" (click)="open(newRecipe)">➕</button></th>
-      </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let recipe of recipes | filterRecipeNamePipe : searchText; index as i">
-      <td *ngIf="i<10">{{ recipe.name }}</td>
-      <td *ngIf="i<10">{{ recipe.type }}</td>
-      <td *ngIf="i<10">£{{ recipe.totalCost }}</td>
-      <td *ngIf="i<10"><ng-container *ngFor="let i of [].constructor(recipe.roundedRating)">⭐</ng-container>({{recipe.rating.toFixed(2)}} - {{recipe.ratings}})</td>
-      <td *ngIf="i<10">        
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Name </th>
+      <td mat-cell *matCellDef="let recipe"> {{recipe.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by type"> Type </th>
+      <td mat-cell *matCellDef="let recipe"> {{recipe.type}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalCost">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by totalCost"> Cost </th>
+      <td mat-cell *matCellDef="let recipe"> £{{recipe.totalCost}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="rating">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let recipe"> <ng-container *ngFor="let i of [].constructor(recipe.roundedRating)">⭐</ng-container>({{recipe.rating.toFixed(2)}} - {{recipe.ratings}}) </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef ><button style="float: right;" mat-mini-fab class="bg-success" (click)="open(newRecipe)">➕</button></th>
+      <td mat-cell *matCellDef="let recipe"> 
         <button style="float: right;" mat-mini-fab color="warn" (click)="deleteRecipe(recipe._id)">🗑️</button>
         &nbsp;
         <button style="float: right; margin-right: 5px;" mat-mini-fab color="accent" (click)="navigateToRecipe(recipe._id)">✏️</button>
       </td>
-    </tr>
-  </tbody>
-</table>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator 
+    [pageSizeOptions]="[10, 5, 20]"
+    showFirstLastButtons
+    aria-label="Select page of ingredients">
+  </mat-paginator>
+</div>
 
 <ng-template #newRecipe let-modal>
   <div class="modal-wrapper">
