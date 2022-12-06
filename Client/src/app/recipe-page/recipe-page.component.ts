@@ -19,15 +19,14 @@ import { UpdateResponse } from "../types/generics/api-response.type";
 })
 export class RecipePageComponent implements OnInit{
   private readonly subscriptions: Subscription = new Subscription();
+  public allIngredients!: Array<Ingredient>;
+  public searchText!: string;
   public recipe!: Recipe;
-  public newStepString = "";
 
   public editMode = false;
   public hasBeenRated = false;
-  public searchText!: string;
   public closeResult = "";
-
-  public allIngredients!: Array<Ingredient>;
+  public newStepString = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -55,8 +54,22 @@ export class RecipePageComponent implements OnInit{
     );
   }
 
+  // TODO: Remove this after all recipes have their ingredients with an ID.
+  private fixRecipe(originalRecipe: Recipe): void {
+    let index = 0;
+    originalRecipe.ingredients.forEach(i => {
+      let match = this.allIngredients.find(el => el.name < i.name);
+      if(typeof match !== 'undefined')
+        this.recipe.ingredients[index]._id = match._id;
+
+      index += 1;
+    });
+    console.log(this.recipe);
+  }
+
   public edit(): void {
     this.editMode = true;
+    this.fixRecipe(this.recipe);
   }
 
   public save(): void {
@@ -91,7 +104,8 @@ export class RecipePageComponent implements OnInit{
         1,
         ingredient.cost,
         ingredient.servingSize,
-        ingredient.servingMetric
+        ingredient.servingMetric,
+        ingredient._id
       )
     );
     this.modalService.dismissAll();

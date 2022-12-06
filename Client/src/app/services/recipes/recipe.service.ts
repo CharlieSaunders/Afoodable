@@ -87,7 +87,8 @@ class RecipeMapper {
             ingredientObject.quantity,
             ingredientObject.cost,
             ingredientObject.servingSize,
-            ingredientObject.servingMetric
+            ingredientObject.servingMetric,
+            ingredientObject._id
           )
         );
       });
@@ -124,7 +125,8 @@ class RecipeMapper {
           ingredientObject.quantity,
           ingredientObject.cost,
           ingredientObject.servingSize,
-          ingredientObject.servingMetric
+          ingredientObject.servingMetric,
+          ingredientObject._id
         )
       );
     });

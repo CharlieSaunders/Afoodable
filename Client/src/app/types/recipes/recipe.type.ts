@@ -48,13 +48,15 @@ export class RecipeItem {
   cost: number;
   servingSize: number;
   servingMetric: string;
+  _id: string;
 
-  constructor(_name: string, _quantity: number, _cost: number, _servingSize: number, _servingMetric: string) {
+  constructor(_name: string, _quantity: number, _cost: number, _servingSize: number, _servingMetric: string, id: string) {
     this.name = _name;
     this.quantity = _quantity;
     this.cost = _cost;
     this.servingSize = _servingSize;
     this.servingMetric = _servingMetric;
+    this._id = id;
   }
 
   public getTotalRequired(): string {
