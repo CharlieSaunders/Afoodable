@@ -54,22 +54,9 @@ export class RecipePageComponent implements OnInit{
     );
   }
 
-  // TODO: Remove this after all recipes have their ingredients with an ID.
-  private fixRecipe(originalRecipe: Recipe): void {
-    let index = 0;
-    originalRecipe.ingredients.forEach(i => {
-      let match = this.allIngredients.find(el => el.name < i.name);
-      if(typeof match !== 'undefined')
-        this.recipe.ingredients[index]._id = match._id;
-
-      index += 1;
-    });
-    console.log(this.recipe);
-  }
-
   public edit(): void {
     this.editMode = true;
-    this.fixRecipe(this.recipe);
+    console.log(this.recipe);
   }
 
   public save(): void {

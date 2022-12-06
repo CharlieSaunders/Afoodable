@@ -44,7 +44,11 @@ import { MatSortModule } from "@angular/material/sort";
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+      progressBar: true,
+    }),
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
