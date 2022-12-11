@@ -1,15 +1,16 @@
+import { CreateResponse, DeleteResponse, UpdateResponse } from "../types/generics/api-response.type";
+import { IngredientDictionary, Ingredient, IngredientBuilder } from "../types/ingredients/ingredient.type";
 import { AfterViewInit, Component, ViewChild} from "@angular/core";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { FormControl, FormGroup } from "@angular/forms";
-import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Subscription } from "rxjs";
 import { IngredientService } from "../services/ingredients/ingredient.service";
-import { IngredientDictionary, Ingredient, IngredientBuilder } from "../types/ingredients/ingredient.type";
 import { ToastrService } from "ngx-toastr";
-import { CreateResponse, DeleteResponse, UpdateResponse } from "../types/generics/api-response.type";
 import { PageHelpers } from "../helpers/page-helpers";
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource} from '@angular/material/table';
 import { MatSort } from "@angular/material/sort";
+import { FormHelpers } from "../helpers/form-helpers";
 
 @Component({
   selector: "app-ingredients",
@@ -18,31 +19,17 @@ import { MatSort } from "@angular/material/sort";
   providers: [IngredientService],
 })
 export class IngredientsComponent implements AfterViewInit {
-  private readonly subscription: Subscription = new Subscription();
-  public ingredients!: IngredientDictionary;
-  public dataSource!: MatTableDataSource<Ingredient>;
-  public searchText = "";
-  public closeResult = "";
-
   @ViewChild(MatPaginator) paginator! : MatPaginator;
   @ViewChild(MatSort) sort! : MatSort;
+  private readonly subscription: Subscription = new Subscription();
+
   public displayedColumns: string[] = ['name', 'cost', 'servingSize', 'servingMetric', 'actions'];
-
-  newIngredientForm = new FormGroup({
-    name: new FormControl(""),
-    cost: new FormControl(""),
-    servingSize: new FormControl(""),
-    servingMetric: new FormControl(""),
-    _id: new FormControl(""),
-  });
-
-  updateIngredientForm = new FormGroup({
-    name: new FormControl(""),
-    cost: new FormControl(0),
-    servingSize: new FormControl(0),
-    servingMetric: new FormControl(""),
-    _id: new FormControl(""),
-  });
+  public ingredients!: IngredientDictionary;
+  public dataSource!: MatTableDataSource<Ingredient>;
+  public newIngredientForm = FormHelpers.NewIngredientForm();
+  public updateIngredientForm = FormHelpers.UpdateIngredientForm();
+  public searchText = "";
+  public closeResult = "";
 
   constructor(
     private ingredientService: IngredientService,
@@ -55,15 +42,18 @@ export class IngredientsComponent implements AfterViewInit {
       this.ingredientService
         .getIngredientsDictionary()
         .subscribe((result: IngredientDictionary) => {
-          this.ingredients = result.Ingredients;
-          this.dataSource = new MatTableDataSource<Ingredient>(Object.values(this.ingredients));
+          this.ingredients = result;
+          this.dataSource = new MatTableDataSource<Ingredient>(this.ingredients.GetAsArray());
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         })
     );
+
+    this.modalService.dismissAll();
+    this.newIngredientForm.reset();
   }
 
-  public open(content: any, ingredient: Ingredient) {
+  public open(content: any, ingredient: any = null) {
     if (ingredient !== null) {
       this.updateIngredientForm.setValue({
         name: ingredient.name,
@@ -74,41 +64,7 @@ export class IngredientsComponent implements AfterViewInit {
       });
     }
 
-    this.modalService
-      .open(content, { ariaLabelledBy: "modal-basic-title" })
-      .result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
-  }
-
-  public openEmpty(content: any) {
-    this.modalService
-      .open(content, { ariaLabelledBy: "modal-basic-title" })
-      .result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return "by pressing ESC";
-    }
- else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return "by clicking on a backdrop";
-    }
- else {
-      return `with: ${reason}`;
-    }
+    this.modalService.open(content, { ariaLabelledBy: "modal-basic-title" }).result;
   }
 
   public updateExistingIngredient(): void {
@@ -133,17 +89,15 @@ export class IngredientsComponent implements AfterViewInit {
       this.toasterService.success(`Failed to update ${ingredient.name}`);
     }
 
-    this.modalService.dismissAll();
     this.ngAfterViewInit();
   }
 
   public addNewIngredient(): void {
     let exists = false;
-    this.ingredients.Ingredients.forEach((ingredient: Ingredient) => {
+    let ingredientArray = this.ingredients.GetAsArray()
+    ingredientArray.forEach((ingredient: Ingredient) => {
       const name = ingredient.name;
-      if (
-        name.toLowerCase() === this.newIngredientForm.value.name?.toLowerCase()
-      ) {
+      if (name.toLowerCase() === this.newIngredientForm.value.name?.toLowerCase()) {
         exists = true;
         this.toasterService.warning(`${name} - Already exists`);
       }
@@ -170,11 +124,8 @@ export class IngredientsComponent implements AfterViewInit {
       else {
         this.toasterService.success(`Failed to create ${newIngredient.name}`);
       }
-
-      this.newIngredientForm.reset();
     }
 
-    this.modalService.dismissAll();
     this.ngAfterViewInit();
   }
 

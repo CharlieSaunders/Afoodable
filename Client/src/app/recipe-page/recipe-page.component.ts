@@ -17,6 +17,7 @@ import { UpdateResponse } from "../types/generics/api-response.type";
   styleUrls: ["./recipe-page.component.css"],
   providers: [RecipeService],
 })
+
 export class RecipePageComponent implements OnInit{
   private readonly subscriptions: Subscription = new Subscription();
   public allIngredients!: Array<Ingredient>;
@@ -52,11 +53,6 @@ export class RecipePageComponent implements OnInit{
           this.allIngredients = data;
         })
     );
-  }
-
-  public edit(): void {
-    this.editMode = true;
-    console.log(this.recipe);
   }
 
   public save(): void {
@@ -134,28 +130,7 @@ export class RecipePageComponent implements OnInit{
   }
 
   public open(content: any) {
-    this.modalService
-      .open(content, { ariaLabelledBy: "modal-basic-title" })
-      .result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return "by pressing ESC";
-    }
-    else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return "by clicking on a backdrop";
-    }
-    else {
-      return `with: ${reason}`;
-    }
+    this.modalService.open(content, { ariaLabelledBy: "modal-basic-title" }).result
   }
 
   public updateRecipeStep(index: number): void {

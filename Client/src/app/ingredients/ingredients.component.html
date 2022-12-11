@@ -23,7 +23,7 @@
     </ng-container>
 
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef ><button style="float: right;" mat-mini-fab class="bg-success" (click)="openEmpty(newIngredient)">➕</button></th>
+      <th mat-header-cell *matHeaderCellDef ><button style="float: right;" mat-mini-fab class="bg-success" (click)="open(newIngredient)">➕</button></th>
       <td mat-cell *matCellDef="let ingredient"> 
         <button style="float: right;" mat-mini-fab color="warn" (click)="deleteIngredient(ingredient._id)">🗑️</button>
         &nbsp;

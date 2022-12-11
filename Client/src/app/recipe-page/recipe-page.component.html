@@ -1,5 +1,5 @@
 <br><br><br><br>
-<div *ngIf="!editMode" class="edit-cta" (click)="edit()">
+<div *ngIf="!editMode" class="edit-cta" (click)="editMode = !editMode">
   <button mat-fab class="bg-dark text-light">
     <span class="icon-emoji">✏️</span>
   </button>

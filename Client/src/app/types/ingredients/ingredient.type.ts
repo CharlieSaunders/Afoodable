@@ -4,8 +4,12 @@ export class IngredientDictionary{
     this.Ingredients = {};
   }
 
-  Add(ingredient: Ingredient){
+  public Add(ingredient: Ingredient): void{
     this.Ingredients[ingredient._id] = ingredient;
+  }
+
+  public GetAsArray(): Array<Ingredient> {
+    return Object.values(this.Ingredients);
   }
 }
 
