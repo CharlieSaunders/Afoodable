@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Subscription } from "rxjs";
 import { IngredientService } from "../services/ingredients/ingredient.service";
-import { Ingredient, IngredientBuilder } from "../types/ingredients/ingredient.type";
+import { IngredientDictionary, Ingredient, IngredientBuilder } from "../types/ingredients/ingredient.type";
 import { ToastrService } from "ngx-toastr";
 import { CreateResponse, DeleteResponse, UpdateResponse } from "../types/generics/api-response.type";
 import { PageHelpers } from "../helpers/page-helpers";
@@ -19,7 +19,7 @@ import { MatSort } from "@angular/material/sort";
 })
 export class IngredientsComponent implements AfterViewInit {
   private readonly subscription: Subscription = new Subscription();
-  public ingredients!: Array<Ingredient>;
+  public ingredients!: IngredientDictionary;
   public dataSource!: MatTableDataSource<Ingredient>;
   public searchText = "";
   public closeResult = "";
@@ -53,10 +53,10 @@ export class IngredientsComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.subscription.add(
       this.ingredientService
-        .getIngredients()
-        .subscribe((result: Array<Ingredient>) => {
-          this.ingredients = result;
-          this.dataSource = new MatTableDataSource<Ingredient>(this.ingredients);
+        .getIngredientsDictionary()
+        .subscribe((result: IngredientDictionary) => {
+          this.ingredients = result.Ingredients;
+          this.dataSource = new MatTableDataSource<Ingredient>(Object.values(this.ingredients));
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         })
@@ -139,7 +139,7 @@ export class IngredientsComponent implements AfterViewInit {
 
   public addNewIngredient(): void {
     let exists = false;
-    this.ingredients.forEach((ingredient: Ingredient) => {
+    this.ingredients.Ingredients.forEach((ingredient: Ingredient) => {
       const name = ingredient.name;
       if (
         name.toLowerCase() === this.newIngredientForm.value.name?.toLowerCase()

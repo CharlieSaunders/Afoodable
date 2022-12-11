@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { ApiResponseMapper, CreateResponse, DeleteResponse, UpdateResponse } from "src/app/types/generics/api-response.type";
-import { Ingredient } from "src/app/types/ingredients/ingredient.type";
+import { Ingredient, IngredientDictionary } from "src/app/types/ingredients/ingredient.type";
 
 @Injectable({
   providedIn: "root",
@@ -20,6 +20,14 @@ export class IngredientService {
       .get<Array<Ingredient>>(this.baseUrl)
       .pipe(
         map(IngredientMapper.map)
+        );
+  }
+
+  public getIngredientsDictionary(): Observable<IngredientDictionary> {
+    return this.httpClient
+      .get<IngredientDictionary>(this.baseUrl)
+      .pipe(
+        map(IngredientMapper.mapDictionary)
         );
   }
 
@@ -63,6 +71,21 @@ class IngredientMapper {
       );
     });
     return ingredients;
+  }
+
+  public static mapDictionary(result: any): IngredientDictionary {
+    const ingredientsDictionary = new IngredientDictionary();
+    result.forEach((ingredient: any) => {
+      ingredientsDictionary.Ingredients[ingredient._id] = new Ingredient(
+          ingredient.name,
+          ingredient.cost,
+          ingredient.servingSize,
+          ingredient.servingMetric,
+          ingredient._id
+        );
+    });
+
+    return ingredientsDictionary;
   }
 
   public static mapSingle(result: any): Ingredient {

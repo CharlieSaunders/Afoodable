@@ -1,3 +1,14 @@
+export class IngredientDictionary{
+  Ingredients: any;
+  constructor(){
+    this.Ingredients = {};
+  }
+
+  Add(ingredient: Ingredient){
+    this.Ingredients[ingredient._id] = ingredient;
+  }
+}
+
 export class Ingredient {
   name: string;
   cost: number;
