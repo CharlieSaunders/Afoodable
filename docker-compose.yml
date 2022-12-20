@@ -5,7 +5,7 @@ services:
    context: ./
    dockerfile: ./Server/Dockerfile
   ports: 
-   - 9999:9999
+   - 9998:9998
   networks:
    afoodable:
     ipv4_address: 192.168.11.6
@@ -16,7 +16,7 @@ services:
    context: ./
    dockerfile: ./Client/Dockerfile
   ports:
-   - 9998:9998
+   - 9999:9999
   networks:
    afoodable:
     ipv4_address: 192.168.11.5
