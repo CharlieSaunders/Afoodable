@@ -1,6 +1,6 @@
 services:
  server:
-  container_name: server-container
+  container_name: afoodable-server
   build:
    context: ./
    dockerfile: ./Server/Dockerfile
@@ -11,7 +11,7 @@ services:
     ipv4_address: 192.168.11.6
 
  client:
-  container_name: client-container
+  container_name: afoodable-client
   build:
    context: ./
    dockerfile: ./Client/Dockerfile
