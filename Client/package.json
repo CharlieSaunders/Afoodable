@@ -1,0 +1,62 @@
+{
+  "name": "afoodable",
+  "version": "1.0.0",
+  "scripts": {
+    "ng": "ng",
+    "prestart": "node",
+    "start": "run-script-os",
+    "build": "ng build",
+    "build:ssr": "ng run Afoodable:server:dev",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "lint": "ng lint"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^15.1.0",
+    "@angular/cdk": "^15.1.0",
+    "@angular/common": "^15.1.0",
+    "@angular/compiler": "^15.1.0",
+    "@angular/core": "^15.1.0",
+    "@angular/forms": "^15.1.0",
+    "@angular/localize": "^15.1.0",
+    "@angular/material": "^15.1.0",
+    "@angular/platform-browser": "^15.1.0",
+    "@angular/platform-browser-dynamic": "^15.1.0",
+    "@angular/platform-server": "^15.1.0",
+    "@angular/router": "^15.1.0",
+    "@ng-bootstrap/ng-bootstrap": "14.0.1",
+    "@popperjs/core": "2.11.6",
+    "bootstrap": "^5.3.0-alpha1",
+    "eslint-config-prettier": "8.6.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "jquery": "3.6.3",
+    "json5": "2.2.3",
+    "ngx-toastr": "16.0.2",
+    "oidc-client": "1.11.5",
+    "prettier": "2.8.3",
+    "run-script-os": "1.1.6",
+    "rxjs": "7.8.0",
+    "tslib": "2.4.1",
+    "zone.js": "0.12.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^15.1.1",
+    "@angular-eslint/builder": "15.2.0",
+    "@angular-eslint/eslint-plugin": "15.2.0",
+    "@angular-eslint/eslint-plugin-template": "15.2.0",
+    "@angular-eslint/schematics": "15.2.0",
+    "@angular-eslint/template-parser": "15.2.0",
+    "@angular/cli": "^15.1.1",
+    "@angular/compiler-cli": "^15.0.0",
+    "@types/node": "18.11.18",
+    "@typescript-eslint/eslint-plugin": "5.48.2",
+    "@typescript-eslint/parser": "5.48.2",
+    "eslint": "8.23.0",
+    "json5": "2.2.3",
+    "typescript": "4.9.4"
+  },
+  "overrides": {
+    "autoprefixer": "10.4.5"
+  }
+}

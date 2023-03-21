@@ -1,0 +1,72 @@
+<br><br><br>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort class="recipes-table">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Name </th>
+      <td mat-cell *matCellDef="let recipe"> {{recipe.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by type"> Type </th>
+      <td mat-cell *matCellDef="let recipe"> {{recipe.type}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalCost">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by totalCost"> Cost </th>
+      <td mat-cell *matCellDef="let recipe"> £{{recipe.totalCost}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="rating">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let recipe"> <ng-container *ngFor="let i of [].constructor(recipe.roundedRating)">⭐</ng-container>({{recipe.rating.toFixed(2)}} - {{recipe.ratings}}) </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef ><button style="float: right;" mat-mini-fab class="bg-success" (click)="toggleNewRecipeModal()">➕</button></th>
+      <td mat-cell *matCellDef="let recipe"> 
+        <button style="float: right;" mat-mini-fab color="warn" (click)="deleteRecipe(recipe._id)">🗑️</button>
+        &nbsp;
+        <button style="float: right; margin-right: 5px;" mat-mini-fab color="accent" (click)="navigateToRecipe(recipe._id)">✏️</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator 
+    [pageSizeOptions]="[10, 5, 20]"
+    showFirstLastButtons
+    aria-label="Select page of ingredients">
+  </mat-paginator>
+</div>
+
+<div class="modal-wrapper" *ngIf="displayNewRecipeModal">
+  <div class="col-lg-3 m-auto">
+    <div class="card">
+      <div class="card-header p-1 m-1">
+        <h4 class="card-title">New Recipe</h4>
+      </div>
+      <div class="card-body p-1 m-2">
+        <form [formGroup]="newRecipeForm" (ngSubmit)="addNewRecipe()">
+          <div class="input-group m-1">
+            <label class="p-2 content-center w-25" for="name">Name:</label>
+            <input class="form-control" type="text" autocomplete="off" id="name" formControlName="name">
+          </div>
+          <div class="input-group m-1">
+            <label class="p-2 content-center w-25" for="name">Type:</label>
+            <input class="form-control" type="text" autocomplete="off" id="type" formControlName="type">
+          </div>
+          <div class="input-group m-1">
+            <label class="p-2 content-center w-25" for="description">Description:</label>
+            <input class="form-control" type="text" autocomplete="off" id="description" formControlName="description">
+          </div>
+        </form>
+      </div>
+      <div class="card-footer p-1 m-1">
+        <button type="button" class="btn btn-success m-1" (click)="addNewRecipe()">Save</button>
+        <button type="button" class="btn btn-danger m-1" (click)="toggleNewRecipeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

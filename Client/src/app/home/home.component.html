@@ -1,0 +1,35 @@
+<br><br><br>
+
+<p> Select the recipes you want for the shopping list <br> </p>
+<p *ngIf="!recipes"><em>Loading...</em></p>
+
+<div class="sidebar-opener" (click)="toggleSidebar()">
+    <button mat-fab class="bg-dark text-light">
+        <span class="icon-emoji">🛒</span>({{totalSelectedRecipes}})
+    </button>
+</div>
+
+<div class="row" *ngIf="recipes">
+    <div class="input-group mb-3">
+        <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for a specific recipe...">
+    </div>
+
+    <div class="col-lg-3 col-sm-5 p-2" *ngFor="let recipe of recipes | filterRecipeNamePipe : searchText">
+        <app-recipe-card 
+            [recipe]="recipe" 
+            [navigateToRecipe]="navigateToRecipe"
+            [selectRecipe]="selectRecipe"
+            [unselectRecipe]="unselectRecipe"
+            [updateShoppingList]="updateShoppingList"
+            [removeFromShoppingList]="removeFromShoppingList">
+        </app-recipe-card>
+    </div>
+</div>
+
+<app-sidebar 
+    *ngIf="sidebarShow"
+    [display]="sidebarShow"
+    [toggleSidebar]="toggleSidebar"
+    [shoppingList]="shoppingList"
+    [recipes]="recipes">
+</app-sidebar>

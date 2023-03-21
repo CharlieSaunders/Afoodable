@@ -1,0 +1,139 @@
+<br><br><br><br>
+<div *ngIf="!editMode" class="edit-cta" (click)="editMode = !editMode">
+  <button mat-fab class="bg-dark text-light">
+    <span class="icon-emoji">✏️</span>
+  </button>
+</div>
+
+<div *ngIf="editMode" class="save-cta" (click)="save()">
+  <button mat-fab class="bg-warning text-dark">
+    <span class="icon-emoji">💾</span>
+  </button>
+</div>
+
+<div *ngIf="editMode" class="cancel-cta" (click)="cancel()">
+  <button mat-fab class="bg-danger text-dark">
+    <span class="icon-emoji">🗑️</span>
+  </button>
+</div>
+
+<div class="card-wrapper" *ngIf="recipe">
+    <div class="card shadow">
+      <div *ngIf="editMode" class="image-cta">
+        <button mat-fab class="bg-info text-dark">
+          <label for="file-upload" >📷</label>
+          <input type="file" id="file-upload" (change)="onFileChanged($event)">
+        </button>
+      </div>
+      <!-- card left -->
+      <div class="product-imgs">
+        <div class="img-display">
+          <div class="img-showcase">
+            <img src="../../assets/images/recipes/{{ recipe.imageUrl }}">
+          </div>
+        </div>
+      </div>
+      <!-- card right -->
+      <div class="product-content">
+        <h2 class="product-title">
+          <span *ngIf="!editMode">{{recipe.name}}</span>
+          <span *ngIf="editMode" contenteditable="true" id="newRecipeName">{{recipe.name}}</span>
+          <span *ngIf="editMode" class="icon-emoji">✏️</span>
+        </h2>
+        <div class="product-rating">
+            <span *ngIf="editMode" >✏️ Serves: <span id="recipeServes" contenteditable="true" >{{recipe.serves}}</span></span>
+            <span *ngIf="!editMode">Serves: <ng-container *ngFor="let _ of [].constructor(recipe.serves)">😋</ng-container></span>
+            &nbsp;
+            <span>Rating: <ng-container *ngFor="let _ of [].constructor(recipe.roundedRating)">⭐</ng-container>({{recipe.ratings}})</span>
+            &nbsp;
+            <span class="product-price">Approx: 
+                <span>£{{recipe.totalCost}}</span>
+            </span>
+            <br>
+            <div class="d-flex" *ngIf="!hasBeenRated">
+              <div class="rate">
+                <input type="radio" id="star5" name="rate" value="5" (click)="newRating(5)" />
+                <label for="star5" title="5">5 star</label>
+                <input type="radio" id="star4" name="rate" value="4" (click)="newRating(4)" />
+                <label for="star4" title="4">4 stars</label>
+                <input type="radio" id="star3" name="rate" value="3" (click)="newRating(3)" />
+                <label for="star3" title="3">3 stars</label>
+                <input type="radio" id="star2" name="rate" value="2" (click)="newRating(2)" />
+                <label for="star2" title="2">2 stars</label>
+                <input type="radio" id="star1" name="rate" value="1" (click)="newRating(1)"/>
+                <label for="star1" title="1">1 stars</label>
+              </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="product-detail">
+          <h4>About This Recipe: <span *ngIf="editMode" class="icon-emoji">✏️</span></h4>
+            <p *ngIf="!editMode">{{recipe.description}}</p>
+            <p *ngIf="editMode" contenteditable="true" id="newDescription">{{recipe.description}}</p>
+          <br>
+          <h4 class="p-0 m-0">Ingredients: <span *ngIf="editMode" (click)="toggleAddNewIngredientModal()">↩</span></h4>
+          <ul class="p-0 m-0" *ngFor="let ingredient of recipe.ingredients; let i=index;">
+            <li>
+              <span *ngIf="editMode"><span class="amendIngredientDown" (click)="updateIngredient(i, -1)">➖</span></span>
+                {{ingredient.name}}: {{ingredient.getTotalRequired()}} (~£{{ingredient.getCost()}})
+              <span *ngIf="editMode"><span class="amendIngredientUp" (click)="updateIngredient(i, 1)">➕</span></span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div><br>
+
+    <div class="input-group">
+      <input class="form-control" type="text" [(ngModel)]="newStepString" autocomplete="off" placeholder="Add a new step for the recipe...">
+      <button class="float-right m-1" mat-mini-fab color="accent" (click)="addStep()">➕</button>
+    </div>
+    <br>
+    <div *ngIf="recipe.steps.length === 0">
+      <div class="card p-1 shadow">
+        <p>There are no steps configured for this recipe...</p>
+      </div>
+    </div>
+    <div *ngIf="!editMode">
+      <div class="card shadow p-2 m-2 w-90" *ngFor="let step of recipe.steps; let i=index;" >
+         <p><span style="text-decoration: underline;">Step {{i+1}}</span> - {{step}}</p>
+      </div>
+    </div>
+    <div *ngIf="editMode" cdkDropList (cdkDropListDropped)="drop($event)">
+      <div class="card shadow p-2 m-2" id="editableRecipeStep" style="display: block" *ngFor="let step of recipe.steps; let i=index;" cdkDrag>
+        <div>🔃 Step {{i+1}} - 
+            <p class="w-90" contenteditable="true" id="recipeStep{{i}}" (mousedown)="$event.stopPropagation()">{{step}}</p>
+            <span style="float: left; cursor: pointer;" (click)="deleteRecipeStep(i)">🗑️</span>
+            <span style="float: right; cursor: pointer;" (click)="updateRecipeStep(i)">✔️</span>
+        </div>
+        <br>
+      </div>
+    </div>
+    <br>
+</div>
+  <br>
+
+  <div class="modal-wrapper" *ngIf="displayAddNewIngredientModal">
+    <div class="col-lg-4 m-auto">
+      <div class="card fix-to-flex">
+        <div class="card-header">
+          <h4 class="card-title">Add Ingredient</h4>
+        </div>
+        <div class="card-body p-1 m-2">
+          <div class="input-group">
+            <label class="p-2 content-center w-25" for="ingredientSearch">Search by name:</label>
+            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" id="ingredientSearch">
+          </div>
+          <ul *ngFor="let ingredient of allIngredients | filterIngredientNamePipe : searchText; index as i">
+            <li *ngIf="i<10" (click)="addIngredient(ingredient)" style="cursor:pointer" >
+              {{ingredient.name}}
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-success m-1" (click)="toggleAddNewIngredientModal()">Save</button>
+          <button type="button" class="btn btn-danger m-1" (click)="toggleAddNewIngredientModal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>  

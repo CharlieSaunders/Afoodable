@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+ client:
+  container_name: client
+  restart: unless-stopped
+  build:
+   context: .
+   dockerfile: ./Client/Dockerfile
+  ports:
+   - "9999:9999"
+  expose:
+   - "9999"
+  networks:
+    - afoodable
+
+ server:
+  container_name: server
+  restart: unless-stopped
+  build:
+   context: .
+   dockerfile: ./Server/Dockerfile
+  ports:
+   - "9998:9998"
+  expose:
+   - "9998"
+  networks:
+   - afoodable
+
+networks:
+ afoodable:
+  ipam:
+   driver: default

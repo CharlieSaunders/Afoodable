@@ -1,0 +1,106 @@
+<br><br><br>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort class="ingredients-table">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Name </th>
+      <td mat-cell *matCellDef="let ingredient"> {{ingredient.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cost">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cost"> Cost </th>
+      <td mat-cell *matCellDef="let ingredient"> £{{ingredient.getCost()}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="servingSize">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by servingSize"> Serving Size </th>
+      <td mat-cell *matCellDef="let ingredient"> {{ingredient.servingSize}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="servingMetric">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by servingMetric"> Serving Metric </th>
+      <td mat-cell *matCellDef="let ingredient"> {{ingredient.servingMetric}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef ><button style="float: right;" mat-mini-fab class="bg-success" (click)="showNewIngredientModal()">➕</button></th>
+      <td mat-cell *matCellDef="let ingredient"> 
+        <button style="float: right;" mat-mini-fab color="warn" (click)="deleteIngredient(ingredient._id)">🗑️</button>
+        &nbsp;
+        <button style="float: right; margin-right: 5px;" mat-mini-fab color="accent" (click)="showUpdateIngredientModal(ingredient)">✏️</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator 
+    [pageSizeOptions]="[10, 5, 20]"
+    showFirstLastButtons
+    aria-label="Select page of ingredients">
+  </mat-paginator>
+</div>
+
+<div class="modal-wrapper" *ngIf="displayNewIngredientModal">
+  <div class="col-lg-3 m-auto">
+    <div class="card">
+      <div class="card-header p-1 m-1">
+        <h4 class="card-title">New Ingredient</h4>
+      </div>
+      <div class="card-body p-1 m-2">
+        <form [formGroup]="newIngredientForm" (ngSubmit)="addNewIngredient()">
+          <div class="input-group m-1">
+            <input class="form-control" type="text" autocomplete="off" placeholder="Name..." formControlName="name">
+          </div>
+          <div class="input-group m-1">
+            <input class="form-control" type="number" autocomplete="off" placeholder="Cost..." formControlName="cost">
+          </div>
+          <div class="input-group m-1">
+            <input class="form-control" type="number" autocomplete="off" placeholder="Serving size..." formControlName="servingSize">
+          </div>
+          <div class="input-group m-1">
+            <input class="form-control" type="text" autocomplete="off" placeholder="Serving metric..." formControlName="servingMetric">
+          </div>
+        </form>
+      </div>
+      <div class="card-footer p-1 m-1">
+        <button type="button" class="btn btn-success m-1" (click)="addNewIngredient()">Save</button>
+        <button type="button" class="btn btn-danger m-1" (click)="hideAllModals()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-wrapper" *ngIf="displayUpdateIngredientModal">
+  <div class="col-lg-3 m-auto">
+    <div class="card">
+      <div class="card-header p-1 m-1">
+        <h4 class="card-title">Update Ingredient</h4>
+      </div>
+      <div class="card-body p-1 m-2">
+        <form [formGroup]="updateIngredientForm" (ngSubmit)="updateExistingIngredient()">
+          <div class="input-group m-1">
+            <label class="p-2 content-center w-25" for="name">Name:</label>
+            <input class="form-control" type="text" autocomplete="off" id="name" formControlName="name">
+          </div>
+          <div class="input-group m-1">
+            <label class="p-2 content-center w-25" for="cost">Cost:</label>
+            <input class="form-control" type="number" autocomplete="off" id="cost" formControlName="cost">
+          </div>
+          <div class="input-group m-1">
+            <label class="p-2 content-center w-25" for="servingSize">Serving Size:</label>
+            <input class="form-control" type="number" autocomplete="off" id="servingSize" formControlName="servingSize">
+          </div>
+          <div class="input-group m-1">
+            <label class="p-2 content-center w-25" for="metric">Metric</label>
+            <input class="form-control" type="text" autocomplete="off" placeholder="metric" formControlName="servingMetric">
+          </div>
+        </form>
+      </div>
+      <div class="card-footer p-1 m-1">
+        <button type="button" class="btn btn-success m-1" (click)="updateExistingIngredient()">Save</button>
+        <button type="button" class="btn btn-danger m-1" (click)="hideAllModals()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
