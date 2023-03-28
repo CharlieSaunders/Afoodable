@@ -16,7 +16,7 @@ module.exports = {
         return callback(err);
       }
 
-      console.log("No error an DB is true");
+      console.log("No error and DB is true");
 
       dbConnection = database.db('afoodable');
       console.log('Successfully connected to MongoDB.');
