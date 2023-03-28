@@ -10,6 +10,7 @@ app.use(express.json());
 
 app.use(require('./Routes/recipe'));
 app.use(require('./Routes/ingredient'));
+app.use(require('./Routes/email'))
 
 dbo.connectToServer(function (err) {
   console.log("Connecting...");

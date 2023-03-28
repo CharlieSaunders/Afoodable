@@ -4,12 +4,13 @@ import { ShoppingList, ShoppingListItem } from "../types/recipes/shopping-list.t
 import { Router } from "@angular/router";
 import { RecipeService } from "../services/recipes/recipe.service";
 import { Subscription } from "rxjs";
+import { EmailService } from "../services/emails/emails.service";
 
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.css"],
-  providers: [RecipeService],
+  providers: [RecipeService, EmailService],
 })
 export class HomeComponent implements OnInit {
   private readonly subscriptions: Subscription = new Subscription();
@@ -21,7 +22,9 @@ export class HomeComponent implements OnInit {
   public recipes!: Array<Recipe>;
   public shoppingList: ShoppingList = new ShoppingList();
 
-  constructor(_router: Router, private recipeService: RecipeService) {
+  constructor(_router: Router, 
+    private recipeService: RecipeService,
+    private emailService: EmailService) {
     this.router = _router;
   }
 
