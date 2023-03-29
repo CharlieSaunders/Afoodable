@@ -19,6 +19,6 @@
                 </li>
             </ul>
         </div>
-        <button (click)="sendEmail()">Send Email</button>
+        <button type="button" class="btn btn-success m-1" *ngIf="shoppingList.items.length > 0" (click)="sendEmail()">📧 Email</button>
     </div>
 </div>
