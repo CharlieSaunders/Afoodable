@@ -2,8 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { FormHelpers } from "../helpers/form-helpers";
+import { PageHelpers } from "../helpers/page-helpers";
 import { EmailService } from "../services/emails/emails.service";
-import { EmailConfiguration } from "../types/generics/email-configuration.type";
+import { EmailConfiguration, UpdateEmailConfiguration } from "../types/generics/email-configuration.type";
 
 @Component({
   selector: "app-configuration",
@@ -35,5 +36,10 @@ export class ConfigurationComponent implements OnInit {
         this.emailConfigForm = FormHelpers.EmailConfigForm(data);
       })
     );
+  }
+
+  public saveConfig(): void {
+    var updateRequest = new UpdateEmailConfiguration(this.emailConfigForm, this.emailConfig.Template);
+    this.emailService.update(updateRequest).subscribe(() => { PageHelpers.RefreshPage() })
   }
 }

@@ -1,8 +1,10 @@
 <br><br><br>
 
 <div class="container-fluid">
+    <button mat-mini-fab color="primary" (click)="saveConfig()">💾</button>
     <div class="row" *ngIf="emailConfig">
         <div class="card-body p-1 m-2">
+            <h3>Email Configuration</h3>
             <form [formGroup]="emailConfigForm">
             <div class="input-group m-1">
                 <label class="p-2 content-center w-25" for="name">Email Name:</label>
@@ -25,8 +27,8 @@
                 <input class="form-control" type="text" autocomplete="off" id="service" formControlName="Service">
             </div>
             </form>
-
             <br>
+            <h3>Email HTML</h3>
             <ngx-monaco-editor class="h-75" [options]="codeEditorOptions" [(ngModel)]="emailConfig.Template"></ngx-monaco-editor>
         </div>
     </div>

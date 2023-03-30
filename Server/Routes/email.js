@@ -1,6 +1,7 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const dbo = require('../Data/conn');
+const mongoDb = require('mongodb');
 const GenericCache = require('./Caches/genericCache');
 const emailTemplater = require('./Services/emailTemplater');
 const { ShoppingListItem, Recipe } = require('./Types/ShoppingListTypes');
@@ -14,6 +15,27 @@ emailRoutes.route('/api/email').get(async function (_req, res){
   }else{
     res.json(await getSecretsObject());
   }
+})
+
+emailRoutes.route('/api/email').patch(async function (_req, res){
+  let docId = _req.body._id;
+  const dbConnect = dbo.getDb();
+  await dbConnect.collection('secrets').updateOne(
+    { 
+      _id: new mongoDb.ObjectId(docId) 
+    },
+    {
+      $set: { 
+        'emailName': _req.body.EmailName, 
+        'emailSubject': _req.body.Subject,
+        'emailTo': _req.body.Recipients,
+        'emailTemplate': _req.body.Template
+      }
+    }
+  );
+
+  emailCache.setSingle(await getSecretsObject());
+  res.json("Success");
 })
 
 emailRoutes.route('/api/email').post(async function (_req, res) {
@@ -52,7 +74,7 @@ emailRoutes.route('/api/email').post(async function (_req, res) {
         from: `${emailCacheResults.emailName} ${emailCacheResults.emailUser}`,
         to: emailCacheResults.emailTo,
         subject: emailCacheResults.emailSubject, 
-        html: emailTemplater.buildHtml(shoppingList, recipes, emailCacheResults.emailTemplate),
+        html: emailTemplater.buildHtml(shoppingList, recipes, emailCacheResults),
       })
       .then(info => {
         console.log("Email Sent");

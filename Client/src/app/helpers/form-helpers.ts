@@ -30,6 +30,7 @@ export class FormHelpers {
 			EmailUser: new FormControl(""),
 			Service: new FormControl(""),
 			Template: new FormControl(""),
+			_id: new FormControl("")
 		  });
 		 
 		form.controls['EmailUser'].disable();
@@ -42,6 +43,7 @@ export class FormHelpers {
 			EmailUser: emailConfig.EmailUser,
 			Service: emailConfig.Service,
 			Template: emailConfig.Template,
+			_id: emailConfig._id
 		})
 
 		return form;
