@@ -22,6 +22,7 @@ import { RecipeCardComponent } from "./components/recipe-card/recipe-card.compon
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { MatSortModule } from "@angular/material/sort";
 import { ConfigurationComponent } from "./configuration/configuration.component";
+import { MatTabsModule } from '@angular/material/tabs';
 import { MonacoEditorModule } from "ngx-monaco-editor";
 
 @NgModule({
@@ -54,6 +55,7 @@ import { MonacoEditorModule } from "ngx-monaco-editor";
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatTabsModule,
     RouterModule.forRoot([
       { path: "", component: HomeComponent, pathMatch: "full" },
       { path: "recipe/:id", component: RecipePageComponent },

@@ -29,7 +29,16 @@
             </form>
             <br>
             <h3>Email HTML</h3>
-            <ngx-monaco-editor class="h-75" [options]="codeEditorOptions" [(ngModel)]="emailConfig.Template"></ngx-monaco-editor>
+            <mat-tab-group class="bg-dark">
+                <mat-tab label="Editor">
+                    <ngx-monaco-editor style="height: 35vh" [options]="codeEditorOptions" [(ngModel)]="emailConfig.Template"></ngx-monaco-editor>
+                </mat-tab>
+                <mat-tab label="Preview">
+                    <div>
+                        <iframe style="height: 35vh; width: 100%" class="center" id="editorPreview" frameborder="0" srcdoc="{{emailConfig.Template}}"></iframe>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
         </div>
     </div>
 </div>
