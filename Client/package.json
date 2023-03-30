@@ -32,6 +32,8 @@
     "eslint-plugin-prettier": "4.2.1",
     "jquery": "3.6.3",
     "json5": "2.2.3",
+    "monaco-editor": "^0.36.1",
+    "ngx-monaco-editor": "^12.0.0",
     "ngx-toastr": "16.0.2",
     "oidc-client": "1.11.5",
     "prettier": "2.8.3",

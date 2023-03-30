@@ -22,6 +22,7 @@ import { RecipeCardComponent } from "./components/recipe-card/recipe-card.compon
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { MatSortModule } from "@angular/material/sort";
 import { ConfigurationComponent } from "./configuration/configuration.component";
+import { MonacoEditorModule } from "ngx-monaco-editor";
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { ConfigurationComponent } from "./configuration/configuration.component"
       { path: "configuration", component: ConfigurationComponent }
     ]),
     NgbModule,
-    DragDropModule
+    DragDropModule,
+    MonacoEditorModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],

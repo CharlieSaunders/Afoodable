@@ -16,6 +16,15 @@ export class ConfigurationComponent implements OnInit {
   public emailConfig!: EmailConfiguration;
   public emailConfigForm!: FormGroup;
   
+  public code: string = '';
+  public codeEditorOptions = {
+    theme: 'vs-dark',
+    language: 'html',
+    minimap: { enabled: false },
+    automaticLayout: true,
+    scrollBeyondLastLine: false
+  };
+
   constructor(private emailService: EmailService) {
   }
 
