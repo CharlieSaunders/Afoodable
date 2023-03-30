@@ -42,7 +42,6 @@ class GenericCache {
 }
 
 class CacheLogger {
-    // Set foreground colour, then use string interpolation '%s' then set the text colour back to white
     static LogSetup(cacheName){
         console.log('\x1b[32m%s\x1b[0m', `==> Setup cache objects for ${cacheName}`);
     }
