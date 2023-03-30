@@ -8,7 +8,8 @@ export class EmailConfiguration {
     Service: string;
     Template: string;
     _id: string;
-    constructor(emailName: string, subject: string, recipients: string, emailUser: string, service: string, template: string, id: string){
+    EmailEnabled: boolean;
+    constructor(emailName: string, subject: string, recipients: string, emailUser: string, service: string, template: string, id: string, enabled: boolean){
         this.EmailName = emailName;
         this.Subject = subject;
         this.Recipients = recipients;
@@ -16,6 +17,7 @@ export class EmailConfiguration {
         this.Service = service;
         this.Template = template;
         this._id = id;
+        this.EmailEnabled = enabled;
     }
 }
 
@@ -27,6 +29,7 @@ export class UpdateEmailConfiguration {
     Service: string;
     Template: string;
     _id: string;
+    EmailEnabled: boolean;
     constructor(formGroup: FormGroup, template: string){
         this.EmailName = formGroup.value.EmailName;
         this.Subject = formGroup.value.Subject;
@@ -35,11 +38,12 @@ export class UpdateEmailConfiguration {
         this.Service = formGroup.value.Service;
         this.Template = template;
         this._id = formGroup.value._id;
+        this.EmailEnabled = formGroup.value.EmailEnabled;
     }
 }
 
 export class EmailConfigurationMapper {
     public static Map(result: any): EmailConfiguration {
-        return new EmailConfiguration(result.emailName, result.emailSubject, result.emailTo, result.emailUser, result.emailService, result.emailTemplate, result._id);
+        return new EmailConfiguration(result.emailName, result.emailSubject, result.emailTo, result.emailUser, result.emailService, result.emailTemplate, result._id, result.emailEnabled);
     }
 }

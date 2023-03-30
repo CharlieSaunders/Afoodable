@@ -29,7 +29,8 @@ emailRoutes.route('/api/email').patch(async function (_req, res){
         'emailName': _req.body.EmailName, 
         'emailSubject': _req.body.Subject,
         'emailTo': _req.body.Recipients,
-        'emailTemplate': _req.body.Template
+        'emailTemplate': _req.body.Template,
+        'emailEnabled': _req.body.EmailEnabled
       }
     }
   );
@@ -62,6 +63,11 @@ emailRoutes.route('/api/email').post(async function (_req, res) {
       emailCacheResults = await getSecretsObject();
     }
     
+    if(!emailCacheResults.emailEnabled){
+      console.log("Emails disabled through config");
+      return res.json("Disabled through config");
+    }
+
     const transporter = nodemailer.createTransport({
       service: emailCacheResults.emailService,
       auth: {
