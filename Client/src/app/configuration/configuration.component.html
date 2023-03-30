@@ -1,0 +1,30 @@
+<br><br><br>
+
+<div class="container-fluid">
+    <div class="row" *ngIf="emailConfig">
+        <div class="card-body p-1 m-2">
+            <form [formGroup]="emailConfigForm">
+            <div class="input-group m-1">
+                <label class="p-2 content-center w-25" for="name">Email Name:</label>
+                <input class="form-control" type="text" autocomplete="off" id="name" formControlName="EmailName">
+            </div>
+            <div class="input-group m-1">
+                <label class="p-2 content-center w-25" for="Subject">Subject:</label>
+                <input class="form-control" type="text" autocomplete="off" id="subject" formControlName="Subject">
+            </div>
+            <div class="input-group m-1">
+                <label class="p-2 content-center w-25" for="description">Recipients:</label>
+                <input class="form-control" type="text" autocomplete="off" id="recipients" formControlName="Recipients">
+            </div>
+            <div class="input-group m-1">
+                <label class="p-2 content-center w-25" for="description">Email User:</label>
+                <input class="form-control" type="text" autocomplete="off" id="emailUser" formControlName="EmailUser" contenteditable="false">
+            </div>
+            <div class="input-group m-1">
+                <label class="p-2 content-center w-25" for="description">Service:</label>
+                <input class="form-control" type="text" autocomplete="off" id="service" formControlName="Service">
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

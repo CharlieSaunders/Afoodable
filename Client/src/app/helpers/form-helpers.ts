@@ -1,4 +1,5 @@
 import { FormControl, FormGroup } from "@angular/forms";
+import { EmailConfiguration } from "../types/generics/email-configuration.type";
 
 export class FormHelpers {
 	public static NewIngredientForm() : FormGroup {
@@ -19,5 +20,30 @@ export class FormHelpers {
 		    servingMetric: new FormControl(""),
 		    _id: new FormControl(""),
 		  })
+	}
+
+	public static EmailConfigForm(emailConfig: EmailConfiguration): FormGroup {
+		let form = new FormGroup({
+			EmailName: new FormControl(""),
+			Subject: new FormControl(""),
+			Recipients: new FormControl(""),
+			EmailUser: new FormControl(""),
+			Service: new FormControl(""),
+			Template: new FormControl(""),
+		  });
+		 
+		form.controls['EmailUser'].disable();
+		form.controls['Service'].disable();
+
+		form.setValue({
+			EmailName: emailConfig.EmailName,
+			Subject: emailConfig.Subject,
+			Recipients: emailConfig.Recipients,
+			EmailUser: emailConfig.EmailUser,
+			Service: emailConfig.Service,
+			Template: emailConfig.Template,
+		})
+
+		return form;
 	}
 }

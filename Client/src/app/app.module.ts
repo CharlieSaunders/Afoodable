@@ -21,6 +21,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { RecipeCardComponent } from "./components/recipe-card/recipe-card.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { MatSortModule } from "@angular/material/sort";
+import { ConfigurationComponent } from "./configuration/configuration.component";
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MatSortModule } from "@angular/material/sort";
     FilterIngredientNamePipe,
     RecipeCardComponent,
     SidebarComponent,
+    ConfigurationComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -56,6 +58,7 @@ import { MatSortModule } from "@angular/material/sort";
       { path: "recipe/:id", component: RecipePageComponent },
       { path: "recipes", component: RecipesComponent },
       { path: "ingredients", component: IngredientsComponent },
+      { path: "configuration", component: ConfigurationComponent }
     ]),
     NgbModule,
     DragDropModule

@@ -8,6 +8,14 @@ const { ShoppingListItem, Recipe } = require('./Types/ShoppingListTypes');
 const emailRoutes = express.Router();
 const emailCache = new GenericCache("Email Cache", true);
 
+emailRoutes.route('/api/email').get(async function (_req, res){
+  if(emailCache.setup){
+    res.json(emailCache.get()[0]);
+  }else{
+    res.json(await getSecretsObject());
+  }
+})
+
 emailRoutes.route('/api/email').post(async function (_req, res) {
     let shoppingListItems = _req.body.ShoppingList.items
     if(shoppingListItems.length == 0){

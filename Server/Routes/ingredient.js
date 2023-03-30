@@ -14,7 +14,6 @@ ingredientRoutes.route('/api/ingredients').get(async function (_req, res) {
     const dbConnect = dbo.getDb();
     await dbConnect.collection('ingredients')
       .find({})
-      .limit(50)
       .toArray(function (err, result) {
       if (err) {
         res.status(400).send('Error fetching listings!');
