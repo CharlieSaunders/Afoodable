@@ -2,46 +2,46 @@
 <mat-tab-group style="overflow: hidden">
     <mat-tab label="Emails">
         <div class="p-2 m-2" *ngIf="emailConfig">
-                <h3>Email Configuration</h3>
-                <form [formGroup]="emailConfigForm">
-                <div class="input-group m-1">
-                    <label class="p-2 content-center w-25" for="name">Email Name:</label>
-                    <input class="form-control" type="text" autocomplete="off" id="name" formControlName="EmailName">
-                </div>
-                <div class="input-group m-1">
-                    <label class="p-2 content-center w-25" for="Subject">Subject:</label>
-                    <input class="form-control" type="text" autocomplete="off" id="subject" formControlName="Subject">
-                </div>
-                <div class="input-group m-1">
-                    <label class="p-2 content-center w-25" for="description">Recipients:</label>
-                    <input class="form-control" type="text" autocomplete="off" id="recipients" formControlName="Recipients">
-                </div>
-                <div class="input-group m-1">
-                    <label class="p-2 content-center w-25" for="description">Email User:</label>
-                    <input class="form-control" type="text" autocomplete="off" id="emailUser" formControlName="EmailUser" contenteditable="false">
-                </div>
-                <div class="input-group m-1">
-                    <label class="p-2 content-center w-25" for="description">Service:</label>
-                    <input class="form-control" type="text" autocomplete="off" id="service" formControlName="Service">
-                </div>
-                <div class="input-group m-1">
-                    <label class="p-2 content-center w-25" for="enabled">Email Enabled:</label>
-                    <input type="checkbox" id="enabled" formControlName="EmailEnabled"/>
-                </div>
-                </form>
-                <br>
-                <h3>Email HTML</h3>
-                <mat-tab-group class="bg-dark p-2">
-                    <mat-tab label="Editor">
-                        <ngx-monaco-editor style="height: 45vh" [options]="codeEditorOptions" [(ngModel)]="emailConfig.Template"></ngx-monaco-editor>
-                    </mat-tab>
-                    <mat-tab label="Preview">
-                        <div>
-                            <iframe style="height: 45vh; width: 100%" class="center" id="editorPreview" frameborder="0" srcdoc="{{emailConfig.Template}}"></iframe>
-                        </div>
-                    </mat-tab>
-                </mat-tab-group>
-                <button class="p-2 m-2 " mat-mini-fab color="primary" (click)="saveConfig()">💾</button>
+            <h3>Email Configuration</h3>
+            <form [formGroup]="emailConfigForm">
+            <div class="input-group m-1">
+                <label class="p-2 content-center w-25" for="name">Email Name:</label>
+                <input class="form-control" type="text" autocomplete="off" id="name" formControlName="EmailName">
+            </div>
+            <div class="input-group m-1">
+                <label class="p-2 content-center w-25" for="Subject">Subject:</label>
+                <input class="form-control" type="text" autocomplete="off" id="subject" formControlName="Subject">
+            </div>
+            <div class="input-group m-1">
+                <label class="p-2 content-center w-25" for="description">Recipients:</label>
+                <input class="form-control" type="text" autocomplete="off" id="recipients" formControlName="Recipients">
+            </div>
+            <div class="input-group m-1">
+                <label class="p-2 content-center w-25" for="description">Email User:</label>
+                <input class="form-control" type="text" autocomplete="off" id="emailUser" formControlName="EmailUser" contenteditable="false">
+            </div>
+            <div class="input-group m-1">
+                <label class="p-2 content-center w-25" for="description">Service:</label>
+                <input class="form-control" type="text" autocomplete="off" id="service" formControlName="Service">
+            </div>
+            <div class="input-group m-1">
+                <label class="p-2 content-center w-25" for="enabled">Email Enabled:</label>
+                <input type="checkbox" id="enabled" formControlName="EmailEnabled"/>
+            </div>
+            </form>
+            <br>
+            <h3>Email HTML</h3>
+            <mat-tab-group class="bg-dark p-2">
+                <mat-tab label="Editor">
+                    <ngx-monaco-editor style="height: 45vh" [options]="codeEditorOptions" [(ngModel)]="emailConfig.Template"></ngx-monaco-editor>
+                </mat-tab>
+                <mat-tab label="Preview">
+                    <div>
+                        <iframe style="height: 45vh; width: 100%" class="center" id="editorPreview" frameborder="0" srcdoc="{{emailConfig.Template}}"></iframe>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+            <button class="p-2 m-2 " mat-mini-fab color="primary" (click)="saveConfig()">💾</button>
         </div>
     </mat-tab>
 </mat-tab-group>
