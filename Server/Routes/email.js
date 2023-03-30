@@ -44,14 +44,14 @@ emailRoutes.route('/api/email').post(async function (_req, res) {
         from: `${emailCacheResults.emailName} ${emailCacheResults.emailUser}`,
         to: emailCacheResults.emailTo,
         subject: emailCacheResults.emailSubject, 
-        html: emailTemplater.buildHtml(shoppingList, recipes),
+        html: emailTemplater.buildHtml(shoppingList, recipes, emailCacheResults.emailTemplate),
       })
       .then(info => {
         console.log("Email Sent");
       })
       .catch(console.error);
 
-    return res.json("Success");
+    return res.json("Email attempted");
 })
 
 async function getSecretsObject(){
