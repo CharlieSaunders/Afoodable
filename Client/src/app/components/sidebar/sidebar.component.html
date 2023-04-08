@@ -14,11 +14,11 @@
             <br>
             <h4 style="text-decoration: underline">Shopping List</h4>
             <ul style="list-style: none">
-                <li *ngFor="let item of shoppingList.items">
-                    <span *ngIf="(item.amount > 0)">{{item.getShoppingListString()}}</span>
+                <li *ngFor="let item of shoppingList.items | keyvalue">
+                    <span *ngIf="(item.value.amount > 0)">{{item.value.getShoppingListString()}}</span>
                 </li>
             </ul>
         </div>
-        <button type="button" class="btn btn-success m-1" *ngIf="shoppingList.items.length > 0" (click)="sendEmail()">📧 Email</button>
+        <button type="button" class="btn btn-success m-1" *ngIf="shoppingListHasAtLeastOneItem()" (click)="sendEmail()">📧 Email</button>
     </div>
 </div>

@@ -46,9 +46,10 @@ emailRoutes.route('/api/email').post(async function (_req, res) {
     }
 
     let shoppingList = [];
-    shoppingListItems.forEach(item => {
+    for(const key in shoppingListItems){
+      const item = shoppingListItems[key];
       shoppingList.push(new ShoppingListItem(item.name, item.amount, item.servingMetric, item.servingSize));
-    });
+    };
 
     let recipeItems = _req.body.Recipes;
     let recipes = [];

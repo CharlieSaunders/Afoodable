@@ -1,39 +1,39 @@
 import { RecipeItem } from "./recipe.type";
 
 export class ShoppingList {
-  items: Array<ShoppingListItem>;
+  items:  { [id: string] : ShoppingListItem ; };
 
   constructor() {
-    this.items = [];
+    this.items = {};
   }
 
   public add(newItem: ShoppingListItem): void {
     let added = false;
-    this.items.forEach((item) => {
-      if (newItem.name == item.name) {
-        item.amount += newItem.amount;
-        added = true;
-      }
-    });
-
-    if (!added) {
-      this.items.push(newItem);
+    const exists = this.items[newItem._id] != undefined;
+    if(exists){
+      this.items[newItem._id].amount += newItem.amount;
+    }else{
+      this.items[newItem._id] = newItem;
     }
   }
 
   public remove(itemToRemove: ShoppingListItem): void {
-    this.items.forEach((item) => {
-      if (item.name == itemToRemove.name) {
-        item.amount -= itemToRemove.amount;
+    const exists = this.items[itemToRemove._id] != undefined;
+    if(exists){
+      let node = this.items[itemToRemove._id];
+      node.amount -= itemToRemove.amount;
+      if(node.amount === 0){
+        delete this.items[itemToRemove._id];
       }
-    });
+    }
   }
 
   public getTotalCost(): string {
     let runningTotal = 0;
-    this.items.forEach((item) => {
-      runningTotal += item.amount * item.costPerItem;
-    });
+    for(const key in this.items) {
+      const node = this.items[key];
+      runningTotal += node.amount * node.costPerItem;
+    }
     return runningTotal.toFixed(2);
   }
 }
@@ -45,6 +45,7 @@ export class ShoppingListItem {
   costPerItem: number;
   servingSize: number;
   servingMetric: string;
+  _id: string;
   constructor(_recipeItem: RecipeItem) {
     this.name = _recipeItem.name;
     this.item = _recipeItem;
@@ -52,6 +53,7 @@ export class ShoppingListItem {
     this.costPerItem = _recipeItem.cost;
     this.servingSize = _recipeItem.servingSize;
     this.servingMetric = _recipeItem.servingMetric;
+    this._id = _recipeItem._id;
   }
 
   public getShoppingListString(): string {

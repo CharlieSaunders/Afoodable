@@ -27,4 +27,8 @@ export class SidebarComponent{
     })
     this.emailService.send(this.shoppingList, selectedRecipes).subscribe(() => { PageHelpers.RefreshPage() });
   }
+
+  public shoppingListHasAtLeastOneItem(): boolean {
+    return Object.keys(this.shoppingList.items).length > 0;
+  }
 }
