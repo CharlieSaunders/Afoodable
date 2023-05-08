@@ -4,13 +4,14 @@ import { ShoppingList, ShoppingListItem } from "../types/recipes/shopping-list.t
 import { Router } from "@angular/router";
 import { RecipeService } from "../services/recipes/recipe.service";
 import { Subscription } from "rxjs";
-import { EmailService } from "../services/emails/emails.service";
+import { RecipeTagService } from "../services/recipes/recipe-tag.service";
+import { RecipeTag } from "../types/recipes/recipe-tag.type";
 
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.css"],
-  providers: [RecipeService, EmailService],
+  providers: [RecipeService, RecipeTagService],
 })
 export class HomeComponent implements OnInit {
   private readonly subscriptions: Subscription = new Subscription();
@@ -21,10 +22,11 @@ export class HomeComponent implements OnInit {
   public totalSelectedRecipes = 0;
   public recipes!: Array<Recipe>;
   public shoppingList: ShoppingList = new ShoppingList();
+  public recipeTags!: Array<RecipeTag>;
 
   constructor(_router: Router, 
     private recipeService: RecipeService,
-    private emailService: EmailService) {
+    private recipeTagService: RecipeTagService) {
     this.router = _router;
   }
 
@@ -34,6 +36,12 @@ export class HomeComponent implements OnInit {
         this.recipes = data;
       })
     );
+
+    this.subscriptions.add(
+      this.recipeTagService.getAll().subscribe((data: Array<RecipeTag>) => {
+        this.recipeTags = data;
+      })
+    )
   }
 
   public toggleSidebar = (): void => {

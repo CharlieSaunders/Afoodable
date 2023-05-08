@@ -50,4 +50,11 @@ export class FormHelpers {
 
 		return form;
 	}
+
+	
+	public static RecipeTagForm() : FormGroup {
+		return new FormGroup({
+		    Name: new FormControl("")
+		})
+	}
 }

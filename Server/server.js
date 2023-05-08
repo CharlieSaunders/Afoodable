@@ -8,6 +8,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+app.use(require('./Routes/recipeTags'));
 app.use(require('./Routes/recipe'));
 app.use(require('./Routes/ingredient'));
 app.use(require('./Routes/email'))
