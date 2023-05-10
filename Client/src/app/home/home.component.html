@@ -14,7 +14,9 @@
         <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for a specific recipe...">
     </div>
     <div *ngIf="recipeTags">
-        <span *ngFor="let tag of recipeTags" class="badge m-1 bg-dark">{{tag.Name}}</span>
+        <div class="m-1" >
+            <app-recipe-tag *ngFor="let tag of recipeTags" [recipeTag]="tag"></app-recipe-tag>
+        </div>
     </div>
 
     <div class="col-lg-3 col-sm-5 p-2" *ngFor="let recipe of recipes | filterRecipeNamePipe : searchText">

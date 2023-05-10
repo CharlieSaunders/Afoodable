@@ -24,6 +24,7 @@ import { MatSortModule } from "@angular/material/sort";
 import { ConfigurationComponent } from "./configuration/configuration.component";
 import { MatTabsModule } from '@angular/material/tabs';
 import { MonacoEditorModule } from "ngx-monaco-editor";
+import { RecipeTagComponent } from "./components/recipe-tag/recipe-tag.component";
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MonacoEditorModule } from "ngx-monaco-editor";
     RecipeCardComponent,
     SidebarComponent,
     ConfigurationComponent,
+    RecipeTagComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
