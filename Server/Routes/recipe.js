@@ -4,6 +4,7 @@ const dbo = require('../Data/conn');
 const GenericCache = require('./Caches/genericCache');
 
 let mongoDb = require('mongodb');
+const { ingredientsCache } = require('./ingredient');
 let recipeRoutes = express.Router();
 let recipesCache = new GenericCache("Recipe Cache");
 
@@ -20,22 +21,45 @@ let upload = multer({storage: storage});
 
 // GET ALL RECIPES
 recipeRoutes.route('/api/recipes').get(async function (_req, res) {
-  if(recipesCache.setup){
-    res.json(recipesCache.get());
-  }else{
+  let recipes;
+  let ingredients;
+
+  if(!recipesCache.setup){
     const dbConnect = dbo.getDb();
-    await dbConnect
+    let getRecipesCall = dbConnect
       .collection('recipes')
       .find({})
-      .toArray(function (err, result) {
-      if (err) {
-        res.status(400).send('Error fetching listings!');
-        } else {
-        res.json(result);
-        recipesCache.set(result);
-      }
-    });
+      .toArray();
+
+    recipesCache.set(await getRecipesCall);
   }
+
+  if(!ingredientsCache.setup){
+    const dbConnect = dbo.getDb();
+    let getIngredientsCall = dbConnect
+    .collection('ingredients')
+    .find({})
+    .toArray();
+
+    ingredientsCache.set(await getIngredientsCall);
+  }
+
+  recipes = recipesCache.get();
+  ingredients = ingredientsCache.get();
+  
+  recipes.forEach(recipe => {
+    let newIngredients = [];
+    recipe.ingredients.forEach(ingredient => {
+      let ingredientObject = JSON.parse(ingredient);
+      let matchingIngredient = ingredientsCache.getSingle(ingredientObject._id);
+      matchingIngredient.quantity = ingredientObject.quantity;
+      newIngredients.push(JSON.stringify(matchingIngredient));
+    })
+    recipe.ingredients = newIngredients;
+  })
+
+  recipesCache.set(recipes);
+  res.json(recipesCache.get());
 });
 
 // GET RECIPE BY ID

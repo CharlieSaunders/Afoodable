@@ -4,7 +4,7 @@ const dbo = require('../Data/conn');
 const GenericCache = require('./Caches/genericCache');
 
 let mongoDb = require('mongodb');
-let ingredientsCache = new GenericCache("Ingredient Cache")
+const ingredientsCache = new GenericCache("Ingredient Cache")
 
 // GET ALL INGREDIENTS
 ingredientRoutes.route('/api/ingredients').get(async function (_req, res) {
@@ -79,4 +79,5 @@ async function getSingleIngredient(id){
   return ingredient;
 }
 
-module.exports = ingredientRoutes;
+module.exports.ingredientRoutes = ingredientRoutes;
+exports.ingredientsCache = ingredientsCache;
