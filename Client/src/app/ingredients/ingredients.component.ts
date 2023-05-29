@@ -62,6 +62,10 @@ export class IngredientsComponent implements AfterViewInit {
         cost: ingredient.cost,
         servingSize: ingredient.servingSize,
         servingMetric: ingredient.servingMetric,
+        calories: ingredient.calories ?? 0,
+        carbohydrates: ingredient.carbohydrates ?? 0,
+        fat: ingredient.fat ?? 0,
+        protein: ingredient.protein ?? 0,
         _id: ingredient._id,
       });
     }
@@ -78,7 +82,11 @@ export class IngredientsComponent implements AfterViewInit {
       this.updateIngredientForm.value.cost,
       this.updateIngredientForm.value.servingSize,
       this.updateIngredientForm.value.servingMetric,
-      this.updateIngredientForm.value._id
+      this.updateIngredientForm.value._id,
+      this.updateIngredientForm.value.calories,
+      this.updateIngredientForm.value.fat,
+      this.updateIngredientForm.value.carbohydrates, 
+      this.updateIngredientForm.value.protein
     );
 
     const updated = this.ingredientService
@@ -114,6 +122,10 @@ export class IngredientsComponent implements AfterViewInit {
         this.newIngredientForm.value.cost,
         this.newIngredientForm.value.servingSize,
         this.newIngredientForm.value.servingMetric,
+        this.newIngredientForm.value.calories,
+        this.newIngredientForm.value.fat,
+        this.newIngredientForm.value.carbohydrates,
+        this.newIngredientForm.value.protein,
         this.newIngredientForm.value._id
       );
 

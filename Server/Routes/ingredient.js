@@ -33,7 +33,11 @@ ingredientRoutes.route('/api/ingredients').post(async function (_req, res) {
         'name': _req.body.name, 
         'cost': _req.body.cost,
         'servingSize': _req.body.servingSize,
-        'servingMetric': _req.body.servingMetric
+        'servingMetric': _req.body.servingMetric,
+        'fat': _req.body.fat,
+        'calories': _req.body.calories,
+        'carbohydrates': _req.body.carbohydrates,
+        'protein': _req.body.protein
       }
   );
   ingredientsCache.setSingle(await getSingleIngredient(newIngredient.insertedId.toString()));
@@ -52,7 +56,11 @@ ingredientRoutes.route('/api/ingredients').patch(async function(_req, res) {
         'name': _req.body.name, 
         'cost': _req.body.cost,
         'servingSize': _req.body.servingSize,
-        'servingMetric': _req.body.servingMetric
+        'servingMetric': _req.body.servingMetric,
+        'calories': _req.body.calories,
+        'carbohydrates': _req.body.carbohydrates,
+        'protein': _req.body.protein,
+        'fat': _req.body.fat
       }
     }
   );

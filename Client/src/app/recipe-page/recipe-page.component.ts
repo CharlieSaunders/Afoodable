@@ -24,7 +24,6 @@ export class RecipePageComponent implements OnInit{
   public recipe!: Recipe;
   public displayAddNewIngredientModal: boolean = false;
   public editMode = false;
-  public hasBeenRated = false;
   public newStepString = "";
 
   constructor(
@@ -141,34 +140,6 @@ export class RecipePageComponent implements OnInit{
   public deleteRecipeStep(index: number): void {
     this.recipe.steps.splice(index, 1);
     this.toasterService.success("Deleted step");
-  }
-
-  public newRating(rating: number): void {
-    this.hasBeenRated = true;
-    let newRating = 0;
-    const newRatings = this.recipe.ratings + 1;
-
-    if (this.recipe.rating > 0 && this.recipe.ratings > 0) {
-      const total = this.recipe.rating * this.recipe.ratings + rating;
-      newRating = total / newRatings;
-    }
-    else {
-      newRating = rating;
-    }
-
-    const updated = this.recipeService.addRating(this.recipe._id, newRating, newRatings).subscribe((data: UpdateResponse) => {
-      return data.acknowledged;
-    });
-
-    if (updated) {
-      this.toasterService.success(`Successfully added rating`);
-    }
-    else {
-      this.toasterService.warning(`Failed to add rating`);
-    }
-
-    this.editMode = false;
-    this.ngOnInit();
   }
 
   public onFileChanged(event: any): void {

@@ -67,7 +67,11 @@ class IngredientMapper {
           ingredient.cost,
           ingredient.servingSize,
           ingredient.servingMetric,
-          ingredient._id
+          ingredient._id,
+          ingredient.calories,
+          ingredient.fat, 
+          ingredient.carbohydrates,
+          ingredient.protein
         )
       );
     });
@@ -82,7 +86,12 @@ class IngredientMapper {
           ingredient.cost,
           ingredient.servingSize,
           ingredient.servingMetric,
-          ingredient._id
+          ingredient._id,
+          ingredient.calories,
+          ingredient.fat, 
+          ingredient.carbohydrates,
+          ingredient.protein
+
         );
     });
 

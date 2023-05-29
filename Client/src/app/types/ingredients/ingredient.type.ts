@@ -18,12 +18,21 @@ export class Ingredient {
   cost: number;
   servingSize: number;
   servingMetric: string;
+  calories: number;
+  fat: number;
+  carbohydrates: number;
+  protein: number;
   _id: string;
-  constructor(_name: string, _cost: number, _servingSize: number, _servingMetric: string, _id: string) {
+  constructor(_name: string, _cost: number, _servingSize: number, _servingMetric: string, _id: string, 
+    _calories: number, _fat: number, _carbs: number, _protein: number) {
     this.name = _name;
     this.cost = _cost;
     this.servingSize = _servingSize;
     this.servingMetric = _servingMetric;
+    this.calories = _calories;
+    this.fat = _fat;
+    this.carbohydrates = _carbs;
+    this.protein = _protein;
     this._id = _id;
   }
 
@@ -33,7 +42,7 @@ export class Ingredient {
 }
 
 export class IngredientBuilder {
-  public static fromForm(name: any, cost: any, servingSize: any, servingMetric: any, id: any): Ingredient {
-    return new Ingredient(name, cost, servingSize, servingMetric, id);
+  public static fromForm(name: any, cost: any, servingSize: any, servingMetric: any, id: any, calories: any, fat: any, carbohydrates: any, protein: any): Ingredient {
+    return new Ingredient(name, cost, servingSize, servingMetric, id, calories, fat, carbohydrates, protein);
   }
 }

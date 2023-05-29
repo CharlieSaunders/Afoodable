@@ -61,6 +61,18 @@
           <div class="input-group m-1">
             <input class="form-control" type="text" autocomplete="off" placeholder="Serving metric..." formControlName="servingMetric">
           </div>
+          <div class="input-group m-1">
+            <input class="form-control" type="number" autocomplete="off" placeholder="Serving metric..." formControlName="calories">
+          </div>
+          <div class="input-group m-1">
+            <input class="form-control" type="number" autocomplete="off" placeholder="Calories..." formControlName="protein">
+          </div>
+          <div class="input-group m-1">
+            <input class="form-control" type="number" autocomplete="off" placeholder="Carbohydrates.." formControlName="carbohydrates">
+          </div>
+          <div class="input-group m-1">
+            <input class="form-control" type="number" autocomplete="off" placeholder="Fat..." formControlName="fat">
+          </div>
         </form>
       </div>
       <div class="card-footer p-1 m-1">
@@ -72,7 +84,7 @@
 </div>
 
 <div class="modal-wrapper" *ngIf="displayUpdateIngredientModal">
-  <div class="col-lg-3 m-auto">
+  <div class="col-lg-4 m-auto">
     <div class="card">
       <div class="card-header p-1 m-1">
         <h4 class="card-title">Update Ingredient</h4>
@@ -93,7 +105,23 @@
           </div>
           <div class="input-group m-1">
             <label class="p-2 content-center w-25" for="metric">Metric</label>
-            <input class="form-control" type="text" autocomplete="off" placeholder="metric" formControlName="servingMetric">
+            <input class="form-control" type="text" autocomplete="off" id="metric" formControlName="servingMetric">
+          </div>
+          <div class="input-group m-1">
+            <label class="p-2 content-center w-25" for="calories">Calories</label>
+            <input class="form-control" type="number" autocomplete="off" id="Calories..." formControlName="calories">
+          </div>
+          <div class="input-group m-1">
+            <label class="p-2 content-center w-25" for="protein">Protein</label>
+            <input class="form-control" type="number" autocomplete="off" id="Protein..." formControlName="protein">
+          </div>
+          <div class="input-group m-1">
+            <label class="p-2 content-center w-25" for="carbohydrates">Carbs</label>
+            <input class="form-control" type="number" autocomplete="off" id="Carbohydrates.." formControlName="carbohydrates">
+          </div>
+          <div class="input-group m-1">
+            <label class="p-2 content-center w-25" for="metric">Fat</label>
+            <input class="form-control" type="number" autocomplete="off" id="Fat..." formControlName="fat">
           </div>
         </form>
       </div>

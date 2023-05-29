@@ -8,18 +8,16 @@ export class FormHelpers {
 		    cost: new FormControl(""),
 		    servingSize: new FormControl(""),
 		    servingMetric: new FormControl(""),
+		    calories: new FormControl(""),
+		    carbohydrates: new FormControl(""),
+		    fat: new FormControl(""),
+		    protein: new FormControl(""),
 		    _id: new FormControl(""),
 		  });
 	}
 
 	public static UpdateIngredientForm() : FormGroup {
-		return new FormGroup({
-		    name: new FormControl(""),
-		    cost: new FormControl(0),
-		    servingSize: new FormControl(0),
-		    servingMetric: new FormControl(""),
-		    _id: new FormControl(""),
-		  })
+		return FormHelpers.NewIngredientForm();
 	}
 
 	public static EmailConfigForm(emailConfig: EmailConfiguration): FormGroup {
