@@ -104,7 +104,11 @@ class RecipeMapper {
           recipe._id,
           recipe.steps,
           recipe.description,
-          recipe.serves
+          recipe.serves,
+          recipe.calories,
+          recipe.fat,
+          recipe.carbohydrates,
+          recipe.protein
         )
       );
     });
@@ -142,7 +146,11 @@ class RecipeMapper {
       result._id,
       result.steps,
       result.description,
-      result.serves
+      result.serves,
+      result.calories,
+      result.fat,
+      result.carbohydrates,
+      result.protein
     );
   }
 }

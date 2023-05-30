@@ -49,10 +49,18 @@ recipeRoutes.route('/api/recipes').get(async function (_req, res) {
   
   recipes.forEach(recipe => {
     let newIngredients = [];
+    recipe.protein = 0;
+    recipe.fat = 0;
+    recipe.carbohydrates = 0;
+    recipe.calories = 0;
     recipe.ingredients.forEach(ingredient => {
       let ingredientObject = JSON.parse(ingredient);
       let matchingIngredient = ingredientsCache.getSingle(ingredientObject._id);
       matchingIngredient.quantity = ingredientObject.quantity;
+      recipe.protein += matchingIngredient.protein * matchingIngredient.quantity;
+      recipe.fat += matchingIngredient.fat * matchingIngredient.quantity;
+      recipe.carbohydrates += matchingIngredient.carbohydrates * matchingIngredient.quantity;
+      recipe.calories += matchingIngredient.calories * matchingIngredient.quantity;
       newIngredients.push(JSON.stringify(matchingIngredient));
     })
     recipe.ingredients = newIngredients;
