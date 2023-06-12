@@ -1,6 +1,6 @@
 nav{
   height: 5vh;
-  z-index: 1000;
+  z-index: -1;
 }
 
 a.navbar-brand {

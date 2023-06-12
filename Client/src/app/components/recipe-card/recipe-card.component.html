@@ -1,17 +1,18 @@
-            <div class="col-md-12">
-                <div class="card profile-card-3">
-                    <div class="background-block">
-                        <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" class="background"/>
-                    </div>
-                    <div class="card-content">
-                        <h2>{{recipe.name}}</h2>
-                        <div class="icon-block">
-                            <span>🔥 {{recipe.calories.split(".")[0]}} | </span>
-                            <span>🍔 {{recipe.fat}} | </span>
-                            <span>🥩 {{recipe.protein}}</span>
-                        </div>
-                        <br><br>
-                        <small>~£{{recipe.totalCost}}</small>
-                    </div>
-                </div>
+<div class="col-md-12 m-2 p-2">
+    <div class="card recipeCard">
+        <div class="background-block">
+            <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" class="background"/>
+        </div>
+        <div class="card-content">
+            <h2>{{recipe.name}}</h2>
+            <div class="icon-block">
+                <span>🔥 {{recipe.calories.split(".")[0]}} | </span>
+                <span>🍔 {{recipe.fat}} | </span>
+                <span>🥩 {{recipe.protein}}</span>
             </div>
+            <br><br>
+            <small>~£{{recipe.totalCost}}</small>
+        </div>
+
+    </div>
+</div>
