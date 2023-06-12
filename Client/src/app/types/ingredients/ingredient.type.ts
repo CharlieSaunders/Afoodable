@@ -46,3 +46,4 @@ export class IngredientBuilder {
     return new Ingredient(name, cost, servingSize, servingMetric, id, calories, fat, carbohydrates, protein);
   }
 }
+
