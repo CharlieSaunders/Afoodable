@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "prestart": "node",
-    "start": "run-script-os",
+    "start": "ng serve",
     "build": "ng build",
     "build:ssr": "ng run Afoodable:server:dev",
     "watch": "ng build --watch --configuration development",
