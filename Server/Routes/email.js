@@ -7,7 +7,7 @@ const emailTemplater = require('./Services/emailTemplater');
 const { ShoppingListItem, Recipe } = require('./Types/ShoppingListTypes');
 
 const emailRoutes = express.Router();
-const { emailCache } = new GenericCache("Email Cache", true);
+const emailCache = new GenericCache("Email Cache", true);
 
 emailRoutes.route('/api/email').get(async function (_req, res){
   if(emailCache.setup){
