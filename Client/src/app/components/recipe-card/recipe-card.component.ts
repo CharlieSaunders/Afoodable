@@ -14,5 +14,17 @@ export class RecipeCardComponent{
   @Input() updateShoppingList!: (args: Recipe) => void;
   @Input() removeFromShoppingList!: (args: Recipe) => void;
 
+  public timesSelected: number = 0;
+
   constructor() {}
+
+  public updateSelectRecipe(args: Recipe): void {
+    this.timesSelected += 1;
+    this.selectRecipe(args);
+  }
+
+  public updateUnselectRecipe(args: Recipe): void {
+    this.timesSelected -= 1;
+    this.unselectRecipe(args);
+  }
 }

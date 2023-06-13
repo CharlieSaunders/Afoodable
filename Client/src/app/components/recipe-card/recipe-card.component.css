@@ -8,12 +8,34 @@
   float: left;
   overflow: hidden;
   text-align: center;
-  height:368px;
+  height: 40vh;
   border:none;
 }
 
-.recipeCard:hover{
-    box-shadow: 0 0 15px rgba(50, 50, 50, .5);
+.callToActionContainer{
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.recipeCard:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.recipeCard:hover .callToActionContainer {
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  opacity: 1;
+  visibility: visible;
+}
+
+.timesSelectedBox{
+  background-color: #FFB6C1;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  border-radius: none;
+  font-weight: 999;
 }
 
 .recipeCard .background-block {
@@ -28,34 +50,37 @@
   opacity: 0.9;
   -webkit-filter: blur(0.5px);
   filter: blur(0.5px);
+  cursor: pointer;
 }
 .recipeCard .card-content {
   width: 100%;
   padding: 15px 25px;
-  color:#232323;
-  float:left;
+  color:#d4d4d4;
+  float: left;
   background:#efefef;
-  height:50%;
+  height: 50%;
   border-radius:0 0 5px 5px;
   position: relative;
   z-index: 9;
+  background: #dbdee2;
 }
 .recipeCard .card-content::before {
     content: '';
     background: #efefef;
-    width: 120%;
-    height: 100%;
-    left: 11px;
-    bottom: 38px;
+    width: 150%;
+    height: 125%;
+    left: -25%;
+    bottom: -10%;
     position: absolute;
     z-index: -1;
-    transform: rotate(-13deg);
+    transform: rotate(-5deg);
+    background: #212529;
 }
 
 .recipeCard h2 {
   margin: 0 0 5px;
   font-weight: 600;
-  font-size:25px;
+  font-size: 20px;
 }
 .recipeCard h2 small {
   display: block;
