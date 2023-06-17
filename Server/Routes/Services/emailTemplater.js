@@ -8,6 +8,5 @@ module.exports.buildHtml = function buildHtml (shoppingListItems, selectedRecipe
     selectedRecipes.forEach(recipe => {
         recipes += `<p> ${recipe.Name} (x${recipe.Amount}) </p>`;
     })
-
-    return config.emailTemplate.replace("[title]", config.emailSubject).replace("[recipes]", recipes).replace("[shopping_list]", shoppingList);
+    return config.template.replace("[title]", config.subject).replace("[recipes]", recipes).replace("[shopping_list]", shoppingList);
 }

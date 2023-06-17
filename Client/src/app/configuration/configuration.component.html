@@ -6,7 +6,7 @@
             <form [formGroup]="emailConfigForm">
             <div class="input-group m-1">
                 <label class="p-2 content-center w-25" for="name">Email Name:</label>
-                <input class="form-control" type="text" autocomplete="off" id="name" formControlName="EmailName">
+                <input class="form-control" type="text" autocomplete="off" id="name" formControlName="Name">
             </div>
             <div class="input-group m-1">
                 <label class="p-2 content-center w-25" for="Subject">Subject:</label>
@@ -18,15 +18,15 @@
             </div>
             <div class="input-group m-1">
                 <label class="p-2 content-center w-25" for="description">Email User:</label>
-                <input class="form-control" type="text" autocomplete="off" id="emailUser" formControlName="EmailUser" contenteditable="false">
+                <input class="form-control" type="text" autocomplete="off" id="emailUser" formControlName="Sender" contenteditable="false">
             </div>
             <div class="input-group m-1">
                 <label class="p-2 content-center w-25" for="description">Service:</label>
-                <input class="form-control" type="text" autocomplete="off" id="service" formControlName="Service">
+                <input class="form-control" type="text" autocomplete="off" id="service" formControlName="EmailService">
             </div>
             <div class="input-group m-1">
                 <label class="p-2 content-center w-25" for="enabled">Email Enabled:</label>
-                <input type="checkbox" id="enabled" formControlName="EmailEnabled"/>
+                <input type="checkbox" id="enabled" formControlName="Enabled"/>
             </div>
             </form>
             <br>

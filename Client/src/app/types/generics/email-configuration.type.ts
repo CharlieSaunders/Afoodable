@@ -1,49 +1,49 @@
 import { FormGroup } from "@angular/forms";
 
 export class EmailConfiguration {
-    EmailName: string;
+    Name: string;
     Subject: string;
     Recipients: string;
-    EmailUser: string;
-    Service: string;
+    Sender: string;
+    EmailService: string;
     Template: string;
     _id: string;
-    EmailEnabled: boolean;
+    Enabled: boolean;
     constructor(emailName: string, subject: string, recipients: string, emailUser: string, service: string, template: string, id: string, enabled: boolean){
-        this.EmailName = emailName;
+        this.Name = emailName;
         this.Subject = subject;
         this.Recipients = recipients;
-        this.EmailUser = emailUser;
-        this.Service = service;
+        this.Sender = emailUser;
+        this.EmailService = service;
         this.Template = template;
         this._id = id;
-        this.EmailEnabled = enabled;
+        this.Enabled = enabled;
     }
 }
 
 export class UpdateEmailConfiguration {
-    EmailName: string;
+    Name: string;
     Subject: string;
     Recipients: string;
-    EmailUser: string;
-    Service: string;
+    Sender: string;
+    EmailService: string;
     Template: string;
     _id: string;
-    EmailEnabled: boolean;
+    Enabled: boolean;
     constructor(formGroup: FormGroup, template: string){
-        this.EmailName = formGroup.value.EmailName;
+        this.Name = formGroup.value.Name;
         this.Subject = formGroup.value.Subject;
         this.Recipients = formGroup.value.Recipients;
-        this.EmailUser = formGroup.value.EmailUser;
-        this.Service = formGroup.value.Service;
+        this.Sender = formGroup.value.Sender;
+        this.EmailService = formGroup.value.Service;
         this.Template = template;
         this._id = formGroup.value._id;
-        this.EmailEnabled = formGroup.value.EmailEnabled;
+        this.Enabled = formGroup.value.Enabled;
     }
 }
 
 export class EmailConfigurationMapper {
     public static Map(result: any): EmailConfiguration {
-        return new EmailConfiguration(result.emailName, result.emailSubject, result.emailTo, result.emailUser, result.emailService, result.emailTemplate, result._id, result.emailEnabled);
+        return new EmailConfiguration(result.name, result.subject, result.recipients, result.sender, result.emailService, result.template, result._id, result.enabled);
     }
 }

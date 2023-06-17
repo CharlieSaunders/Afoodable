@@ -22,29 +22,29 @@ export class FormHelpers {
 
 	public static EmailConfigForm(emailConfig: EmailConfiguration): FormGroup {
 		let form = new FormGroup({
-			EmailName: new FormControl(""),
+			Name: new FormControl(""),
 			Subject: new FormControl(""),
 			Recipients: new FormControl(""),
-			EmailUser: new FormControl(""),
-			Service: new FormControl(""),
+			Sender: new FormControl(""),
+			EmailService: new FormControl(""),
 			Template: new FormControl(""),
 			_id: new FormControl(""),
-			EmailEnabled: new FormControl()
+			Enabled: new FormControl()
 		  });
 		 
-		form.controls['EmailUser'].disable();
-		form.controls['Service'].disable();
-
 		form.setValue({
-			EmailName: emailConfig.EmailName,
+			Name: emailConfig.Name,
 			Subject: emailConfig.Subject,
 			Recipients: emailConfig.Recipients,
-			EmailUser: emailConfig.EmailUser,
-			Service: emailConfig.Service,
+			Sender: emailConfig.Sender,
+			EmailService: emailConfig.EmailService,
 			Template: emailConfig.Template,
 			_id: emailConfig._id,
-			EmailEnabled: emailConfig.EmailEnabled
+			Enabled: emailConfig.Enabled
 		})
+
+		form.controls['Sender'].disable();
+		form.controls['EmailService'].disable();
 
 		return form;
 	}
