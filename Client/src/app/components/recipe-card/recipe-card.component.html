@@ -8,8 +8,9 @@
             <h2>{{recipe.name}}</h2>
             <div class="icon-block">
                 <span>🔥 {{recipe.calories.split(".")[0]}} | </span>
-                <span>🍔 {{recipe.fat}} | </span>
-                <span>🥩 {{recipe.protein}}</span>
+                <span>🍔 {{recipe.fat.split(".")[0]}} | </span>
+                <span>🥩 {{recipe.protein.split(".")[0]}} | </span>
+                <span>🥔 {{recipe.carbohydrates.split(".")[0]}}</span>
             </div>
             <br><br>
             <small>~£{{recipe.totalCost}}</small>
