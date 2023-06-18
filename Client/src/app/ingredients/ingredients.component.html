@@ -22,6 +22,15 @@
       <td mat-cell *matCellDef="let ingredient"> {{ingredient.servingMetric}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="notes">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let ingredient"> 
+        <span *ngIf="ingredient.protein">❗ 🥩 </span>
+        <span *ngIf="ingredient.fat">❗ 🍔 </span>
+        <span *ngIf="ingredient.calories">❗ 🔥 </span>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef ><button style="float: right;" mat-mini-fab class="bg-success" (click)="showNewIngredientModal()">➕</button></th>
       <td mat-cell *matCellDef="let ingredient"> 

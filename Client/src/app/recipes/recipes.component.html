@@ -17,9 +17,12 @@
       <td mat-cell *matCellDef="let recipe"> £{{recipe.totalCost}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="rating">
+    <ng-container matColumnDef="notes">
       <th mat-header-cell *matHeaderCellDef> </th>
-      <td mat-cell *matCellDef="let recipe"> <ng-container *ngFor="let i of [].constructor(recipe.roundedRating)">⭐</ng-container>({{recipe.rating.toFixed(2)}} - {{recipe.ratings}}) </td>
+      <td mat-cell *matCellDef="let recipe"> 
+        <span *ngIf="recipe.ingredients.length == 0">❗Ingredients </span>
+        <span *ngIf="recipe.steps.length == 0">❗Steps </span>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
