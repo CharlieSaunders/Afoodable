@@ -44,21 +44,4 @@
             <button class="p-2 m-2 " mat-mini-fab color="primary" (click)="saveConfig()">💾</button>
         </div>
     </mat-tab>
-    <mat-tab label="Tags">
-        <div class="p-2 m-2">
-            <h3>Tag Configuration</h3>
-            <p class="m-0 p-0">Current Tags</p>
-            <div *ngIf="recipeTags">
-                <span *ngFor="let tag of recipeTags" class="badge m-1 bg-dark">{{tag.Name}}</span>
-            </div>
-            <!-- <p>Add A Tag</p>
-            <form *ngIf="recipeTags" [formGroup]="recipeTagForm">
-                <div class="input-group m-1">
-                    <label class="p-2 content-center w-25" for="name">Tag Name:</label>
-                    <input class="form-control" type="text" autocomplete="off" id="name" formControlName="Name">
-                    <button class="p-2 m-2 " mat-mini-fab color="primary" (click)="addNewTag()">+</button>
-                </div>
-            </form> -->
-        </div>
-    </mat-tab>
 </mat-tab-group>

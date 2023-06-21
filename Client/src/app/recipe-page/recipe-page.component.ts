@@ -13,7 +13,7 @@ import { UpdateResponse } from "../types/generics/api-response.type";
 @Component({
   selector: "app-recipe-page",
   templateUrl: "./recipe-page-new.component.html",
-  styleUrls: ["./recipe-page.component.css"],
+  styleUrls: ["./recipe-page-new.component.css"],
   providers: [RecipeService],
 })
 
