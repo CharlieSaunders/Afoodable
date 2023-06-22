@@ -21,8 +21,19 @@
 				  <mat-card-title>🥕 Ingredients</mat-card-title>
 				</mat-card-header>
 				<mat-card-content>
-					<div class="text-dark" *ngFor="let ingredient of recipe.ingredients; let i=index;">
-						<span>{{ingredient.name}}: {{ingredient.getTotalRequired()}} (~£{{ingredient.getCost()}})</span>
+					<div class="text-dark">
+						<table style="width: 100%">
+							<tr>
+								<th>Name</th>
+								<th>Amount</th>
+								<th>Cost</th>
+							</tr>
+							<tr *ngFor="let ingredient of recipe.ingredients; let i=index;">
+								<td>{{ingredient.name}}</td>
+								<td>{{ingredient.getTotalRequired()}}</td>
+								<td>~£{{ingredient.getCost()}}</td>
+							</tr>
+						</table>
 					</div>
 				</mat-card-content>
 			  </mat-card>
