@@ -28,6 +28,7 @@ import { RecipeTagComponent } from "./components/recipe-tag/recipe-tag.component
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MacrosComponent } from "./components/macros/macros.component";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     RecipeCardComponent,
     SidebarComponent,
     ConfigurationComponent,
-    RecipeTagComponent
+    RecipeTagComponent,
+    MacrosComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),

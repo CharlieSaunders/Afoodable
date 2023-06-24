@@ -7,10 +7,7 @@
         <div class="card-content">
             <h2>{{recipe.name}}</h2>
             <div class="icon-block">
-                <span matTooltip="Calories">🔥 {{recipe.macros.calories.split(".")[0]}} | </span>
-                <span matTooltip="Fat">🍔 {{recipe.macros.fat.split(".")[0]}} | </span>
-                <span matTooltip="Protein">🥩 {{recipe.macros.protein.split(".")[0]}} | </span>
-                <span matTooltip="Carbohydrates">🥔 {{recipe.macros.carbohydrates.split(".")[0]}}</span>
+                <app-macros [macros]="recipe.macros" [displayMeasurement]="false"></app-macros>
             </div>
             <br><br>
             <small>~£{{recipe.totalCost}}</small>
