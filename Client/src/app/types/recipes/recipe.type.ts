@@ -1,4 +1,5 @@
 import { Macros } from "../generics/macros.type";
+import { Ingredient } from "../ingredients/ingredient.type";
 
 export class Recipe {
   name: string;
@@ -83,5 +84,11 @@ export class RecipeItem {
 export class RecipeBuilder {
   public static fromForm(name: any, type: any, description: any): Recipe {
     return new Recipe(name, type, 0, 0, "no-image.jpeg", [], "id", [], description, 1, 0, 0, 0, 0);
+  }
+}
+
+export class RecipeItemBuilder {
+  public static fromIngredient(ingredient: Ingredient): RecipeItem {
+    return new RecipeItem(ingredient.name, 1, ingredient.cost, ingredient.servingSize, ingredient.servingMetric, ingredient._id);
   }
 }
