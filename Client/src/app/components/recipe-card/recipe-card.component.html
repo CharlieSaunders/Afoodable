@@ -7,10 +7,10 @@
         <div class="card-content">
             <h2>{{recipe.name}}</h2>
             <div class="icon-block">
-                <span matTooltip="Calories">🔥 {{recipe.calories.split(".")[0]}} | </span>
-                <span matTooltip="Fat">🍔 {{recipe.fat.split(".")[0]}} | </span>
-                <span matTooltip="Protein">🥩 {{recipe.protein.split(".")[0]}} | </span>
-                <span matTooltip="Carbohydrates">🥔 {{recipe.carbohydrates.split(".")[0]}}</span>
+                <span matTooltip="Calories">🔥 {{recipe.macros.calories.split(".")[0]}} | </span>
+                <span matTooltip="Fat">🍔 {{recipe.macros.fat.split(".")[0]}} | </span>
+                <span matTooltip="Protein">🥩 {{recipe.macros.protein.split(".")[0]}} | </span>
+                <span matTooltip="Carbohydrates">🥔 {{recipe.macros.carbohydrates.split(".")[0]}}</span>
             </div>
             <br><br>
             <small>~£{{recipe.totalCost}}</small>

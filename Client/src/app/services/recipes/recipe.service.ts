@@ -105,10 +105,10 @@ class RecipeMapper {
           recipe.steps,
           recipe.description,
           recipe.serves,
-          recipe.calories,
-          recipe.fat,
-          recipe.carbohydrates,
-          recipe.protein
+          recipe.macros.calories,
+          recipe.macros.fat,
+          recipe.macros.carbohydrates,
+          recipe.macros.protein
         )
       );
     });
@@ -147,10 +147,10 @@ class RecipeMapper {
       result.steps,
       result.description,
       result.serves,
-      result.calories,
-      result.fat,
-      result.carbohydrates,
-      result.protein
+      result.macros.calories,
+      result.macros.fat,
+      result.macros.carbohydrates,
+      result.macros.protein
     );
   }
 }
