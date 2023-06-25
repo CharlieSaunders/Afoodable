@@ -1,8 +1,12 @@
 <br><br><br>
 <div class="container" *ngIf="recipe">
 	<div class="m-2" (click)="saveRecipe()">
-		<button mat-fab class="bg-warning text-dark">
+		<button matTooltip="Save Recipe" mat-fab class="m-1 bg-warning text-dark">
 		  <span class="icon-emoji">💾</span>
+		</button>
+		<button matTooltip="Update Image" mat-fab class="bg-info text-dark">
+			<label for="file-upload" >📷</label>
+			<input type="file" id="file-upload" (change)="onFileChanged($event)">
 		</button>
 	  </div>
 	<div class="row align-items-center">
@@ -69,7 +73,7 @@
 								<mat-card-title>Step: {{i+1}}</mat-card-title>
 							</mat-card-header>
 							<mat-card-content>
-								<p>{{step}}</p>
+								<p contenteditable="true" (keyup)="updateStep(i)" id="recipeStep{{i}}">{{step}}</p>
 							</mat-card-content>
 						</mat-card>
 					</mat-accordion>
