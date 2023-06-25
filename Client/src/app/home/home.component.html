@@ -11,7 +11,7 @@
 
 <div class="row" *ngIf="recipes">
     <div class="input-group mb-3">
-        <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for a specific recipe...">
+        <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for a specific recipe, or use tags ':fav'">
     </div>
 <!--     <div *ngIf="recipeTags">
         <div class="m-1" >
@@ -19,7 +19,7 @@
         </div>
     </div> -->
 
-    <div class="col-lg-3 col-sm-5 p-2" *ngFor="let recipe of recipes | filterRecipeNamePipe : searchText">
+    <div class="col-lg-3 col-sm-5 p-2" *ngFor="let recipe of recipes | filterRecipePipe : searchText">
         <app-recipe-card 
             [recipe]="recipe" 
             [navigateToRecipe]="navigateToRecipe"

@@ -9,7 +9,7 @@ import { NavMenuComponent } from "./nav-menu/nav-menu.component";
 import { HomeComponent } from "./home/home.component";
 import { MatButtonModule } from "@angular/material/button";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { FilterRecipeNamePipe } from "./helpers/pipes/filter-recipe-name";
+import { FilterRecipePipe } from "./helpers/pipes/filter-recipe-name";
 import { RecipePageComponent } from "./recipe-page/recipe-page.component";
 import { RecipesComponent } from "./recipes/recipes.component";
 import { IngredientsComponent } from "./ingredients/ingredients.component";
@@ -40,7 +40,7 @@ import { AddIngredientToRecipeModal } from "./components/modals/recipes/add-ingr
     RecipesComponent,
     IngredientsComponent,
     RecipesComponent,
-    FilterRecipeNamePipe,
+    FilterRecipePipe,
     FilterIngredientNamePipe,
     RecipeCardComponent,
     SidebarComponent,
