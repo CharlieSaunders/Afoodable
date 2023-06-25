@@ -24,7 +24,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-4">
+		<div class="col-5">
 			<mat-card class="glassy my-4">
 				<mat-card-header>
 				  <mat-card-title>
@@ -34,20 +34,20 @@
 				</mat-card-header>
 				<mat-card-content>
 					<div class="text-dark" *ngIf="recipe.ingredients.length > 0">
-						<table style="width: 100%">
+						<table class="table table-hover table-responsive" style="width: 100%">
 							<tr>
-								<th>Name</th>
-								<th>Amount</th>
-								<th>Cost</th>
-								<th></th>
+								<th scope="col">Name</th>
+								<th scope="col">Amount</th>
+								<th scope="col">Cost</th>
+								<th scope="col"></th>
 							</tr>
 							<tr *ngFor="let ingredient of recipe.ingredients; let i=index;">
-								<td>{{ingredient.name}}</td>
+								<td scope="row">{{ingredient.name}}</td>
 								<td>{{ingredient.getTotalRequired()}}</td>
 								<td>~£{{ingredient.getCost()}}</td>
-								<td>
-									<button type="button" class="btn btn-success mx-4" (click)="amendIngredientAtIndex(i, 1)">+</button>
-									<button type="button" class="btn btn-danger" (click)="amendIngredientAtIndex(i, -1)">-</button>
+								<td class="text-right">
+									<button type="button" style="float: left" class="btn btn-success mx-2 text-dark" (click)="amendIngredientAtIndex(i, 1)">+</button>
+									<button type="button" style="float: right" class="btn btn-danger text-dark" (click)="amendIngredientAtIndex(i, -1)">-</button>
 								</td>
 							</tr>
 						</table>
@@ -56,8 +56,6 @@
 				</mat-card-content>
 			  </mat-card>
 		</div>
-
-		<div class="col-1"></div>
 
 		<div class="col-7">
 			<mat-accordion class="my-5 p-1">
