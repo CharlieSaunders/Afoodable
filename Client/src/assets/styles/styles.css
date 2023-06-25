@@ -73,3 +73,7 @@ footer{
 	display: flex !important;
 	flex-direction: column !important;
 }
+
+.greyed-out{
+	filter: grayscale(1);
+}

@@ -10,6 +10,7 @@ export class UpdateRecipeDto {
   steps: Array<string>;
   serves: number;
   _id: string;
+  favourite: boolean;
   constructor(_recipe: Recipe) {
     this.description = _recipe.description;
     this.imageUrl = _recipe.imageUrl;
@@ -23,5 +24,6 @@ export class UpdateRecipeDto {
     this.steps = _recipe.steps;
     this._id = _recipe._id;
     this.serves = _recipe.serves;
+    this.favourite = _recipe.favourite;
   }
 }

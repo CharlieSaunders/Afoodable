@@ -108,7 +108,8 @@ class RecipeMapper {
           recipe.macros.calories,
           recipe.macros.fat,
           recipe.macros.carbohydrates,
-          recipe.macros.protein
+          recipe.macros.protein,
+          recipe.favourite ?? false
         )
       );
     });
@@ -150,7 +151,8 @@ class RecipeMapper {
       result.macros.calories,
       result.macros.fat,
       result.macros.carbohydrates,
-      result.macros.protein
+      result.macros.protein,
+      result.favourite ?? false
     );
   }
 }

@@ -22,6 +22,7 @@ export class RecipePageComponent implements OnInit{
   public allIngredients!: Array<Ingredient>;
   public searchText!: string;
   public recipe!: Recipe;
+  public unmutatedRecipe!: Recipe;
   public displayAddNewIngredientModal: boolean = false;
   public editMode = false;
   public newStepString = "";
@@ -40,6 +41,7 @@ export class RecipePageComponent implements OnInit{
         .getRecipe(String(routeParams.get("id")))
         .subscribe((recipe: any) => {
           this.recipe = recipe;
+          this.unmutatedRecipe = recipe;
         })
     );
     this.subscriptions.add(
@@ -76,7 +78,27 @@ export class RecipePageComponent implements OnInit{
       this.recipe.ingredients.splice(index, 1);
     }
   }
-  //
+
+  public toggleFavourite(): void {
+    this.recipe.favourite = !this.recipe.favourite;
+  }
+
+  public saveRecipe(): void {
+    const updated = this.recipeService
+    .updateRecipe(new UpdateRecipeDto(this.recipe))
+    .subscribe((data: any) => {
+      return data.acknowledged;
+    });
+
+    if (updated) {
+      this.toasterService.success(`Successfully updated ${this.recipe.name}`);
+    }
+    else {
+      this.toasterService.warning(`Failed to update ${this.recipe.name}`);
+    }
+  }
+
+ //
 
   public save(): void {
     this.updateRecipe();

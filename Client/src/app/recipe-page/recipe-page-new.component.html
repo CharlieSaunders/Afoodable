@@ -1,11 +1,19 @@
 <br><br><br>
 <div class="container" *ngIf="recipe">
+	<div class="m-2" (click)="saveRecipe()">
+		<button mat-fab class="bg-warning text-dark">
+		  <span class="icon-emoji">💾</span>
+		</button>
+	  </div>
 	<div class="row align-items-center">
 		<div class="col-lg-7">
 			<img class="img-fluid rounded mb-4 mb-lg-0" src="../../assets/images/recipes/{{ recipe.imageUrl }}" alt="{{recipe.name}}" />
 		</div>
 		<div class="col-lg-5">
-			<h1 class="font-weight-light">{{recipe.name}}</h1>
+			<h1 class="font-weight-light">{{recipe.name}} 
+				<span *ngIf="recipe.favourite" (click)="toggleFavourite()">🌟</span>
+				<span *ngIf="!recipe.favourite" (click)="toggleFavourite()" class="greyed-out">⭐</span>
+			</h1>
 			<p>{{recipe.description}}</p>
 			<app-macros [macros]="recipe.macros" [displayMeasurement]="true"></app-macros>
 		</div>
