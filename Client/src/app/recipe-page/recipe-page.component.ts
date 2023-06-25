@@ -4,7 +4,6 @@ import { UpdateRecipeDto } from "../types/recipes/update-recipe-dto.type";
 import { RecipeService } from "../services/recipes/recipe.service";
 import { ActivatedRoute } from "@angular/router";
 import { Ingredient } from "../types/ingredients/ingredient.type";
-import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { IngredientService } from "../services/ingredients/ingredient.service";
 import { Subscription } from "rxjs";
 import { ToastrService } from "ngx-toastr";
@@ -12,8 +11,8 @@ import { UpdateResponse } from "../types/generics/api-response.type";
 
 @Component({
   selector: "app-recipe-page",
-  templateUrl: "./recipe-page-new.component.html",
-  styleUrls: ["./recipe-page-new.component.css"],
+  templateUrl: "./recipe-page.component.html",
+  styleUrls: ["./recipe-page.component.css"],
   providers: [RecipeService],
 })
 
@@ -24,8 +23,6 @@ export class RecipePageComponent implements OnInit{
   public recipe!: Recipe;
   public unmutatedRecipe!: Recipe;
   public displayAddNewIngredientModal: boolean = false;
-  public editMode = false;
-  public newStepString = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -115,23 +112,13 @@ export class RecipePageComponent implements OnInit{
     else {
       this.toasterService.warning(`Failed to update image`);
     }
-
-    this.ngOnInit();
   }
 
- //
-
- public addStep(): void {
-    this.editMode = true;
-    if (this.newStepString !== null && this.newStepString.length > 1) {
-      this.recipe.steps.push(this.newStepString);
-      this.newStepString = "";
-    }
+  public addEmptyRecipeStep(): void{
+    this.recipe.steps.push("No step information given");
   }
 
-  public deleteRecipeStep(index: number): void {
+  public removeStepAtIndex(index: number){
     this.recipe.steps.splice(index, 1);
-    this.toasterService.success("Deleted step");
   }
-
 }
