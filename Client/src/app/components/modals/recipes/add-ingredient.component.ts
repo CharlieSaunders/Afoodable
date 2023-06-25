@@ -33,17 +33,11 @@ export class AddIngredientToRecipeModal implements OnInit {
           );
     }
 
-    public close(): void {
-        this.display = false;
-    }
-
     public closeWithValue(value: Ingredient) {
-        this.close();
         this.closeWithValueEvent.emit(RecipeItemBuilder.fromIngredient(value));
     }
 
     public closeWithoutValue() {
-        this.close();
         this.closeWithoutValueEvent.emit();
     }
 }
