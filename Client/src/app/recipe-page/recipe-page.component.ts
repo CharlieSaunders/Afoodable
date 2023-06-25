@@ -51,9 +51,32 @@ export class RecipePageComponent implements OnInit{
     );
   }
 
+
+  public addIngredientToRecipe(item: RecipeItem): void {
+    let added = false;
+    this.recipe.ingredients.forEach(ingredient => {
+      if(item._id == ingredient._id){
+        ingredient.quantity++
+        added = true;
+      }
+    });
+
+    if(!added){
+      this.recipe.ingredients.push(item);
+    }
+  }
+
   public toggleAddNewIngredientModal(): void {
     this.displayAddNewIngredientModal = !this.displayAddNewIngredientModal;
   }
+
+  public amendIngredientAtIndex(index: number, value: number): void{
+    this.recipe.ingredients[index].quantity += value;
+    if(this.recipe.ingredients[index].quantity == 0){
+      this.recipe.ingredients.splice(index, 1);
+    }
+  }
+  //
 
   public save(): void {
     this.updateRecipe();

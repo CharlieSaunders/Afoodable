@@ -16,11 +16,8 @@
 			<mat-card class="glassy my-4">
 				<mat-card-header>
 				  <mat-card-title>
-					<button matTooltip="Add an ingredient" mat-mini-fab class="m-2 p-1 bg-dark text-light">
-						+
-					</button>
+					<button matTooltip="Add an ingredient" mat-mini-fab class="m-2 p-1 bg-dark text-light" (click)="toggleAddNewIngredientModal()">+</button>
 					<span>🥕 Ingredients</span>
-
 				  </mat-card-title>
 				</mat-card-header>
 				<mat-card-content>
@@ -30,13 +27,16 @@
 								<th>Name</th>
 								<th>Amount</th>
 								<th>Cost</th>
-								<th>
-								</th>
+								<th></th>
 							</tr>
 							<tr *ngFor="let ingredient of recipe.ingredients; let i=index;">
 								<td>{{ingredient.name}}</td>
 								<td>{{ingredient.getTotalRequired()}}</td>
 								<td>~£{{ingredient.getCost()}}</td>
+								<td>
+									<button type="button" class="btn btn-success mx-4" (click)="amendIngredientAtIndex(i, 1)">+</button>
+									<button type="button" class="btn btn-danger" (click)="amendIngredientAtIndex(i, -1)">-</button>
+								</td>
 							</tr>
 						</table>
 					</div>
@@ -52,7 +52,7 @@
 				<mat-expansion-panel class="glassy">
 					<mat-expansion-panel-header>
 						<mat-card-title class="text-dark">
-							🍽️ View Recipe Steps
+							🍽️ Recipe Steps
 						</mat-card-title>
 					</mat-expansion-panel-header>
 					<mat-accordion class="my-5 m-1" *ngIf="recipe.steps.length > 0">
@@ -71,3 +71,9 @@
 		</div>
 	</div>
 </div>
+
+<app-recipe-add-ingredient-modal
+	[display]="displayAddNewIngredientModal"
+	(closeWithValueEvent)="addIngredientToRecipe($event)"
+	(closeWithoutValueEvent)="toggleAddNewIngredientModal()">
+</app-recipe-add-ingredient-modal>

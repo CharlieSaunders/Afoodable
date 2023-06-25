@@ -1,0 +1,25 @@
+  <div class="modal-wrapper" *ngIf="allIngredients && display">
+    <div class="col-lg-4 m-auto">
+      <div class="card fix-to-flex">
+        <div class="card-header">
+          <h4 class="card-title">Add Ingredient</h4>
+        </div>
+        <div class="card-body p-1 m-2">
+          <div class="input-group">
+            <label class="p-2 content-center w-25" for="ingredientSearch">Search by name:</label>
+            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" id="ingredientSearch">
+          </div>
+          <div *ngIf="searchText">
+            <ul *ngFor="let ingredient of allIngredients | filterIngredientNamePipe : searchText; index as i">
+                <li *ngIf="i<10" (click)="closeWithValue(ingredient)" style="cursor:pointer" >
+                  {{ingredient.name}}
+                </li>
+              </ul>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-danger m-1" (click)="closeWithoutValue()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
