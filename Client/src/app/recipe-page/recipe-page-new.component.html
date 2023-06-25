@@ -1,7 +1,7 @@
 <br><br><br>
 <div class="container" *ngIf="recipe">
-	<div class="m-2" (click)="saveRecipe()">
-		<button matTooltip="Save Recipe" mat-fab class="m-1 bg-warning text-dark">
+	<div class="m-2">
+		<button matTooltip="Save Recipe" mat-fab class="m-1 bg-warning text-dark" (click)="saveRecipe()">
 		  <span class="icon-emoji">💾</span>
 		</button>
 		<button matTooltip="Update Image" mat-fab class="bg-info text-dark">

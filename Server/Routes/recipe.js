@@ -47,25 +47,8 @@ recipeRoutes.route('/api/recipes').get(async function (_req, res) {
   recipes = recipesCache.get();
   ingredients = ingredientsCache.get();
   
-  recipes.forEach(recipe => {
-    let newIngredients = [];
-    recipe.macros = {
-      protein: 0,
-      fat: 0,
-      carbohydrates: 0,
-      calories: 0
-    }
-    recipe.ingredients.forEach(ingredient => {
-      let ingredientObject = JSON.parse(ingredient);
-      let matchingIngredient = ingredientsCache.getSingle(ingredientObject._id);
-      matchingIngredient.quantity = ingredientObject.quantity;
-      recipe.macros.protein += matchingIngredient.protein * matchingIngredient.quantity;
-      recipe.macros.fat += matchingIngredient.fat * matchingIngredient.quantity;
-      recipe.macros.carbohydrates += matchingIngredient.carbohydrates * matchingIngredient.quantity;
-      recipe.macros.calories += matchingIngredient.calories * matchingIngredient.quantity;
-      newIngredients.push(JSON.stringify(matchingIngredient));
-    })
-    recipe.ingredients = newIngredients;
+  recipes.forEach(async recipe => {
+    recipe = await addRecipeData(recipe);
   })
 
   recipesCache.set(recipes);
@@ -75,19 +58,18 @@ recipeRoutes.route('/api/recipes').get(async function (_req, res) {
 // GET RECIPE BY ID
 recipeRoutes.route('/api/recipes/:recipe').get(async function (_req, res) {
   let docReference = _req.params.recipe;
-  let cacheRecipe = recipesCache.getSingle(docReference);
+  let recipe = recipesCache.getSingle(docReference);
 
-  if(cacheRecipe != undefined){
-    res.json(cacheRecipe);
-  }else{
+  if(recipe == undefined){
     const dbConnect = dbo.getDb();
-    let recipe = await dbConnect
+    recipe = await dbConnect
       .collection('recipes')
       .findOne({"_id": new mongoDb.ObjectId(docReference)});
-    
-    res.json(recipe);
-    recipesCache.setSingle(recipe);
   }
+
+  let recipeWithIngredients = await addRecipeData(recipe);
+  res.json(recipeWithIngredients);
+  recipesCache.setSingle(recipeWithIngredients);
 });
 
 // UPDATE RECIPE
@@ -191,6 +173,39 @@ async function getSingleRecipe(id){
   let recipe = await dbConnect
     .collection('recipes')
     .findOne({"_id": new mongoDb.ObjectId(id)});
+  return recipe;
+}
+
+async function addRecipeData(recipe){
+  if(!ingredientsCache.setup){
+    const dbConnect = dbo.getDb();
+    let getIngredientsCall = dbConnect
+    .collection('ingredients')
+    .find({})
+    .toArray();
+
+    ingredientsCache.set(await getIngredientsCall);
+  }
+
+  let newIngredients = [];
+  recipe.macros = {
+    protein: 0,
+    fat: 0,
+    carbohydrates: 0,
+    calories: 0
+  }
+  recipe.ingredients.forEach(ingredient => {
+    let ingredientObject = JSON.parse(ingredient);
+    let matchingIngredient = ingredientsCache.getSingle(ingredientObject._id);
+    matchingIngredient.quantity = ingredientObject.quantity;
+    recipe.macros.protein += matchingIngredient.protein * matchingIngredient.quantity;
+    recipe.macros.fat += matchingIngredient.fat * matchingIngredient.quantity;
+    recipe.macros.carbohydrates += matchingIngredient.carbohydrates * matchingIngredient.quantity;
+    recipe.macros.calories += matchingIngredient.calories * matchingIngredient.quantity;
+    newIngredients.push(JSON.stringify(matchingIngredient));
+  })
+  recipe.ingredients = newIngredients;
+
   return recipe;
 }
 

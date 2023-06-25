@@ -116,7 +116,6 @@ export class RecipePageComponent implements OnInit{
       this.toasterService.warning(`Failed to update image`);
     }
 
-    this.editMode = false;
     this.ngOnInit();
   }
 
