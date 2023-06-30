@@ -20,11 +20,11 @@ export class ConfigurationComponent implements OnInit {
   public emailConfigForm!: FormGroup;
   public recipeTags!: Array<RecipeTag>;
   public recipeTagForm!: FormGroup;
-  
-  public code: string = '';
+
+  public code = "";
   public codeEditorOptions = {
-    theme: 'vs-dark',
-    language: 'html',
+    theme: "vs-dark",
+    language: "html",
     minimap: { enabled: false },
     automaticLayout: true,
     scrollBeyondLastLine: false
@@ -53,12 +53,12 @@ export class ConfigurationComponent implements OnInit {
   }
 
   public saveConfig(): void {
-    var updateRequest = new UpdateEmailConfiguration(this.emailConfigForm, this.emailConfig.Template);
-    this.emailService.update(updateRequest).subscribe(() => { PageHelpers.RefreshPage() })
+    const updateRequest = new UpdateEmailConfiguration(this.emailConfigForm, this.emailConfig.Template);
+    this.emailService.update(updateRequest).subscribe(() => { PageHelpers.RefreshPage(); });
   }
 
   public addNewTag(): void {
-    var newRecipeTag = new CreateRecipeTag(this.recipeTagForm);
-    this.recipeTagService.create(newRecipeTag).subscribe(() => { PageHelpers.RefreshPage() });
+    const newRecipeTag = new CreateRecipeTag(this.recipeTagForm);
+    this.recipeTagService.create(newRecipeTag).subscribe(() => { PageHelpers.RefreshPage(); });
   }
 }

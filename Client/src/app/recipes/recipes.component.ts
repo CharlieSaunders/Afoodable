@@ -7,8 +7,8 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { CreateResponse, DeleteResponse } from "../types/generics/api-response.type";
 import { PageHelpers } from "../helpers/page-helpers";
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from "@angular/material/paginator";
+import { MatTableDataSource} from "@angular/material/table";
 import { MatSort } from "@angular/material/sort";
 
 @Component({
@@ -23,12 +23,12 @@ export class RecipesComponent implements AfterViewInit, OnDestroy{
   public recipes!: Array<Recipe>;
   public dataSource!: MatTableDataSource<Recipe>;
 
-  public displayNewRecipeModal: boolean = false;
+  public displayNewRecipeModal = false;
   public searchText = "";
 
-  @ViewChild(MatPaginator) paginator! : MatPaginator;
-  @ViewChild(MatSort) sort! : MatSort;
-  public displayedColumns: string[] = ['name', 'type', 'totalCost', 'notes', 'actions'];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  public displayedColumns: string[] = ["name", "type", "totalCost", "notes", "actions"];
 
   public newRecipeForm = new FormGroup({
     name: new FormControl(""),

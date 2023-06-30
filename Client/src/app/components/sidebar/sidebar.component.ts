@@ -19,13 +19,13 @@ export class SidebarComponent{
   constructor(private emailService: EmailService) {}
 
   public sendEmail(): void {
-    let selectedRecipes = new Array<Recipe>();
+    const selectedRecipes = new Array<Recipe>();
     this.recipes.forEach(recipe => {
       if(recipe.selectedAmount > 0){
         selectedRecipes.push(recipe);
       }
-    })
-    this.emailService.send(this.shoppingList, selectedRecipes).subscribe(() => { PageHelpers.RefreshPage() });
+    });
+    this.emailService.send(this.shoppingList, selectedRecipes).subscribe(() => { PageHelpers.RefreshPage(); });
   }
 
   public shoppingListHasAtLeastOneItem(): boolean {

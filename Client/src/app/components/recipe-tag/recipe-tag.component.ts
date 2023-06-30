@@ -7,7 +7,7 @@ import { RecipeTag } from "../../types/recipes/recipe-tag.type";
 })
 export class RecipeTagComponent{
 @Input() recipeTag!: RecipeTag;
-public selected: boolean = true;
+public selected = true;
 
   constructor() {}
 

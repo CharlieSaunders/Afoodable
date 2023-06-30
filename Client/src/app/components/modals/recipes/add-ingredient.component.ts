@@ -10,10 +10,10 @@ import { RecipeItem, RecipeItemBuilder } from "src/app/types/recipes/recipe.type
     styleUrls: [],
     providers: [IngredientService]
 })
-export class AddIngredientToRecipeModal implements OnInit {
+export class AddIngredientToRecipeModalComponent implements OnInit {
     private readonly subscriptions: Subscription = new Subscription();
 
-    @Input() display: boolean = false;
+    @Input() display = false;
 
     @Output() closeWithValueEvent = new EventEmitter<RecipeItem>();
     @Output() closeWithoutValueEvent = new EventEmitter<null>();

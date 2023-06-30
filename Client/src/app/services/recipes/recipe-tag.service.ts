@@ -44,7 +44,7 @@ class RecipeTagMapper {
     const tags: Array<RecipeTag> = [];
 
     result.forEach((tag: any) => {
-      tags.push(new RecipeTag(tag.name, tag._id))
+      tags.push(new RecipeTag(tag.name, tag._id));
     });
 
     return tags;

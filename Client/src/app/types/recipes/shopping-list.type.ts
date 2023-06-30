@@ -1,18 +1,18 @@
 import { RecipeItem } from "./recipe.type";
 
 export class ShoppingList {
-  items:  { [id: string] : ShoppingListItem ; };
+  items:  { [id: string]: ShoppingListItem ; };
 
   constructor() {
     this.items = {};
   }
 
   public add(newItem: ShoppingListItem): void {
-    let added = false;
     const exists = this.items[newItem._id] != undefined;
     if(exists){
       this.items[newItem._id].amount += newItem.amount;
-    }else{
+    }
+    else{
       this.items[newItem._id] = newItem;
     }
   }
@@ -20,7 +20,7 @@ export class ShoppingList {
   public remove(itemToRemove: ShoppingListItem): void {
     const exists = this.items[itemToRemove._id] != undefined;
     if(exists){
-      let node = this.items[itemToRemove._id];
+      const node = this.items[itemToRemove._id];
       node.amount -= itemToRemove.amount;
       if(node.amount === 0){
         delete this.items[itemToRemove._id];

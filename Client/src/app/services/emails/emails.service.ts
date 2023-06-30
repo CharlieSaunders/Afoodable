@@ -22,13 +22,13 @@ export class EmailService {
     return this.httpClient.get(this.baseUrl)
     .pipe(
       map(EmailConfigurationMapper.Map)
-    )
+    );
   }
 
   public send(shoppingList: ShoppingList, recipes: Array<Recipe>): Observable<any>{
     const request = {
-      "ShoppingList": shoppingList,
-      "Recipes": recipes
+      ShoppingList: shoppingList,
+      Recipes: recipes
     };
 
     return this.httpClient.post(this.baseUrl, request)
@@ -41,6 +41,6 @@ export class EmailService {
     return this.httpClient.patch(this.baseUrl, request)
     .pipe(
       map(AnyMapper.map)
-    )
+    );
   }
 }

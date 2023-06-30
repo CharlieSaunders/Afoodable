@@ -69,7 +69,7 @@ class IngredientMapper {
           ingredient.servingMetric,
           ingredient._id,
           ingredient.calories,
-          ingredient.fat, 
+          ingredient.fat,
           ingredient.carbohydrates,
           ingredient.protein
         )
@@ -88,7 +88,7 @@ class IngredientMapper {
           ingredient.servingMetric,
           ingredient._id,
           ingredient.calories,
-          ingredient.fat, 
+          ingredient.fat,
           ingredient.carbohydrates,
           ingredient.protein
 
