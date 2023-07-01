@@ -69,7 +69,7 @@ import { RecipeSearchComponent } from "./recipe-search/recipe-search.component"
     MatExpansionModule,
     MatTooltipModule,
     RouterModule.forRoot([
-      { path: "", component: RecipeSearchComponent },
+      { path: "search", component: RecipeSearchComponent },
       { path: "recipe/:id", component: RecipePageComponent },
       { path: "recipes", component: RecipesComponent },
       { path: "ingredients", component: IngredientsComponent },

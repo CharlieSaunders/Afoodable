@@ -122,11 +122,11 @@ export class IngredientsComponent implements AfterViewInit {
         this.newIngredientForm.value.cost,
         this.newIngredientForm.value.servingSize,
         this.newIngredientForm.value.servingMetric,
+        this.newIngredientForm.value._id,
         this.newIngredientForm.value.calories,
         this.newIngredientForm.value.fat,
         this.newIngredientForm.value.carbohydrates,
         this.newIngredientForm.value.protein,
-        this.newIngredientForm.value._id
       );
 
       const created = this.ingredientService

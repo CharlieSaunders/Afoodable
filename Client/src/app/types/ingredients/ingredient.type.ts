@@ -42,7 +42,16 @@ export class Ingredient {
 }
 
 export class IngredientBuilder {
-  public static fromForm(name: any, cost: any, servingSize: any, servingMetric: any, id: any, calories: any, fat: any, carbohydrates: any, protein: any): Ingredient {
+  public static fromForm(
+    name: any, 
+    cost: any, 
+    servingSize: any, 
+    servingMetric: any, 
+    id: any, 
+    calories: any, 
+    fat: any, 
+    carbohydrates: any, 
+    protein: any): Ingredient {
     return new Ingredient(name, cost, servingSize, servingMetric, id, calories, fat, carbohydrates, protein);
   }
 }
