@@ -8,12 +8,12 @@ import { RecipeTagService } from "../services/recipes/recipe-tag.service";
 import { RecipeTag } from "../types/recipes/recipe-tag.type";
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.css"],
+  selector: "app-recipe-search",
+  templateUrl: "./recipe-search.component.html",
+  styleUrls: ["./recipe-search.component.css"],
   providers: [RecipeService, RecipeTagService],
 })
-export class HomeComponent implements OnInit {
+export class RecipeSearchComponent implements OnInit {
   private readonly subscriptions: Subscription = new Subscription();
   public sidebarShow = false;
   public searchText = "";
