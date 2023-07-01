@@ -161,4 +161,19 @@ export class IngredientsComponent implements AfterViewInit {
     }
     this.ngAfterViewInit();
   }
+
+  public downloadAsCsv(): void {
+    let filename = "recipes.csv"
+    let text = "test,1";
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  }
 }
