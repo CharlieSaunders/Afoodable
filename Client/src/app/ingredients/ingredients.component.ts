@@ -5,8 +5,8 @@ import { Subscription } from "rxjs";
 import { IngredientService } from "../services/ingredients/ingredient.service";
 import { ToastrService } from "ngx-toastr";
 import { PageHelpers } from "../helpers/page-helpers";
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from "@angular/material/paginator";
+import { MatTableDataSource} from "@angular/material/table";
 import { MatSort } from "@angular/material/sort";
 import { FormHelpers } from "../helpers/form-helpers";
 
@@ -17,18 +17,18 @@ import { FormHelpers } from "../helpers/form-helpers";
   providers: [IngredientService],
 })
 export class IngredientsComponent implements AfterViewInit {
-  @ViewChild(MatPaginator) paginator! : MatPaginator;
-  @ViewChild(MatSort) sort! : MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   private readonly subscription: Subscription = new Subscription();
 
-  public displayedColumns: string[] = ['name', 'cost', 'servingSize', 'servingMetric', 'actions'];
+  public displayedColumns: string[] = ["name", "cost", "servingSize", "servingMetric", "actions"];
   public ingredients!: IngredientDictionary;
   public dataSource!: MatTableDataSource<Ingredient>;
   public newIngredientForm = FormHelpers.NewIngredientForm();
   public updateIngredientForm = FormHelpers.UpdateIngredientForm();
   public searchText = "";
-  public displayNewIngredientModal: boolean = false;
-  public displayUpdateIngredientModal: boolean = false;
+  public displayNewIngredientModal = false;
+  public displayUpdateIngredientModal = false;
 
   constructor(
     private ingredientService: IngredientService,
@@ -85,7 +85,7 @@ export class IngredientsComponent implements AfterViewInit {
       this.updateIngredientForm.value._id,
       this.updateIngredientForm.value.calories,
       this.updateIngredientForm.value.fat,
-      this.updateIngredientForm.value.carbohydrates, 
+      this.updateIngredientForm.value.carbohydrates,
       this.updateIngredientForm.value.protein
     );
 
@@ -107,7 +107,7 @@ export class IngredientsComponent implements AfterViewInit {
 
   public addNewIngredient(): void {
     let exists = false;
-    let ingredientArray = this.ingredients.GetAsArray()
+    const ingredientArray = this.ingredients.GetAsArray();
     ingredientArray.forEach((ingredient: Ingredient) => {
       const name = ingredient.name;
       if (name.toLowerCase() === this.newIngredientForm.value.name?.toLowerCase()) {

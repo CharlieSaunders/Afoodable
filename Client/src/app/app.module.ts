@@ -22,14 +22,14 @@ import { RecipeCardComponent } from "./components/recipe-card/recipe-card.compon
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { MatSortModule } from "@angular/material/sort";
 import { ConfigurationComponent } from "./configuration/configuration.component";
-import { MatTabsModule } from '@angular/material/tabs';
-import { MonacoEditorModule } from "ngx-monaco-editor";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MonacoEditorModule } from "ngx-monaco-editor-v2";
 import { RecipeTagComponent } from "./components/recipe-tag/recipe-tag.component";
-import { MatCardModule } from '@angular/material/card';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCardModule } from "@angular/material/card";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { MacrosComponent } from "./components/macros/macros.component";
-import { AddIngredientToRecipeModal } from "./components/modals/recipes/add-ingredient.component";
+import { AddIngredientToRecipeModalComponent } from "./components/modals/recipes/add-ingredient.component";
 
 @NgModule({
   declarations: [
@@ -47,7 +47,7 @@ import { AddIngredientToRecipeModal } from "./components/modals/recipes/add-ingr
     ConfigurationComponent,
     RecipeTagComponent,
     MacrosComponent,
-    AddIngredientToRecipeModal
+    AddIngredientToRecipeModalComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -56,7 +56,7 @@ import { AddIngredientToRecipeModal } from "./components/modals/recipes/add-ingr
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-bottom-right',
+      positionClass: "toast-bottom-right",
       preventDuplicates: true,
       progressBar: true,
     }),

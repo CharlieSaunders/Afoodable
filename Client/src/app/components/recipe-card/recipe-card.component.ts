@@ -14,7 +14,7 @@ export class RecipeCardComponent{
   @Input() updateShoppingList!: (args: Recipe) => void;
   @Input() removeFromShoppingList!: (args: Recipe) => void;
 
-  public timesSelected: number = 0;
+  public timesSelected = 0;
 
   constructor() {}
 

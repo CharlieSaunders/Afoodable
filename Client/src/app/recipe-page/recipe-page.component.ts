@@ -22,7 +22,7 @@ export class RecipePageComponent implements OnInit{
   public searchText!: string;
   public recipe!: Recipe;
   public unmutatedRecipe!: Recipe;
-  public displayAddNewIngredientModal: boolean = false;
+  public displayAddNewIngredientModal = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -54,8 +54,8 @@ export class RecipePageComponent implements OnInit{
   public addIngredientToRecipe(item: RecipeItem): void {
     let added = false;
     this.recipe.ingredients.forEach(ingredient => {
-      if(item._id == ingredient._id){
-        ingredient.quantity++
+      if(item._id === ingredient._id){
+        ingredient.quantity++;
         added = true;
       }
     });
@@ -71,7 +71,7 @@ export class RecipePageComponent implements OnInit{
 
   public amendIngredientAtIndex(index: number, value: number): void{
     this.recipe.ingredients[index].quantity += value;
-    if(this.recipe.ingredients[index].quantity == 0){
+    if(this.recipe.ingredients[index].quantity === 0){
       this.recipe.ingredients.splice(index, 1);
     }
   }
@@ -96,7 +96,7 @@ export class RecipePageComponent implements OnInit{
   }
 
   public updateStep(index: number){
-    let documentData = document.getElementById(`recipeStep${index}`);
+    const documentData = document.getElementById(`recipeStep${index}`);
     this.recipe.steps[index] = documentData?.innerText ?? "No value given";
   }
 

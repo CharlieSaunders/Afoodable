@@ -52,7 +52,7 @@
 							</tr>
 						</table>
 					</div>
-					<p *ngIf="recipe.ingredients.length == 0">There are no ingredients to display</p>
+					<p *ngIf="recipe.ingredients.length === 0">There are no ingredients to display</p>
 				</mat-card-content>
 			  </mat-card>
 		</div>
@@ -76,7 +76,7 @@
 							</mat-card-content>
 						</mat-card>
 					</mat-accordion>
-					<p *ngIf="recipe.steps.length == 0">There are no steps for this recipe</p>
+					<p *ngIf="recipe.steps.length === 0">There are no steps for this recipe</p>
 				</mat-expansion-panel>
 			</mat-accordion>
 		</div>

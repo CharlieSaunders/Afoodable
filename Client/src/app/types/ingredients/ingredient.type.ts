@@ -23,7 +23,7 @@ export class Ingredient {
   carbohydrates: number;
   protein: number;
   _id: string;
-  constructor(_name: string, _cost: number, _servingSize: number, _servingMetric: string, _id: string, 
+  constructor(_name: string, _cost: number, _servingSize: number, _servingMetric: string, _id: string,
     _calories: number, _fat: number, _carbs: number, _protein: number) {
     this.name = _name;
     this.cost = _cost;
@@ -36,7 +36,7 @@ export class Ingredient {
     this._id = _id;
   }
 
-  getCost() : string {
+  getCost(): string {
     return `${this.cost.toFixed(2)}`;
   }
 }

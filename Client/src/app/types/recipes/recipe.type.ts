@@ -19,8 +19,8 @@ export class Recipe {
   macros: Macros;
   favourite: boolean;
 
-  constructor(_name: string, _type: string, _rating: number, _ratings: number, _imageUrl: string, 
-    _ingredients: Array<RecipeItem>, _dbId: string, _steps: Array<string>, _description: string, 
+  constructor(_name: string, _type: string, _rating: number, _ratings: number, _imageUrl: string,
+    _ingredients: Array<RecipeItem>, _dbId: string, _steps: Array<string>, _description: string,
     _serves: number, _calories: number, _fat: number, _carbs: number, _protein: number, _fav: boolean) {
     this._id = _dbId;
     this.name = _name;
@@ -42,7 +42,7 @@ export class Recipe {
       fat: _fat.toFixed(2),
       carbohydrates: _carbs.toFixed(2),
       protein: _protein.toFixed(2),
-    }
+    };
   }
 
   private TotalCost(items: Array<RecipeItem>): number {

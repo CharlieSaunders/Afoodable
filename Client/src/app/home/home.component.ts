@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   public shoppingList: ShoppingList = new ShoppingList();
   public recipeTags!: Array<RecipeTag>;
 
-  constructor(_router: Router, 
+  constructor(_router: Router,
     private recipeService: RecipeService,
     private recipeTagService: RecipeTagService) {
     this.router = _router;
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
       this.recipeTagService.getAll().subscribe((data: Array<RecipeTag>) => {
         this.recipeTags = data;
       })
-    )
+    );
   }
 
   public toggleSidebar = (): void => {
