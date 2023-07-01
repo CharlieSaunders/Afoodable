@@ -23,7 +23,7 @@ import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { MatSortModule } from "@angular/material/sort";
 import { ConfigurationComponent } from "./configuration/configuration.component";
 import { MatTabsModule } from "@angular/material/tabs";
-import { MonacoEditorModule } from "ngx-monaco-editor";
+import { MonacoEditorModule } from "ngx-monaco-editor-v2";
 import { RecipeTagComponent } from "./components/recipe-tag/recipe-tag.component";
 import { MatCardModule } from "@angular/material/card";
 import { MatExpansionModule } from "@angular/material/expansion";
