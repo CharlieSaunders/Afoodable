@@ -163,17 +163,27 @@ export class IngredientsComponent implements AfterViewInit {
   }
 
   public downloadAsCsv(): void {
-    let filename = "recipes.csv"
-    let text = "test,1";
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
+    let filename = "recipes.csv";
+    let newRow = "\r\n";
+    let ingredientsArray = this.ingredients.GetAsArray();
+    let result = "";
+    result = Object.keys(ingredientsArray[0]).join(",");
+    result += newRow;
+    ingredientsArray.forEach((ingredient: Ingredient) => {
+      result += Object.values(ingredient).join(",");
+      result += newRow;
+    })
 
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(result));
+    element.setAttribute('download', filename);
     element.style.display = 'none';
     document.body.appendChild(element);
-
     element.click();
-
     document.body.removeChild(element);
+  }
+
+  public uploadCsv(): void {
+    
   }
 }
