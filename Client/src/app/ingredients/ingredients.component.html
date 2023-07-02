@@ -35,7 +35,8 @@
       <th mat-header-cell *matHeaderCellDef >
         <button matTooltip="Download as CSV" mat-mini-fab class="bg-success" (click)="downloadAsCsv()">💾</button>
         &nbsp;
-        <button matTooltip="Upload CSV" mat-mini-fab class="bg-success" (click)="uploadCsv()">⬆️</button>
+        <input hidden type="file" #uploader (change)="uploadCsv($event)"/>
+        <button matTooltip="Upload CSV" mat-mini-fab class="bg-success" (click)="uploader.click()">⬆️</button>
         <button matTooltip="Create new ingredient" style="float: right;" mat-mini-fab class="bg-success" (click)="showNewIngredientModal()">➕</button>
       </th>
       <td mat-cell *matCellDef="let ingredient"> 

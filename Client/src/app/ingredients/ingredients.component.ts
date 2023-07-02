@@ -183,7 +183,11 @@ export class IngredientsComponent implements AfterViewInit {
     document.body.removeChild(element);
   }
 
-  public uploadCsv(): void {
-    
+  public uploadCsv($event: any): void {
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      console.log(fileReader.result);
+    }
+    fileReader.readAsText($event.target.files[0]);
   }
 }
