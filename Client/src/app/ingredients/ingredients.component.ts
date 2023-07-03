@@ -29,6 +29,8 @@ export class IngredientsComponent implements AfterViewInit {
   public searchText = "";
   public displayNewIngredientModal = false;
   public displayUpdateIngredientModal = false;
+  public displayImportModal = false;
+  public importedIngredients! = IngredientDictionary;
 
   constructor(
     private ingredientService: IngredientService,
@@ -74,6 +76,7 @@ export class IngredientsComponent implements AfterViewInit {
   public hideAllModals(): void {
     this.displayNewIngredientModal = false;
     this.displayUpdateIngredientModal = false;
+    this.displayImportModal = false;
   }
 
   public updateExistingIngredient(): void {
@@ -184,10 +187,19 @@ export class IngredientsComponent implements AfterViewInit {
   }
 
   public uploadCsv($event: any): void {
+    this.importedIngredients = new IngredientDictionary();
+    this.displayImportModal = true;
     let fileReader = new FileReader();
-    fileReader.onload = (e) => {
-      console.log(fileReader.result);
-    }
+    fileReader.onload = this.getData;
     fileReader.readAsText($event.target.files[0]);
+  }
+
+  public getData(e: any): void {
+    let data = e.target.result.split("\r\n");
+    data.forEach((ingredient: any) => {
+      console.log(ingredient);
+      this.importedIngredients.Add(
+        new Ingredient(ingredient[0], ingredient[1], ingredient[2], ingredient[3], ))
+    })
   }
 }
