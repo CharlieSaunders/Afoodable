@@ -30,6 +30,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MacrosComponent } from "./components/macros/macros.component";
 import { AddIngredientToRecipeModalComponent } from "./components/modals/recipes/add-ingredient.component";
 import { RecipeSearchComponent } from "./recipe-search/recipe-search.component"
+import { DownloadAsComponent } from "./components/downloads/download-as.component";
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { RecipeSearchComponent } from "./recipe-search/recipe-search.component"
     RecipeTagComponent,
     MacrosComponent,
     AddIngredientToRecipeModalComponent,
-    RecipeSearchComponent
+    RecipeSearchComponent,
+    DownloadAsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),

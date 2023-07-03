@@ -29,8 +29,6 @@ export class IngredientsComponent implements AfterViewInit {
   public searchText = "";
   public displayNewIngredientModal = false;
   public displayUpdateIngredientModal = false;
-  public displayImportModal = false;
-  public importedIngredients! = IngredientDictionary;
 
   constructor(
     private ingredientService: IngredientService,
@@ -76,7 +74,6 @@ export class IngredientsComponent implements AfterViewInit {
   public hideAllModals(): void {
     this.displayNewIngredientModal = false;
     this.displayUpdateIngredientModal = false;
-    this.displayImportModal = false;
   }
 
   public updateExistingIngredient(): void {
@@ -163,43 +160,5 @@ export class IngredientsComponent implements AfterViewInit {
       this.toasterService.success(`Failed to delete ingredient`);
     }
     this.ngAfterViewInit();
-  }
-
-  public downloadAsCsv(): void {
-    let filename = "recipes.csv";
-    let newRow = "\r\n";
-    let ingredientsArray = this.ingredients.GetAsArray();
-    let result = "";
-    result = Object.keys(ingredientsArray[0]).join(",");
-    result += newRow;
-    ingredientsArray.forEach((ingredient: Ingredient) => {
-      result += Object.values(ingredient).join(",");
-      result += newRow;
-    })
-
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(result));
-    element.setAttribute('download', filename);
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-  }
-
-  public uploadCsv($event: any): void {
-    this.importedIngredients = new IngredientDictionary();
-    this.displayImportModal = true;
-    let fileReader = new FileReader();
-    fileReader.onload = this.getData;
-    fileReader.readAsText($event.target.files[0]);
-  }
-
-  public getData(e: any): void {
-    let data = e.target.result.split("\r\n");
-    data.forEach((ingredient: any) => {
-      console.log(ingredient);
-      this.importedIngredients.Add(
-        new Ingredient(ingredient[0], ingredient[1], ingredient[2], ingredient[3], ))
-    })
   }
 }
