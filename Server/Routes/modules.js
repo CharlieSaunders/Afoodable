@@ -29,4 +29,3 @@ async function get(){
 
 module.exports.moduleRoutes = moduleRoutes;
 exports.modulesCache = modulesCache;
-exports.getAllModules = get;
