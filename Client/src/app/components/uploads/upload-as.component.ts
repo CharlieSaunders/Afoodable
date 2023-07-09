@@ -1,5 +1,9 @@
 import { Component, Input } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
+import { Ingredient, IngredientBuilder } from "../../types/ingredients/ingredient.type";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatTableDataSource} from "@angular/material/table";
+import { MatSort } from "@angular/material/sort";
 
 @Component({
   selector: "app-upload-as",
@@ -10,10 +14,11 @@ import { ToastrService } from "ngx-toastr";
 export class UploadAsComponent{
     @Input() type!: string;
     private allowUpload = true;
+    public objectKeys!: Array<string>;
     public showModal = false;
     public status!: string;
     public headers!: Array<string>;
-    public rows: Array<Array<any>> = Array<Array<any>>();
+    public dataSource!: MatTableDataSource<Ingredient>;
 
   constructor(private toasterService: ToastrService) {
 
@@ -21,31 +26,33 @@ export class UploadAsComponent{
 
   public async onFileChanged($event: any): Promise<string> {
     this.showModal = true;
-    this.status = "Reading File"
     let fileContent = await this.readFileContent($event.target.files[0]);
+
     if(fileContent.length === 0){
       return Promise.resolve("")
     }
-    this.status = "Parsing File";
+
     let rows = fileContent.split("\r\n");
     if(rows.length === 0){
       this.toasterService.warning("Not enough records to upload");
       return Promise.resolve("");
     }
 
-    let index = 0;
+    if(this.type === "Ingredient"){
+      this.objectKeys = Object.keys(new Ingredient("", 0, 0, "", "", 0, 0, 0, 0));
+    }
+    let tableData = Array<Ingredient>();
     rows.forEach((row: any) => {
       let rowData = row.split(",");
       if(!this.headers){
         this.headers = rowData;
       }else{
-        this.rows.push([]);
-        this.rows[index] = rowData;
-        index++;
+        if(rowData.length >= this.objectKeys.length){
+          tableData.push(IngredientBuilder.fromArray(rowData));
+        }
       }
-
     })
-
+    this.dataSource = new MatTableDataSource<Ingredient>(tableData);
     return Promise.resolve("")
   }
 

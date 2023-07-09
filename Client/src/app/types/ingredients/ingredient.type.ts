@@ -29,11 +29,11 @@ export class Ingredient {
     this.cost = _cost;
     this.servingSize = _servingSize;
     this.servingMetric = _servingMetric;
+    this._id = _id;
     this.calories = _calories;
     this.fat = _fat;
     this.carbohydrates = _carbs;
     this.protein = _protein;
-    this._id = _id;
   }
 
   getCost(): string {
@@ -53,6 +53,30 @@ export class IngredientBuilder {
     carbohydrates: any, 
     protein: any): Ingredient {
     return new Ingredient(name, cost, servingSize, servingMetric, id, calories, fat, carbohydrates, protein);
+  }
+
+  public static fromArray(array: Array<string>): Ingredient {
+    let name = array[0];
+    let cost = Number(array[1]);
+    let servingSize = Number(array[2]);
+    let servingMetric = array[3];
+    let id = array[8];
+    let calories = Number(array[4]);
+    let fat = Number(array[5]);
+    let carbs = Number(array[6]);
+    let protein = Number(array[7]);
+
+    return new Ingredient(
+      name, 
+      cost, 
+      servingSize, 
+      servingMetric, 
+      id, 
+      calories, 
+      fat, 
+      carbs, 
+      protein
+      );
   }
 }
 

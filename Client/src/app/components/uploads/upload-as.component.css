@@ -6,7 +6,7 @@ input[type="file"] {
   z-index: 9999;
 }
 
-.card{
+.card-body{
   max-height: 70vh;
   overflow-y: scroll;
 }
