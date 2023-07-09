@@ -9,7 +9,7 @@ import { ToastrService } from "ngx-toastr";
 })
 export class DownloadAsComponent{
     @Input() object!: Array<any>;
-    private allowDownload = false;
+    private allowDownload = true;
 
   constructor(private toasterService: ToastrService) {
 

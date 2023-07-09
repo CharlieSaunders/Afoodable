@@ -1,0 +1,31 @@
+<button matTooltip="Upload as CSV" mat-mini-fab class="bg-success">
+	<label for="file-upload" >🔄</label>
+	<input type="file" id="file-upload" (change)="onFileChanged($event)">
+</button>
+
+  <div class="modal-wrapper" *ngIf="showModal">
+    <div class="col-lg-10 m-auto">
+      <div class="card fix-to-flex text-dark">
+        <div class="card-header">
+          <h4 class="card-title">Upload <span *ngIf="status">- {{status}}</span></h4>
+        </div>
+        <div class="card-body p-1 m-2">
+        	<table class="table table-hover table-responsive" style="width: 100%">
+       			<thead>
+	       			<tr>
+						<th scope="col" *ngFor="let header of headers">{{header}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let row of rows">
+						<td *ngFor="let data of row" [className]="row.length < headers.length ? 'bg-danger' : ''">{{data}}</td>
+					</tr>
+				</tbody>
+			</table>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-danger m-1" (click)="closeWithoutUpload()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
