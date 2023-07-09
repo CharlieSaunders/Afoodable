@@ -9,6 +9,28 @@ moduleRoutes.route('/api/modules').get(async function (_req, res) {
     res.json(await get());
 });
 
+moduleRoutes.route('/api/modules/:id').post(async function(_req, res) {
+    if(!modulesCache.setup){
+        await get();
+    }
+    
+    let id = _req.params.id;
+    let selectedModule = modulesCache.filter(x => x._id === id);
+    selectedModule.value = !selectedModule.value;
+    const dbConnect = dbo.getDb();
+    await dbConnect.collection('modules').updateOne(
+    { 
+      _id: new mongoDb.ObjectId(id) 
+    },
+    {
+      $set: { 
+        'value': selectedModule.value, 
+      }
+    }
+  );
+    res.json(selectedModule)
+})
+
 async function get(){
     if(modulesCache.setup){
         return modulesCache.get();
@@ -28,4 +50,3 @@ async function get(){
 }
 
 module.exports.moduleRoutes = moduleRoutes;
-exports.modulesCache = modulesCache;

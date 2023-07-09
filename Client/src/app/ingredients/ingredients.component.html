@@ -33,8 +33,8 @@
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef >
-        <app-download-as *ngIf="ingredients" [object]="ingredients.GetAsArray()"></app-download-as>&nbsp;
-        <app-upload-as [type]="'Ingredient'"></app-upload-as>&nbsp;
+        <app-download-as *ngIf="ingredients && downloadModule?.value" [object]="ingredients.GetAsArray()"></app-download-as>&nbsp;
+        <app-upload-as *ngIf="uploadModule?.value" [type]="'Ingredient'"></app-upload-as>&nbsp;
         <button matTooltip="Create new ingredient" style="float: right;" mat-mini-fab class="bg-success" (click)="showNewIngredientModal()">➕</button>
       </th>
       <td mat-cell *matCellDef="let ingredient"> 

@@ -16,9 +16,16 @@ export class ModulesService {
   }
 
   public getModules(): Observable<Array<ApplicationModule>> {
-    return this.httpClient.get(this.baseUrl)
+    return this.httpClient.get<Array<ApplicationModule>>(this.baseUrl)
     .pipe(
       map(ApplicationModulesMapper.map)
     );
+  }
+
+  public toggle(id: string): Observable<ApplicationModule>{
+    return this.http.post<ApplicationModule>(`${this.baseUrl}/${id}`, {})
+    .pipe(
+      map(ApplicationModulesMapper.mapSingle)
+      )
   }
 }

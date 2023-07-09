@@ -8,11 +8,12 @@ import { ModulesService } from "../services/modules/modules.service";
 import { EmailConfiguration, UpdateEmailConfiguration } from "../types/generics/email-configuration.type";
 import { CreateRecipeTag, RecipeTag } from "../types/recipes/recipe-tag.type";
 import { ApplicationModule, ApplicationModulesMapper } from "../types/generics/application-module.type"
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-configuration",
   templateUrl: "./configuration.component.html",
-  providers: [EmailService, ModulesService],
+  providers: [EmailService, ModulesService, ToastrService],
 })
 export class ConfigurationComponent implements OnInit {
   private readonly subscriptions: Subscription = new Subscription();
@@ -32,7 +33,8 @@ export class ConfigurationComponent implements OnInit {
 
   constructor(
     private emailService: EmailService,
-    private modulesService: ModulesService
+    private modulesService: ModulesService,
+    private toasterService: ToastrService
     ) {
   }
 
@@ -47,11 +49,15 @@ export class ConfigurationComponent implements OnInit {
     this.subscriptions.add(
       this.modulesService.getModules().subscribe((data: Array<ApplicationModule>) => {
         this.modules = data;
-      }))
+      }));
   }
 
   public saveConfig(): void {
     const updateRequest = new UpdateEmailConfiguration(this.emailConfigForm, this.emailConfig.Template);
     this.emailService.update(updateRequest).subscribe(() => { PageHelpers.RefreshPage(); });
+  }
+
+  public toggle(id: string): void {
+    this.modulesService.toggle(id).subscribe(() => { this.toasterService.success("Toggled"); });
   }
 }
