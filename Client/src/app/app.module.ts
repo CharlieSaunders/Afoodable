@@ -76,6 +76,7 @@ import { DownloadAsComponent } from "./components/downloads/download-as.componen
       { path: "recipes", component: RecipesComponent },
       { path: "ingredients", component: IngredientsComponent },
       { path: "configuration", component: ConfigurationComponent },
+      { path: '**', component: RecipeSearchComponent }
     ]),
     NgbModule,
     DragDropModule,
