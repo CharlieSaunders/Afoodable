@@ -1,29 +1,32 @@
 <br><br><br>
 <div class="container" *ngIf="recipe">
-	<div class="m-2">
-		<button matTooltip="Save Recipe" mat-fab class="m-1 bg-warning text-dark" (click)="saveRecipe()">
-		  <span class="icon-emoji">💾</span>
-		</button>
-		<button matTooltip="Update Image" mat-fab class="bg-info text-dark">
-			<label for="file-upload" >📷</label>
-			<input type="file" id="file-upload" (change)="onFileChanged($event)">
-		</button>
-	  </div>
-	<div class="row align-items-center">
-		<div class="col-lg-5">
-			<img class="img-fluid rounded m-0 p-0" src="../../assets/images/recipes/{{ recipe.imageUrl }}" alt="{{recipe.name}}" />
-		</div>
-		<div class="col-lg-1">
-		</div>
-		<div class="col-lg-5">
-			<h1 class="font-weight-light">{{recipe.name}} 
-				<span *ngIf="recipe.favourite" (click)="toggleFavourite()">🌟</span>
-				<span *ngIf="!recipe.favourite" (click)="toggleFavourite()" class="greyed-out">⭐</span>
-			</h1>
-			<p>{{recipe.description}}</p>
-			<app-macros [macros]="recipe.macros" [displayMeasurement]="true"></app-macros>
-		</div>
-	</div>
+	<div class="bg-dark text-secondary px-4 py-5 text-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6)), url('../../assets/images/recipes/{{ recipe.imageUrl }}')">
+    	<div class="py-5">
+      		<h1 class="display-5 fw-bold text-white">{{recipe.name}}</h1>
+      		<div class="col-lg-8 mx-auto">
+        		<p class="fs-5 mb-4 text-white">{{recipe.description}}</p>
+				<app-macros [macros]="recipe.macros" [displayMeasurement]="true"></app-macros>
+				<br>
+       			<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        			<div class="m-2">
+						<button matTooltip="Save Recipe" mat-fab class="m-1 bg-success text-dark" (click)="saveRecipe()">
+		  					<span class="icon-emoji">💾</span>
+						</button>
+						<button *ngIf="recipe.favourite" matTooltip="Un-Favourite" mat-fab class="m-1 bg-warning text-dark" (click)="toggleFavourite()">
+		  					<span class="icon-emoji">🌟</span>
+						</button>
+						<button *ngIf="!recipe.favourite" matTooltip="Favourite" mat-fab class="m-1 text-dark" (click)="toggleFavourite()">
+		  					<span class="icon-emoji greyed-out">⭐</span>
+						</button>
+						<button matTooltip="Update Image" mat-fab class="m-1 bg-info text-dark">
+							<label for="file-upload" >📷</label>
+							<input type="file" id="file-upload" (change)="onFileChanged($event)">
+						</button>
+  					</div>
+       			</div>
+      		</div>
+    	</div>
+  	</div>
 
 	<div class="row">
 		<div class="col-5">
@@ -71,7 +74,7 @@
 					<mat-accordion class="my-5 m-1" *ngIf="recipe.steps.length > 0">
 						<mat-card class="glassy my-4 text-dark" *ngFor="let step of recipe.steps; let i=index;">
 							<mat-card-header>
-								<mat-card-title><button type="button" class="btn btn-danger" (click)="removeStepAtIndex(i)">-</button> Step: {{i+1}}</mat-card-title>
+								<mat-card-title><button type="button" class="btn btn-danger p-1 m-1" (click)="removeStepAtIndex(i)">-</button> Step: {{i+1}}</mat-card-title>
 							</mat-card-header>
 							<mat-card-content>
 								<p contenteditable="true" (keyup)="updateStep(i)" id="recipeStep{{i}}">{{step}}</p>
