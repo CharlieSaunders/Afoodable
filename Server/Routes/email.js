@@ -4,16 +4,16 @@ const dbo = require('../Data/conn');
 const mongoDb = require('mongodb');
 const emailTemplater = require('./Services/emailTemplater');
 const { ShoppingListItem, Recipe } = require('./Types/ShoppingListTypes');
-const { modulesCache } = require('./modules');
 const _moduleName = "Email";
-
 const emailRoutes = express.Router();
+const GenericCache = require('./Caches/genericCache');
+const emailCache = new GenericCache("Email Cache")
 
 emailRoutes.route('/api/email').get(async function (_req, res){
-  if(modulesCache.setup){
-    res.json(modulesCache.getSingleByIndex(_moduleName));
-  }else{
+  if(!emailCache.setup){
     res.json(await getEmailModule());
+  }else{
+    res.json(emailCache.get()[0]);
   }
 })
 
@@ -91,9 +91,9 @@ async function getEmailModule(){
     .collection('modules')
     .find({})
     .toArray();
- 
-  modulesCache.set(modules);
-  return modulesCache.getSingleByIndex(_moduleName);
+  
+  emailCache.set(modules.filter(x => x.moduleName === _moduleName));
+  return emailCache.get()[0];
 }
 
 module.exports = emailRoutes;

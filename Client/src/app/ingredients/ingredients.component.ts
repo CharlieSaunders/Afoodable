@@ -55,8 +55,8 @@ export class IngredientsComponent implements AfterViewInit {
     this.subscription.add(
       this.modulesService.getModules()
       .subscribe((result: Array<ApplicationModule>) => {
-        this.uploadModule = result.filter(x => x.name === "UploadIngredients")[0];
-        this.downloadModule = result.filter(x => x.name === "DownloadIngredients")[0];
+        this.uploadModule = result.filter(x => x.moduleName === "UploadIngredients")[0];
+        this.downloadModule = result.filter(x => x.moduleName === "DownloadIngredients")[0];
       }))
 
     this.newIngredientForm.reset();
