@@ -60,11 +60,11 @@ export class IngredientBuilder {
     let cost = Number(array[1]);
     let servingSize = Number(array[2]);
     let servingMetric = array[3];
-    let id = array[8];
-    let calories = Number(array[4]);
-    let fat = Number(array[5]);
-    let carbs = Number(array[6]);
-    let protein = Number(array[7]);
+    let id = array[4];
+    let calories = Number(array[5]);
+    let fat = Number(array[6]);
+    let carbs = Number(array[7]);
+    let protein = Number(array[8]);
 
     return new Ingredient(
       name, 
