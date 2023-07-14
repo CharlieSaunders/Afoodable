@@ -4,23 +4,25 @@ import { Ingredient, IngredientBuilder } from "../../types/ingredients/ingredien
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource} from "@angular/material/table";
 import { MatSort } from "@angular/material/sort";
+import { IngredientService } from "../../services/ingredients/ingredient.service"
 
 @Component({
   selector: "app-upload-as",
   templateUrl: "./upload-as.component.html",
   styleUrls: ["./upload-as.component.css"],
-  providers: []
+  providers: [IngredientService]
 })
 export class UploadAsComponent{
     @Input() type!: string;
-    private allowUpload = true;
     public objectKeys!: Array<string>;
     public showModal = false;
     public status!: string;
     public headers!: Array<string>;
     public dataSource!: MatTableDataSource<Ingredient>;
 
-  constructor(private toasterService: ToastrService) {
+  constructor(
+    private toasterService: ToastrService,
+    private ingredientService: IngredientService) {
 
   }
 
@@ -58,6 +60,20 @@ export class UploadAsComponent{
 
   public closeWithoutUpload(): void {
     this.showModal = false;
+  }
+
+  public closeWithUpload(): void {
+    this.dataSource.data.forEach((ingredient: Ingredient) => {
+      if(ingredient._id){
+        this.ingredientService.updateIngredient(ingredient).subscribe((data: any) => { 
+          this.toasterService.success(`Uploaded ${ingredient.name}`)
+        });
+      }else{
+        this.ingredientService.newIngredient(ingredient).subscribe((data: any) => { 
+          this.toasterService.success(`Uploaded ${ingredient.name}`)
+        });
+      }
+    });
   }
 
   public readFileContent(file: File): Promise<string> {
