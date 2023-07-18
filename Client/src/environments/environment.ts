@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  name: "Afoodable-dev",
   version: "1.0.0"
 };
 

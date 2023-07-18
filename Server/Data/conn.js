@@ -15,12 +15,10 @@ module.exports = {
       if (err || !database) {
         return callback(err);
       }
-
-      console.log("No error and DB is true");
-
-      dbConnection = database.db('afoodable');
+      const environment = process.env.NODE_ENV === "prod" ? "afoodable" : "afoodable-dev";
+      console.log(`No error. DB is ${environment}`);
+      dbConnection = database.db(environment);
       console.log('Successfully connected to MongoDB.');
-
       return callback();
     });
   },
