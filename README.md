@@ -32,4 +32,4 @@ Send an email with all the recipes & ingredients
 ![Email](email.gif?raw=true "Email")
 
 WYSIWYG Editor for the email template
-![Email Template](wysiwyg.png?raw=true "Email Template")
+![Email Template](wysiwyg.PNG?raw=true "Email Template")
