@@ -9,7 +9,7 @@ import { environment } from "src/environments/environment";
 export class AppComponent {
 
   constructor(private titleService: Title) {
-    this.titleService.setTitle(`Afoodable ${environment.version}`);
+    this.titleService.setTitle(`${environment.name} ${environment.version}`);
   }
 
 }

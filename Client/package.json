@@ -5,10 +5,6 @@
     "ng": "ng",
     "prestart": "node",
     "start": "ng serve",
-    "build": "ng build",
-    "build:ssr": "ng run Afoodable:server:dev",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
     "lint": "ng lint"
   },
   "private": true,
