@@ -1,6 +1,6 @@
 # Afoodable 
 
-A shopping list & recipe helper.
+A shopping list & recipe helper
 
 ## Tech (MEAN stack)
 * **Client:** Angular 16.1.3, Material, ToastR, RxJS
