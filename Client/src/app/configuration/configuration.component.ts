@@ -4,22 +4,23 @@ import { Subscription } from "rxjs";
 import { FormHelpers } from "../helpers/form-helpers";
 import { PageHelpers } from "../helpers/page-helpers";
 import { EmailService } from "../services/emails/emails.service";
-import { RecipeTagService } from "../services/recipes/recipe-tag.service";
+import { ModulesService } from "../services/modules/modules.service";
 import { EmailConfiguration, UpdateEmailConfiguration } from "../types/generics/email-configuration.type";
 import { CreateRecipeTag, RecipeTag } from "../types/recipes/recipe-tag.type";
+import { ApplicationModule, ApplicationModulesMapper } from "../types/generics/application-module.type"
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-configuration",
   templateUrl: "./configuration.component.html",
-  providers: [EmailService, RecipeTagService],
+  providers: [EmailService, ModulesService, ToastrService],
 })
 export class ConfigurationComponent implements OnInit {
   private readonly subscriptions: Subscription = new Subscription();
 
   public emailConfig!: EmailConfiguration;
   public emailConfigForm!: FormGroup;
-  public recipeTags!: Array<RecipeTag>;
-  public recipeTagForm!: FormGroup;
+  public modules!: Array<ApplicationModule>;
 
   public code = "";
   public codeEditorOptions = {
@@ -32,7 +33,8 @@ export class ConfigurationComponent implements OnInit {
 
   constructor(
     private emailService: EmailService,
-    private recipeTagService: RecipeTagService
+    private modulesService: ModulesService,
+    private toasterService: ToastrService
     ) {
   }
 
@@ -45,11 +47,9 @@ export class ConfigurationComponent implements OnInit {
     );
 
     this.subscriptions.add(
-      this.recipeTagService.getAll().subscribe((data: Array<RecipeTag>) => {
-        this.recipeTags = data;
-        this.recipeTagForm = FormHelpers.RecipeTagForm();
-      })
-    );
+      this.modulesService.getModules().subscribe((data: Array<ApplicationModule>) => {
+        this.modules = data;
+      }));
   }
 
   public saveConfig(): void {
@@ -57,8 +57,7 @@ export class ConfigurationComponent implements OnInit {
     this.emailService.update(updateRequest).subscribe(() => { PageHelpers.RefreshPage(); });
   }
 
-  public addNewTag(): void {
-    const newRecipeTag = new CreateRecipeTag(this.recipeTagForm);
-    this.recipeTagService.create(newRecipeTag).subscribe(() => { PageHelpers.RefreshPage(); });
+  public toggle(id: string): void {
+    this.modulesService.toggle(id).subscribe(() => { this.toasterService.success("Toggled"); });
   }
 }

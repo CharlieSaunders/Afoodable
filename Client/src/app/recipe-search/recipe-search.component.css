@@ -1,7 +1,11 @@
 .sidebar-opener {
-    z-index: 1;
+    z-index: 100;
     cursor: pointer;
     position: fixed;
     top: 8%;
     right: 2%;
+}
+
+.sidebar-button{
+    border: 2px solid #c0c0c0;
 }

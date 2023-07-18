@@ -3,18 +3,20 @@ import { IngredientDictionary, Ingredient, IngredientBuilder } from "../types/in
 import { AfterViewInit, Component, ViewChild} from "@angular/core";
 import { Subscription } from "rxjs";
 import { IngredientService } from "../services/ingredients/ingredient.service";
+import { ModulesService } from "../services/modules/modules.service";
 import { ToastrService } from "ngx-toastr";
 import { PageHelpers } from "../helpers/page-helpers";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource} from "@angular/material/table";
 import { MatSort } from "@angular/material/sort";
 import { FormHelpers } from "../helpers/form-helpers";
+import { ApplicationModule } from "../types/generics/application-module.type";
 
 @Component({
   selector: "app-ingredients",
   templateUrl: "./ingredients.component.html",
   styleUrls: ["./ingredients.component.css"],
-  providers: [IngredientService],
+  providers: [IngredientService, ModulesService],
 })
 export class IngredientsComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -22,6 +24,8 @@ export class IngredientsComponent implements AfterViewInit {
   private readonly subscription: Subscription = new Subscription();
 
   public displayedColumns: string[] = ["name", "cost", "servingSize", "servingMetric", "actions"];
+  public uploadModule!: ApplicationModule;
+  public downloadModule!: ApplicationModule;
   public ingredients!: IngredientDictionary;
   public dataSource!: MatTableDataSource<Ingredient>;
   public newIngredientForm = FormHelpers.NewIngredientForm();
@@ -32,7 +36,8 @@ export class IngredientsComponent implements AfterViewInit {
 
   constructor(
     private ingredientService: IngredientService,
-    private toasterService: ToastrService
+    private toasterService: ToastrService,
+    private modulesService: ModulesService
   ) {}
 
   ngAfterViewInit(): void {
@@ -46,6 +51,13 @@ export class IngredientsComponent implements AfterViewInit {
           this.dataSource.sort = this.sort;
         })
     );
+
+    this.subscription.add(
+      this.modulesService.getModules()
+      .subscribe((result: Array<ApplicationModule>) => {
+        this.uploadModule = result.filter(x => x.moduleName === "UploadIngredients")[0];
+        this.downloadModule = result.filter(x => x.moduleName === "DownloadIngredients")[0];
+      }))
 
     this.newIngredientForm.reset();
   }
@@ -122,11 +134,11 @@ export class IngredientsComponent implements AfterViewInit {
         this.newIngredientForm.value.cost,
         this.newIngredientForm.value.servingSize,
         this.newIngredientForm.value.servingMetric,
+        this.newIngredientForm.value._id,
         this.newIngredientForm.value.calories,
         this.newIngredientForm.value.fat,
         this.newIngredientForm.value.carbohydrates,
         this.newIngredientForm.value.protein,
-        this.newIngredientForm.value._id
       );
 
       const created = this.ingredientService

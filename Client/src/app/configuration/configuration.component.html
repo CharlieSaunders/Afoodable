@@ -44,4 +44,14 @@
             <button class="p-2 m-2 " mat-mini-fab color="primary" (click)="saveConfig()">💾</button>
         </div>
     </mat-tab>
+    <mat-tab label="Modules">
+        <div *ngIf="modules">
+            <div class="p-2 m-2">
+                <div class="input-group m-1" *ngFor="let module of modules">
+                    <label class="p-2 content-center w-25" for="enabled">{{module.displayValue}}</label>
+                    <input type="checkbox" [(ngModel)]="module.value" (click)="toggle(module._id)"/>
+                </div>
+            </div>
+        </div>
+    </mat-tab>
 </mat-tab-group>

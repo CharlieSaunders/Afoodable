@@ -5,6 +5,7 @@ a {
 }
 .icon-emoji{
   font-size: 1.1rem;
+  z-index: 1;
 }
 code {
   color: #e01a76;
@@ -67,6 +68,7 @@ footer{
 	left: 0 !important;
 	display: flex !important;
 	flex-direction: column !important;
+	z-index: 10;
 }
 
 .fix-to-flex{

@@ -1,0 +1,32 @@
+<button matTooltip="Upload as CSV" mat-mini-fab class="bg-success">
+	<label for="file-upload" >🔄</label>
+	<input type="file" id="file-upload" (change)="onFileChanged($event)">
+</button>
+
+  <div class="modal-wrapper" *ngIf="showModal">
+    <div class="col-lg-10 m-auto">
+      <div class="card fix-to-flex text-dark">
+        <div class="card-header">
+          <h4 class="card-title">Upload <span *ngIf="status">- {{status}}</span></h4>
+        </div>
+        <div class="card-body p-1 m-2" *ngIf="dataSource">
+		  <table mat-table [dataSource]="dataSource" matSort>
+
+		  	<div *ngFor="let header of headers">
+			    <ng-container matColumnDef="{{header}}">
+			      <th mat-header-cell *matHeaderCellDef> {{header}} </th>
+			      <td mat-cell *matCellDef="let ingredient"> {{ingredient[header]}} </td>
+			    </ng-container>
+			</div>
+
+		    <tr mat-header-row *matHeaderRowDef="headers"></tr>
+    		<tr mat-row *matRowDef="let row; columns: headers;"></tr>
+		  </table>
+        </div>
+        <div class="card-footer">
+        	<button type="button" class="btn btn-success m-1" (click)="closeWithUpload()">Upload</button>
+          <button type="button" class="btn btn-danger m-1" (click)="closeWithoutUpload()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

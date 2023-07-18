@@ -6,7 +6,6 @@ import { RouterModule } from "@angular/router";
 import { ToastrModule } from "ngx-toastr";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
-import { HomeComponent } from "./home/home.component";
 import { MatButtonModule } from "@angular/material/button";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FilterRecipePipe } from "./helpers/pipes/filter-recipe-name";
@@ -30,12 +29,14 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MacrosComponent } from "./components/macros/macros.component";
 import { AddIngredientToRecipeModalComponent } from "./components/modals/recipes/add-ingredient.component";
+import { RecipeSearchComponent } from "./recipe-search/recipe-search.component"
+import { DownloadAsComponent } from "./components/downloads/download-as.component";
+import { UploadAsComponent } from "./components/uploads/upload-as.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
     RecipePageComponent,
     RecipesComponent,
     IngredientsComponent,
@@ -47,7 +48,10 @@ import { AddIngredientToRecipeModalComponent } from "./components/modals/recipes
     ConfigurationComponent,
     RecipeTagComponent,
     MacrosComponent,
-    AddIngredientToRecipeModalComponent
+    AddIngredientToRecipeModalComponent,
+    RecipeSearchComponent,
+    DownloadAsComponent,
+    UploadAsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -69,11 +73,12 @@ import { AddIngredientToRecipeModalComponent } from "./components/modals/recipes
     MatExpansionModule,
     MatTooltipModule,
     RouterModule.forRoot([
-      { path: "", component: HomeComponent, pathMatch: "full" },
+      { path: "search", component: RecipeSearchComponent },
       { path: "recipe/:id", component: RecipePageComponent },
       { path: "recipes", component: RecipesComponent },
       { path: "ingredients", component: IngredientsComponent },
-      { path: "configuration", component: ConfigurationComponent }
+      { path: "configuration", component: ConfigurationComponent },
+      { path: '**', component: RecipeSearchComponent }
     ]),
     NgbModule,
     DragDropModule,
