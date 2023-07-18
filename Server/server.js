@@ -4,7 +4,6 @@ const dbo = require('./Data/conn');
 const PORT = 9998;
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
