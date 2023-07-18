@@ -1,4 +1,5 @@
 # Afoodable 
+[![Node.js Test Install -> Build](https://github.com/CharlieSaunders/Afoodable/actions/workflows/node.js.yml/badge.svg)](https://github.com/CharlieSaunders/Afoodable/actions/workflows/node.js.yml)
 
 A shopping list & recipe helper
 
