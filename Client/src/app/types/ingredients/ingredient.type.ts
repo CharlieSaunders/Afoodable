@@ -43,38 +43,38 @@ export class Ingredient {
 
 export class IngredientBuilder {
   public static fromForm(
-    name: any, 
-    cost: any, 
-    servingSize: any, 
-    servingMetric: any, 
-    id: any, 
-    calories: any, 
-    fat: any, 
-    carbohydrates: any, 
+    name: any,
+    cost: any,
+    servingSize: any,
+    servingMetric: any,
+    id: any,
+    calories: any,
+    fat: any,
+    carbohydrates: any,
     protein: any): Ingredient {
     return new Ingredient(name, cost, servingSize, servingMetric, id, calories, fat, carbohydrates, protein);
   }
 
   public static fromArray(array: Array<string>): Ingredient {
-    let name = array[0];
-    let cost = Number(array[1]);
-    let servingSize = Number(array[2]);
-    let servingMetric = array[3];
-    let id = array[4];
-    let calories = Number(array[5]);
-    let fat = Number(array[6]);
-    let carbs = Number(array[7]);
-    let protein = Number(array[8]);
+    const name = array[0];
+    const cost = Number(array[1]);
+    const servingSize = Number(array[2]);
+    const servingMetric = array[3];
+    const id = array[4];
+    const calories = Number(array[5]);
+    const fat = Number(array[6]);
+    const carbs = Number(array[7]);
+    const protein = Number(array[8]);
 
     return new Ingredient(
-      name, 
-      cost, 
-      servingSize, 
-      servingMetric, 
-      id, 
-      calories, 
-      fat, 
-      carbs, 
+      name,
+      cost,
+      servingSize,
+      servingMetric,
+      id,
+      calories,
+      fat,
+      carbs,
       protein
       );
   }

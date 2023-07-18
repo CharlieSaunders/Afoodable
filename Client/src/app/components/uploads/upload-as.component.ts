@@ -28,13 +28,13 @@ export class UploadAsComponent{
 
   public async onFileChanged($event: any): Promise<string> {
     this.showModal = true;
-    let fileContent = await this.readFileContent($event.target.files[0]);
+    const fileContent = await this.readFileContent($event.target.files[0]);
 
     if(fileContent.length === 0){
       return Promise.resolve("")
     }
 
-    let rows = fileContent.split("\r\n");
+    const rows = fileContent.split("\r\n");
     if(rows.length === 0){
       this.toasterService.warning("Not enough records to upload");
       return Promise.resolve("");
@@ -43,9 +43,9 @@ export class UploadAsComponent{
     if(this.type === "Ingredient"){
       this.objectKeys = Object.keys(new Ingredient("", 0, 0, "", "", 0, 0, 0, 0));
     }
-    let tableData = Array<Ingredient>();
+    const tableData = Array<Ingredient>();
     rows.forEach((row: any) => {
-      let rowData = row.split(",");
+      const rowData = row.split(",");
       if(!this.headers){
         this.headers = rowData;
       }else{
@@ -65,11 +65,11 @@ export class UploadAsComponent{
   public closeWithUpload(): void {
     this.dataSource.data.forEach((ingredient: Ingredient) => {
       if(ingredient._id){
-        this.ingredientService.updateIngredient(ingredient).subscribe((data: any) => { 
+        this.ingredientService.updateIngredient(ingredient).subscribe((data: any) => {
           this.toasterService.success(`Uploaded ${ingredient.name}`)
         });
       }else{
-        this.ingredientService.newIngredient(ingredient).subscribe((data: any) => { 
+        this.ingredientService.newIngredient(ingredient).subscribe((data: any) => {
           this.toasterService.success(`Uploaded ${ingredient.name}`)
         });
       }

@@ -15,7 +15,7 @@ export class ApplicationModule {
 
 export class ApplicationModulesMapper {
 	public static map(inputs: any): Array<ApplicationModule> {
-		let response = new Array<ApplicationModule>();
+		const response = new Array<ApplicationModule>();
 		inputs.forEach((entry: any) => {
 			if(entry.type != "custom"){
 				response.push(new ApplicationModule(entry.name, entry.value, entry._id, entry.displayValue, entry.moduleName));
