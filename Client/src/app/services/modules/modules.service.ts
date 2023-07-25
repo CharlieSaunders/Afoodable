@@ -3,13 +3,14 @@ import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { ApplicationModule, ApplicationModulesMapper } from "../../types/generics/application-module.type";
 import { UrlHelper } from "src/app/helpers/UrlHelper";
+import { Environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class ModulesService {
   private httpClient!: HttpClient;
-  private baseUrl = `${UrlHelper.For()}/api/modules`;
+  private baseUrl = `${Environment.url}/api/modules`;
 
   constructor(private http: HttpClient) {
     this.httpClient = http;

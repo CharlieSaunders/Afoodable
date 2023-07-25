@@ -4,13 +4,14 @@ import { Observable, map } from "rxjs";
 import { ApiResponseMapper, CreateResponse, DeleteResponse, UpdateResponse } from "src/app/types/generics/api-response.type";
 import { Ingredient, IngredientDictionary } from "src/app/types/ingredients/ingredient.type";
 import { UrlHelper } from "src/app/helpers/UrlHelper";
+import { Environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class IngredientService {
   private httpClient!: HttpClient;
-  private baseUrl = `${UrlHelper.For()}/api/ingredients`;
+  private baseUrl = `${Environment.url}/api/ingredients`;
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
