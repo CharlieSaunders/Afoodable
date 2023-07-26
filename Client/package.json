@@ -6,7 +6,7 @@
     "prestart": "node",
     "start": "ng serve",
     "lint": "ng lint",
-    "build-production": "ng build --prod --aot --build-optimizer --common-chunk --vendor-chunk --optimization --progress --configuration=production"
+    "build-production": "ng build --configuration=production"
   },
   "private": true,
   "dependencies": {
