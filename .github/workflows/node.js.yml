@@ -22,9 +22,3 @@ jobs:
         cache: 'npm' 
     - run: cd ./Client && npm install
     - run: cd ./Client && npm run build-production
-    - name: Archive build
-      if: success()
-      uses: actions/upload-artifact@v1
-      with:
-        name: deploy_dist
-        path: ./Client/dist
