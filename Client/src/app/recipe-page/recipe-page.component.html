@@ -29,12 +29,12 @@
   	</div>
 
 	<div class="row">
-		<div class="col-5">
+		<div class="col-lg-5 col-sm-12">
 			<mat-card class="glassy my-4">
 				<mat-card-header>
 				  <mat-card-title>
-					<button matTooltip="Add an ingredient" mat-mini-fab class="m-2 p-1 bg-dark text-light" (click)="toggleAddNewIngredientModal()">+</button>
-					<span>🥕 Ingredients</span>
+					<h4><button matTooltip="Add an ingredient" mat-mini-fab class="m-2 p-1 bg-dark text-light" (click)="toggleAddNewIngredientModal()">+</button>
+					🥕 Ingredients</h4>
 				  </mat-card-title>
 				</mat-card-header>
 				<mat-card-content>
@@ -62,12 +62,12 @@
 			  </mat-card>
 		</div>
 
-		<div class="col-7">
+		<div class="col-lg-7 col-sm-12">
 			<mat-accordion class="my-5 p-1">
 				<mat-expansion-panel class="glassy">
 					<mat-expansion-panel-header>
 						<mat-card-title class="text-dark">
-							<span>🍽️ Recipe Steps</span>
+							<h4 class="p-2">🍽️ Recipe Steps</h4>
 						</mat-card-title>
 					</mat-expansion-panel-header>
 					<button matTooltip="Add a recipe step" mat-mini-fab class="m-2 p-1 bg-dark text-light" (click)="addEmptyRecipeStep()">+</button>
