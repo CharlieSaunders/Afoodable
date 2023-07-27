@@ -1,13 +1,12 @@
 .mat-table{
     font-family: Rubik, sans-serif !important; 
     border-collapse: collapse !important;
-    margin: 25px 0 !important;
-    font-size: 1.1rem !important;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15) !important;
     width: 100% !important;
     background-color: #f2f2f2!important;
     color: #212529 !important;
     text-align: left !important;
+    table-layout: fixed!important;
 }
 
 .mat-table th{
@@ -16,13 +15,22 @@
     background-color: #212529 !important;
     color: #f2f2f2 !important;
     text-align: left !important;
-    padding: 12px 15px !important;
+    width: 100%!important;
+    white-space: nowrap!important;
+    overflow: hidden!important;
+    text-overflow: ellipsis!important;
+    -o-text-overflow: ellipsis!important;
 }
 
 .mat-table td {
     padding: 12px 15px !important;
     font-size: 1.1rem;
     color: #212529 !important;
+    width: 100%!important;
+    white-space: nowrap!important;
+    overflow: hidden!important;
+    text-overflow: ellipsis!important;
+    -o-text-overflow: ellipsis!important;
 }
 
 .mat-table tr {
@@ -46,4 +54,5 @@
     background-color: #212529 !important;
     color: #f2f2f2 !important;
     text-align: left !important;
+    width: 100%!important;
 }

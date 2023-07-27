@@ -23,7 +23,7 @@ export class IngredientsComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   private readonly subscription: Subscription = new Subscription();
 
-  public displayedColumns: string[] = ["name", "cost", "servingSize", "servingMetric", "actions"];
+  public displayedColumns: string[] = ["name", "cost", "servingSize", "actions"];
   public uploadModule!: ApplicationModule;
   public downloadModule!: ApplicationModule;
   public ingredients!: IngredientDictionary;
@@ -158,9 +158,9 @@ export class IngredientsComponent implements AfterViewInit {
     this.ngAfterViewInit();
   }
 
-  public deleteIngredient(id: string) {
+  public deleteIngredient() {
     const deleted = this.ingredientService
-      .deleteIngredient(id)
+      .deleteIngredient(this.updateIngredientForm.value._id)
       .subscribe((data: DeleteResponse) => {
         return data.acknowledged;
       });
