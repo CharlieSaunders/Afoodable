@@ -49,9 +49,8 @@ export class Recipe {
     let runningTotal = 0;
 
     items.forEach((item) => {
-      runningTotal += item.cost;
+      runningTotal += (item.cost * item.quantity);
     });
-
     return runningTotal;
   }
 }
