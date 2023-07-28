@@ -1,5 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { environment } from "src/environments/environment";
+import { SocialUser } from '@abacritt/angularx-social-login';
+
 
 @Component({
   selector: "app-nav-menu",
@@ -7,6 +9,7 @@ import { environment } from "src/environments/environment";
   styleUrls: ["./nav-menu.component.css"],
 })
 export class NavMenuComponent {
+  @Input() user!: SocialUser;
   public isExpanded = false;
   public version = environment.version;
 

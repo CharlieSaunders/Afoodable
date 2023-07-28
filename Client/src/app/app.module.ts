@@ -32,6 +32,8 @@ import { AddIngredientToRecipeModalComponent } from "./components/modals/recipes
 import { RecipeSearchComponent } from "./recipe-search/recipe-search.component"
 import { DownloadAsComponent } from "./components/downloads/download-as.component";
 import { UploadAsComponent } from "./components/uploads/upload-as.component";
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -82,9 +84,21 @@ import { UploadAsComponent } from "./components/uploads/upload-as.component";
     ]),
     NgbModule,
     DragDropModule,
-    MonacoEditorModule.forRoot()
+    MonacoEditorModule.forRoot(),
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider('668343721933-lvpjp15rmqnfchk0vaeosvc4ei6eg4ce.apps.googleusercontent.com'),
+          },
+        ],
+      } as SocialAuthServiceConfig,
+    }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

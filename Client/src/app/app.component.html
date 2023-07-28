@@ -1,8 +1,9 @@
 <body>
-  <app-nav-menu></app-nav-menu>
-  <div class="container">
-      <router-outlet></router-outlet>
+  <div *ngIf="isLoggedin">
+    <app-nav-menu [user]="socialUser"></app-nav-menu>
+    <div class="container">
+      <router-outlet *ngIf="isLoggedin"></router-outlet>
+    </div>
+    <footer>Made with ❤️ by Charlie</footer>
   </div>
-  <footer>Made with ❤️ by Charlie</footer>
 </body>
-
