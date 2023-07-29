@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
-import { RouterModule } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { ToastrModule } from "ngx-toastr";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
@@ -33,7 +33,21 @@ import { RecipeSearchComponent } from "./recipe-search/recipe-search.component"
 import { DownloadAsComponent } from "./components/downloads/download-as.component";
 import { UploadAsComponent } from "./components/uploads/upload-as.component";
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { LoginComponent } from './login/login.component';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { AuthService } from './auth/auth.service'
+import { AuthGuard } from './auth/auth.guard'
+import { environment } from "src/environments/environment";
+
+const routes: Routes = [
+  { path: "search", component: RecipeSearchComponent, canActivate:[AuthGuard] },
+  { path: "recipe/:id", component: RecipePageComponent, canActivate:[AuthGuard] },
+  { path: "recipes", component: RecipesComponent, canActivate:[AuthGuard] },
+  { path: "ingredients", component: IngredientsComponent, canActivate:[AuthGuard] },
+  { path: "configuration", component: ConfigurationComponent, canActivate:[AuthGuard] },
+  { path: "login", component: LoginComponent },
+  { path: '**', component: RecipeSearchComponent, canActivate:[AuthGuard] }
+];
 
 @NgModule({
   declarations: [
@@ -53,7 +67,8 @@ import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
     AddIngredientToRecipeModalComponent,
     RecipeSearchComponent,
     DownloadAsComponent,
-    UploadAsComponent
+    UploadAsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -74,14 +89,7 @@ import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
     MatCardModule,
     MatExpansionModule,
     MatTooltipModule,
-    RouterModule.forRoot([
-      { path: "search", component: RecipeSearchComponent },
-      { path: "recipe/:id", component: RecipePageComponent },
-      { path: "recipes", component: RecipesComponent },
-      { path: "ingredients", component: IngredientsComponent },
-      { path: "configuration", component: ConfigurationComponent },
-      { path: '**', component: RecipeSearchComponent }
-    ]),
+    RouterModule.forRoot(routes),
     NgbModule,
     DragDropModule,
     MonacoEditorModule.forRoot(),
@@ -94,11 +102,12 @@ import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('668343721933-lvpjp15rmqnfchk0vaeosvc4ei6eg4ce.apps.googleusercontent.com'),
+            provider: new GoogleLoginProvider(environment.googleClientId),
           },
         ],
       } as SocialAuthServiceConfig,
-    }],
+    },
+    AuthService, AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
