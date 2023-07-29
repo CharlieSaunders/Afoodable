@@ -6,12 +6,7 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   constructor() { }
 
-  isAuthenticated(){
-    let id = localStorage.getItem("id");
-    if(id === null){
-      return false;
-    }
-
-    return true;
+  isAuthenticated(): boolean {
+    return localStorage.getItem("id") != null;
   }
 }

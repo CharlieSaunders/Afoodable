@@ -1,4 +1,4 @@
-<header *ngIf="display">
+<header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark p-0">
     <div class="container-fluid bg-dark">
       <a class="navbar-brand" [routerLink]="['/search']">Afoodable</a>
@@ -24,6 +24,7 @@
             <a class="nav-link text-light" [routerLink]="['/recipes']">Recipes</a>
           </li>
         </ul>
+        <button type="button" class="btn btn-danger" (click)="logout()">Logout</button>
       </div>
     </div>
   </nav>

@@ -1,4 +1,3 @@
-import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
@@ -38,15 +37,18 @@ import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { AuthService } from './auth/auth.service'
 import { AuthGuard } from './auth/auth.guard'
 import { environment } from "src/environments/environment";
+import { ShellComponent } from "./shell/shell.component";
 
 const routes: Routes = [
-  { path: "search", component: RecipeSearchComponent, canActivate:[AuthGuard] },
-  { path: "recipe/:id", component: RecipePageComponent, canActivate:[AuthGuard] },
-  { path: "recipes", component: RecipesComponent, canActivate:[AuthGuard] },
-  { path: "ingredients", component: IngredientsComponent, canActivate:[AuthGuard] },
-  { path: "configuration", component: ConfigurationComponent, canActivate:[AuthGuard] },
+  { path: '', component: ShellComponent, canActivate:[AuthGuard], children: [
+    { path: "search", component: RecipeSearchComponent, canActivate:[AuthGuard] },
+    { path: "recipe/:id", component: RecipePageComponent, canActivate:[AuthGuard] },
+    { path: "recipes", component: RecipesComponent, canActivate:[AuthGuard] },
+    { path: "ingredients", component: IngredientsComponent, canActivate:[AuthGuard] },
+    { path: "configuration", component: ConfigurationComponent, canActivate:[AuthGuard] },
+  ] },
   { path: "login", component: LoginComponent },
-  { path: '**', component: RecipeSearchComponent, canActivate:[AuthGuard] }
+  { path: '**', redirectTo: "login" }
 ];
 
 @NgModule({
@@ -68,10 +70,10 @@ const routes: Routes = [
     RecipeSearchComponent,
     DownloadAsComponent,
     UploadAsComponent,
-    LoginComponent
+    LoginComponent,
+    ShellComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

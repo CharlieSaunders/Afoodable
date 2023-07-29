@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { SocialAuthService, GoogleLoginProvider, SocialUser } from '@abacritt/angularx-social-login';
+import { Component, NgZone, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 
 @Component({
@@ -8,38 +8,31 @@ import { environment } from "src/environments/environment";
   styleUrls: ["./login.component.css"],
   providers: [],
 })
-export class LoginComponent {
-
-  public socialUser!: SocialUser;
-  public isLoggedin?: boolean;
-  public clientId!: string;
-  public loginEndpoint!: string;
+export class LoginComponent implements OnInit {
 
   constructor(
-    private socialAuthService: SocialAuthService
+    private ngZone: NgZone,
+    private router: Router
     ) {
-    this.clientId = environment.googleClientId;
-    this.loginEndpoint = environment.loginEndpoint;
-    
   }
 
   ngOnInit(): void{
-    if(localStorage.getItem("id)") === null){
-      this.socialAuthService.authState.subscribe((user: any) => {
-        this.socialUser = user;
-        this.isLoggedin = user != null;
-        if(this.isLoggedin){
-          localStorage.setItem("id", user.idToken);
-        }
-      });
-    }
+    // @ts-ignore
+      google.accounts.id.initialize({
+      client_id: environment.googleClientId,
+      callback: this.handleCredentialResponse.bind(this),
+      auto_select: false,
+      cancel_on_tap_outside: true,
+    });
+    // @ts-ignore
+    google.accounts.id.renderButton(document.getElementById("google-button"), { theme: "outline", size: "large", width: "100%" });
+    // @ts-ignore
+    google.accounts.id.prompt((notification: PromptMomentNotification) => {console.log(notification)});
   }
 
-  loginWithGoogle(): void {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-  }
-
-  logOut(): void {
-    this.socialAuthService.signOut();
+  async handleCredentialResponse(response: any) {
+    console.log(response)
+    // this.ngZone.run(() => localStorage.setItem("id", response.credential));
+    // this.router.navigate(["search"]);
   }
 }

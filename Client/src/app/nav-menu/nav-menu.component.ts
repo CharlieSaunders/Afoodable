@@ -1,5 +1,6 @@
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 import { environment } from "src/environments/environment";
+import { PageHelpers } from "../helpers/page-helpers";
 
 
 @Component({
@@ -10,17 +11,20 @@ import { environment } from "src/environments/environment";
 export class NavMenuComponent {
   public isExpanded = false;
   public version = environment.version;
-  public display = false;
 
   constructor(){
-    this.display = localStorage.getItem("id") != null;
   }
 
-  collapse() {
+  collapse(): void {
     this.isExpanded = false;
   }
 
-  toggle() {
+  toggle(): void {
     this.isExpanded = !this.isExpanded;
+  }
+
+  logout(): void {
+    localStorage.removeItem("id");
+    PageHelpers.RefreshPage();
   }
 }
