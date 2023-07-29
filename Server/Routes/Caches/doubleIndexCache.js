@@ -31,6 +31,11 @@ class DoubleIndexCache {
         return Object.values(this.firstIndex);
     }
 
+    getSecondIndex(){
+        CacheLogger.LogGet(this.cacheName, null);
+        return Object.values(this.secondIndex);
+    }
+
     getSingleByIndex(value){
         CacheLogger.LogGet(this.cacheName, value);
         let id = this.secondIndex[value]._id;
