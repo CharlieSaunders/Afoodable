@@ -7,21 +7,24 @@ import { User } from '../types/users/user.type';
   providedIn: 'root'
 })
 export class AuthService {
+  public authenticated = false;
+
   constructor(private userService: UsersService) { }
 
-  isAuthenticated(): boolean {
-    let userFromStorage = localStorage.getItem("user");
+  async isAuthenticated(): Promise<boolean> {
+    this.authenticated = false;
+    let idFromStorage = localStorage.getItem("id");
 
-    if(userFromStorage == null){
-      console.log("User not found.")
+    if(idFromStorage == null){
       return false;
     }
 
-    let user = JSON.parse(userFromStorage);
-    this.userService.getUserByDetail(user.id).pipe(map(result => {
-      console.log(result)
-    }))
+    await this.userService.getUserByDetail(idFromStorage).subscribe((data: User) => {
+      if(data.authenticated){
+        localStorage.setItem("user", JSON.stringify(data))
+      }
+    });
 
-    return false;
+    return this.authenticated;
   }
 }

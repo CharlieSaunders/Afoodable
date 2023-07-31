@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from '@abacritt/angularx-social-login';
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
@@ -9,43 +9,44 @@ import { Router } from "@angular/router";
   styleUrls: ["./login.component.css"],
   providers: [],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  public user: SocialUser | undefined;
+  public loggedIn: boolean | undefined;
+  public isLoggedin?: boolean = undefined;
 
-  public socialUser!: SocialUser;
-  public isLoggedin?: boolean;
-  public clientId!: string;
-  public loginEndpoint!: string;
-
-  constructor(
-    private socialAuthService: SocialAuthService,
-    private router: Router
-    ) {
-    this.clientId = environment.googleClientId;
-    this.loginEndpoint = environment.loginEndpoint;
-    
+ constructor(
+  private router: Router, 
+  private ssoauthService:SocialAuthService) {
   }
 
-  ngOnInit(): void{
-    if(localStorage.getItem("user") == null){
-      this.socialAuthService.authState.subscribe((user: any) => {
-        this.socialUser = user;
-        this.isLoggedin = user != null;
-        if(this.isLoggedin){
-          localStorage.setItem("user", JSON.stringify(user));
-          this.router.navigate(["search"])
-        }
-      });
-    }
-    else{
-      this.router.navigate(["search"]);
+  ngOnInit(): void {
+    let id = localStorage.getItem("id");
+    if(id === null){
+      console.log("Id null")
+      this.noAutoLogin();
+    }else{
+      console.log("Id not null")
+      this.router.navigate(["search"])
     }
   }
 
-  loginWithGoogle(): void {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  noAutoLogin(): void{
+    this.ssoauthService.authState.subscribe((user)=>{
+      this.user = user;
+      this.loggedIn = (user != null);
+      this.isLoggedin = user != null;
+      if(this.loggedIn){
+        localStorage.setItem("id", user.id);
+        this.router.navigate(["search"]);
+      }
+    });
   }
 
-  logOut(): void {
-    this.socialAuthService.signOut();
+  signWithGoogle():void{
+    this.ssoauthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  signOut():any{
+    this.ssoauthService.signOut();
   }
 }

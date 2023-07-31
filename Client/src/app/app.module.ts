@@ -33,7 +33,7 @@ import { DownloadAsComponent } from "./components/downloads/download-as.componen
 import { UploadAsComponent } from "./components/uploads/upload-as.component";
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { LoginComponent } from './login/login.component';
-import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { AuthService } from './auth/auth.service'
 import { AuthGuard } from './auth/auth.guard'
 import { environment } from "src/environments/environment";
@@ -95,7 +95,8 @@ const routes: Routes = [
     NgbModule,
     DragDropModule,
     MonacoEditorModule.forRoot(),
-    SocialLoginModule
+    SocialLoginModule,
+    GoogleSigninButtonModule
   ],
   providers: [    {
       provide: 'SocialAuthServiceConfig',
@@ -104,7 +105,10 @@ const routes: Routes = [
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(environment.googleClientId),
+            provider: new GoogleLoginProvider(environment.googleClientId,
+              {
+              prompt : 'none'   // '' | 'none' | 'consent' |  'select_account'
+            }),
           },
         ],
       } as SocialAuthServiceConfig,

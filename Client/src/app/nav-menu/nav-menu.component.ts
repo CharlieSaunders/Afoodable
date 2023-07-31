@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { PageHelpers } from "../helpers/page-helpers";
+import { User } from '../types/users/user.type';
 
 
 @Component({
@@ -11,8 +12,13 @@ import { PageHelpers } from "../helpers/page-helpers";
 export class NavMenuComponent {
   public isExpanded = false;
   public version = environment.version;
+  public user!: User;
 
   constructor(){
+    let storageUser = localStorage.getItem("user");
+    if(storageUser != null){
+      this.user = JSON.parse(storageUser);
+    }
   }
 
   collapse(): void {
@@ -25,6 +31,7 @@ export class NavMenuComponent {
 
   logout(): void {
     localStorage.removeItem("id");
+    localStorage.removeItem("user");
     PageHelpers.RefreshPage();
   }
 }
