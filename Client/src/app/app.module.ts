@@ -36,7 +36,7 @@ import { LoginComponent } from './login/login.component';
 import { GoogleLoginProvider, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { AuthService } from './auth/auth.service'
 import { AuthGuard } from './auth/auth.guard'
-import { environment } from "src/environments/environment";
+import { Environment } from "src/environments/environment";
 import { ShellComponent } from "./shell/shell.component";
 
 const routes: Routes = [
@@ -105,7 +105,7 @@ const routes: Routes = [
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(environment.googleClientId, {
+            provider: new GoogleLoginProvider(Environment.googleClientId, {
               prompt : 'none'   // '' | 'none' | 'consent' |  'select_account'
             }),
           },
