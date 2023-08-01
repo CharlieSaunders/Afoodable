@@ -5,7 +5,8 @@
     "ng": "ng",
     "prestart": "node",
     "start": "ng serve",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "build-production": "ng build --configuration=production"
   },
   "private": true,
   "dependencies": {

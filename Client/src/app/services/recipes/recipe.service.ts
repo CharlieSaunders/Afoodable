@@ -5,11 +5,12 @@ import { Observable, map } from "rxjs";
 import { UpdateRecipeDto } from "../../types/recipes/update-recipe-dto.type";
 import { ApiResponseMapper, CreateResponse, DeleteResponse, UpdateResponse } from "src/app/types/generics/api-response.type";
 import { UrlHelper } from "src/app/helpers/UrlHelper";
+import { Environment } from "../../../environments/environment";
 
 @Injectable()
 export class RecipeService {
   private httpClient!: HttpClient;
-  private baseUrl = `${UrlHelper.For()}/api/recipes`;
+  private baseUrl = `${Environment.url}/api/recipes`;
 
   constructor(private http: HttpClient) {
     this.httpClient = http;

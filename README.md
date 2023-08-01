@@ -1,6 +1,7 @@
 # Afoodable 
+[![Node.js Test Install -> Build](https://github.com/CharlieSaunders/Afoodable/actions/workflows/node.js.yml/badge.svg)](https://github.com/CharlieSaunders/Afoodable/actions/workflows/node.js.yml)
 
-A shopping list & recipe helper.
+A shopping list & recipe helper
 
 ## Tech (MEAN stack)
 * **Client:** Angular 16.1.3, Material, ToastR, RxJS

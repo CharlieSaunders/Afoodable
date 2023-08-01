@@ -1,8 +1,7 @@
 import { Component } from "@angular/core";
-import { environment } from "src/environments/environment";
+import { Environment } from "src/environments/environment";
 import { PageHelpers } from "../helpers/page-helpers";
 import { User } from '../types/users/user.type';
-
 
 @Component({
   selector: "app-nav-menu",
@@ -11,15 +10,14 @@ import { User } from '../types/users/user.type';
 })
 export class NavMenuComponent {
   public isExpanded = false;
-  public version = environment.version;
-  public user!: User;
-
   constructor(){
     let storageUser = localStorage.getItem("afData");
     if(storageUser != null){
       this.user = JSON.parse(storageUser);
     }
   }
+  
+  public version = Environment.version;
 
   collapse(): void {
     this.isExpanded = false;

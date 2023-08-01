@@ -4,11 +4,12 @@ import { Observable, map } from "rxjs";
 import { ApiResponseMapper, CreateResponse, DeleteResponse } from "src/app/types/generics/api-response.type";
 import { UrlHelper } from "src/app/helpers/UrlHelper";
 import { CreateRecipeTag, RecipeTag } from "src/app/types/recipes/recipe-tag.type";
+import { Environment } from "../../../environments/environment";
 
 @Injectable()
 export class RecipeTagService {
   private httpClient!: HttpClient;
-  private baseUrl = `${UrlHelper.For()}/api/recipes/tags`;
+  private baseUrl = `${Environment.url}/api/recipes/tags`;
 
   constructor(private http: HttpClient) {
     this.httpClient = http;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
-import { environment } from "src/environments/environment";
+import { Environment } from "src/environments/environment";
 
 @Component({
   selector: "app-root",
@@ -8,10 +8,9 @@ import { environment } from "src/environments/environment";
 })
 export class AppComponent implements OnInit {
 
-  constructor(
-    private titleService: Title,
-    ) {
-    this.titleService.setTitle(`${environment.name} ${environment.version}`);
+
+  constructor(private titleService: Title) {
+    this.titleService.setTitle(`${Environment.name} ${Environment.version}`);
   }
 
   ngOnInit(): void{
