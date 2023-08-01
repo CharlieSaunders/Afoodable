@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, map } from "rxjs";
 import { ApiResponseMapper, CreateResponse, DeleteResponse } from "src/app/types/generics/api-response.type";
-import { UrlHelper } from "src/app/helpers/UrlHelper";
 import { CreateRecipeTag, RecipeTag } from "src/app/types/recipes/recipe-tag.type";
 import { Environment } from "../../../environments/environment";
 

@@ -2,7 +2,6 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { ApplicationModule, ApplicationModulesMapper } from "../../types/generics/application-module.type";
-import { UrlHelper } from "src/app/helpers/UrlHelper";
 import { Environment } from "../../../environments/environment";
 
 @Injectable({

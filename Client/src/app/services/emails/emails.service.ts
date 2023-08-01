@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
-import { UrlHelper } from "src/app/helpers/UrlHelper";
 import { AnyMapper } from "src/app/types/generics/any-type.type";
 import { EmailConfiguration, EmailConfigurationMapper, UpdateEmailConfiguration } from "src/app/types/generics/email-configuration.type";
 import { Recipe } from "src/app/types/recipes/recipe.type";

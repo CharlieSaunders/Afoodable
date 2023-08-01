@@ -4,7 +4,6 @@ import { Recipe, RecipeItem } from "src/app/types/recipes/recipe.type";
 import { Observable, map } from "rxjs";
 import { UpdateRecipeDto } from "../../types/recipes/update-recipe-dto.type";
 import { ApiResponseMapper, CreateResponse, DeleteResponse, UpdateResponse } from "src/app/types/generics/api-response.type";
-import { UrlHelper } from "src/app/helpers/UrlHelper";
 import { Environment } from "../../../environments/environment";
 
 @Injectable()

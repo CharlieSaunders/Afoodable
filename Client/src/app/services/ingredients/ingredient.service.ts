@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { ApiResponseMapper, CreateResponse, DeleteResponse, UpdateResponse } from "src/app/types/generics/api-response.type";
 import { Ingredient, IngredientDictionary } from "src/app/types/ingredients/ingredient.type";
-import { UrlHelper } from "src/app/helpers/UrlHelper";
 import { Environment } from "../../../environments/environment";
 
 @Injectable({

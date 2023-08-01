@@ -1,14 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { firstValueFrom, map, Observable } from "rxjs";
-import { UrlHelper } from "src/app/helpers/UrlHelper";
 import { User } from "src/app/types/users/user.type";
+import { Environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class UsersService {
-  private baseUrl = `${UrlHelper.For()}/api/users`;
+  private baseUrl = `${Environment.url}/api/users`;
 
   constructor(private http: HttpClient) {
   }
