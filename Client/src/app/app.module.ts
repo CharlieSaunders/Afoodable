@@ -1,8 +1,7 @@
-import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
-import { RouterModule } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { ToastrModule } from "ngx-toastr";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
@@ -32,6 +31,25 @@ import { AddIngredientToRecipeModalComponent } from "./components/modals/recipes
 import { RecipeSearchComponent } from "./recipe-search/recipe-search.component"
 import { DownloadAsComponent } from "./components/downloads/download-as.component";
 import { UploadAsComponent } from "./components/uploads/upload-as.component";
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { LoginComponent } from './login/login.component';
+import { GoogleLoginProvider, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { AuthService } from './auth/auth.service'
+import { AuthGuard } from './auth/auth.guard'
+import { environment } from "src/environments/environment";
+import { ShellComponent } from "./shell/shell.component";
+
+const routes: Routes = [
+  { path: 'app', component: ShellComponent, canActivate:[AuthGuard], children: [
+    { path: "search", component: RecipeSearchComponent, canActivate:[AuthGuard] },
+    { path: "recipe/:id", component: RecipePageComponent, canActivate:[AuthGuard] },
+    { path: "recipes", component: RecipesComponent, canActivate:[AuthGuard] },
+    { path: "ingredients", component: IngredientsComponent, canActivate:[AuthGuard] },
+    { path: "configuration", component: ConfigurationComponent, canActivate:[AuthGuard] },
+  ] },
+  { path: "", component: LoginComponent },
+  { path: '**', redirectTo: "" }
+];
 
 @NgModule({
   declarations: [
@@ -51,10 +69,11 @@ import { UploadAsComponent } from "./components/uploads/upload-as.component";
     AddIngredientToRecipeModalComponent,
     RecipeSearchComponent,
     DownloadAsComponent,
-    UploadAsComponent
+    UploadAsComponent,
+    LoginComponent,
+    ShellComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
@@ -72,19 +91,28 @@ import { UploadAsComponent } from "./components/uploads/upload-as.component";
     MatCardModule,
     MatExpansionModule,
     MatTooltipModule,
-    RouterModule.forRoot([
-      { path: "search", component: RecipeSearchComponent },
-      { path: "recipe/:id", component: RecipePageComponent },
-      { path: "recipes", component: RecipesComponent },
-      { path: "ingredients", component: IngredientsComponent },
-      { path: "configuration", component: ConfigurationComponent },
-      { path: '**', component: RecipeSearchComponent }
-    ]),
+    RouterModule.forRoot(routes),
     NgbModule,
     DragDropModule,
-    MonacoEditorModule.forRoot()
+    MonacoEditorModule.forRoot(),
+    SocialLoginModule,
+    GoogleSigninButtonModule
   ],
-  providers: [],
+  providers: [    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(environment.googleClientId, {
+              prompt : 'none'   // '' | 'none' | 'consent' |  'select_account'
+            }),
+          },
+        ],
+      } as SocialAuthServiceConfig,
+    },
+    AuthService, AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

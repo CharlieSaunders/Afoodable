@@ -49,7 +49,7 @@ export class RecipeSearchComponent implements OnInit {
   };
 
   public navigateToRecipe = (dbReference: string): void => {
-    this.router.navigate([`/recipe/${dbReference}`]);
+    this.router.navigate([`/app/recipe/${dbReference}`]);
   };
 
   public selectRecipe = (recipe: Recipe): void => {

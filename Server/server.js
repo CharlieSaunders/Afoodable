@@ -2,17 +2,17 @@ const express = require('express');
 const cors = require('cors');
 const dbo = require('./Data/conn');
 const PORT = 9998;
-
 const app = express();
+
 app.use(cors());
 app.use(express.json());
-
 
 app.use(require('./Routes/recipeTags'));
 app.use(require('./Routes/recipe'));
 app.use(require('./Routes/ingredient').ingredientRoutes);
 app.use(require('./Routes/email'));
 app.use(require('./Routes/modules').moduleRoutes);
+app.use(require('./Routes/users').usersRoutes);
 
 dbo.connectToServer(function (err) {
   console.log("Connecting...");

@@ -1,7 +1,7 @@
 <header>
-  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark order-bottom box-shadow mb-3">
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/search']">Afoodable</a>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark p-0">
+    <div class="container-fluid bg-dark">
+      <a class="navbar-brand" [routerLink]="['/app/search']">Afoodable for {{ user.firstName }} {{ user.secondName }}</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -9,21 +9,22 @@
         <ul class="navbar-nav flex-grow">
 
           <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-light" [routerLink]="['/search']">Search</a>
+            <a class="nav-link text-light" [routerLink]="['/app/search']">Search</a>
           </li>
 
           <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-light" [routerLink]="['/configuration']">Config</a>
+            <a class="nav-link text-light" [routerLink]="['/app/configuration']">Config</a>
           </li>
 
           <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-light" [routerLink]="['/ingredients']">Ingredients</a>
+            <a class="nav-link text-light" [routerLink]="['/app/ingredients']">Ingredients</a>
           </li>
           
           <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-light" [routerLink]="['/recipes']">Recipes</a>
+            <a class="nav-link text-light" [routerLink]="['/app/recipes']">Recipes</a>
           </li>
         </ul>
+        <button type="button" class="btn btn-danger" (click)="logout()">Logout</button>
       </div>
     </div>
   </nav>

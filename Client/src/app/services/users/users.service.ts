@@ -1,0 +1,26 @@
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { firstValueFrom, map, Observable } from "rxjs";
+import { UrlHelper } from "src/app/helpers/UrlHelper";
+import { User } from "src/app/types/users/user.type";
+
+@Injectable({
+  providedIn: "root",
+})
+export class UsersService {
+  private baseUrl = `${UrlHelper.For()}/api/users`;
+
+  constructor(private http: HttpClient) {
+  }
+
+  public async getUserByDetail(id: string): Promise<any> {
+    let apiCall$ = this.http.get(`${this.baseUrl}/${id}`);
+    return firstValueFrom(apiCall$);
+  }
+}
+
+export class UserMapper{
+    public static map(result: any): User {
+        return new User(result[0].firstName, result[0].secondName, result[0].id, result[0].emailAddress, result[0].authenticated);
+    }
+}
