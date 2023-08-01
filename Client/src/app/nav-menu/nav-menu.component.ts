@@ -15,7 +15,7 @@ export class NavMenuComponent {
   public user!: User;
 
   constructor(){
-    let storageUser = localStorage.getItem("user");
+    let storageUser = localStorage.getItem("afData");
     if(storageUser != null){
       this.user = JSON.parse(storageUser);
     }
@@ -30,8 +30,7 @@ export class NavMenuComponent {
   }
 
   logout(): void {
-    localStorage.removeItem("id");
-    localStorage.removeItem("user");
+    localStorage.clear();
     PageHelpers.RefreshPage();
   }
 }

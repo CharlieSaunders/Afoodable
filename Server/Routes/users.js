@@ -7,6 +7,7 @@ const usersCache = new DoubleIndexCache("Users Cache", "id")
 
 // GET USER BY DETAIL
 usersRoutes.route('/api/users/:id').get(async function (_req, res) {
+  try{
     let credential = _req.params.id;
     if(!usersCache.setup){
         const dbConnect = dbo.getDb();
@@ -16,7 +17,11 @@ usersRoutes.route('/api/users/:id').get(async function (_req, res) {
         usersCache.set(await getUsersCall);
     }
 
-    res.json(usersCache.getSecondIndex())
+    res.json(usersCache.getSingleByIndex(credential))
+  }catch(error){
+    res.json(error)
+  }
+
 });
 
 module.exports.usersRoutes = usersRoutes;

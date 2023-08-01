@@ -64,7 +64,7 @@ export class RecipesComponent implements AfterViewInit, OnDestroy{
   }
 
   public navigateToRecipe(dbReference: string): void {
-    this.router.navigate([`/recipe/${dbReference}`]);
+    this.router.navigate([`/app/recipe/${dbReference}`]);
   }
 
   public addNewRecipe(): void {

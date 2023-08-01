@@ -40,15 +40,15 @@ import { environment } from "src/environments/environment";
 import { ShellComponent } from "./shell/shell.component";
 
 const routes: Routes = [
-  { path: '', component: ShellComponent, canActivate:[AuthGuard], children: [
+  { path: 'app', component: ShellComponent, canActivate:[AuthGuard], children: [
     { path: "search", component: RecipeSearchComponent, canActivate:[AuthGuard] },
     { path: "recipe/:id", component: RecipePageComponent, canActivate:[AuthGuard] },
     { path: "recipes", component: RecipesComponent, canActivate:[AuthGuard] },
     { path: "ingredients", component: IngredientsComponent, canActivate:[AuthGuard] },
     { path: "configuration", component: ConfigurationComponent, canActivate:[AuthGuard] },
   ] },
-  { path: "login", component: LoginComponent },
-  { path: '**', redirectTo: "login" }
+  { path: "", component: LoginComponent },
+  { path: '**', redirectTo: "" }
 ];
 
 @NgModule({
@@ -105,8 +105,7 @@ const routes: Routes = [
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(environment.googleClientId,
-              {
+            provider: new GoogleLoginProvider(environment.googleClientId, {
               prompt : 'none'   // '' | 'none' | 'consent' |  'select_account'
             }),
           },

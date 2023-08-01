@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
 import { UsersService } from '../services/users/users.service';
 import { User } from '../types/users/user.type';
 
@@ -13,18 +12,21 @@ export class AuthService {
 
   async isAuthenticated(): Promise<boolean> {
     this.authenticated = false;
-    let idFromStorage = localStorage.getItem("id");
+    let googleDataFromStorage = localStorage.getItem("gData");
 
-    if(idFromStorage == null){
+    if(googleDataFromStorage === null){
+      console.log("No GData User")
       return false;
     }
 
-    await this.userService.getUserByDetail(idFromStorage).subscribe((data: User) => {
-      if(data.authenticated){
-        localStorage.setItem("user", JSON.stringify(data))
-      }
-    });
+    let parsedUser = JSON.parse(googleDataFromStorage);
+    let user = await this.userService.getUserByDetail(parsedUser.id);
+    let newUser = new User(user.firstName, user.secondName, user._id, user.emailAddress, user.authenticated);
+    if(newUser.authenticated){
+      this.authenticated = true;
+      localStorage.setItem("afData", JSON.stringify(newUser));
+    }
 
-    return this.authenticated;
+    return Promise.resolve(this.authenticated);
   }
 }
