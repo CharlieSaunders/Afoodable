@@ -7,17 +7,17 @@ import { AuthService } from './auth.service';
 })
 export class AuthGuard {
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private router: Router){
-  };
+  }
 
   async canActivate(): Promise<any> {
-    let result = await this.authService.isAuthenticated();
+    const result = await this.authService.isAuthenticated();
+    
     if(!result){
       this.router.navigate([""]);
     }
 
     return result;
   }
-  
 }

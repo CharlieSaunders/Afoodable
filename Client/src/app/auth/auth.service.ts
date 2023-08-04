@@ -12,16 +12,16 @@ export class AuthService {
 
   async isAuthenticated(): Promise<boolean> {
     this.authenticated = false;
-    let googleDataFromStorage = localStorage.getItem("gData");
+    const googleDataFromStorage = localStorage.getItem("gData");
 
     if(googleDataFromStorage === null){
       console.log("No GData User")
       return false;
     }
 
-    let parsedUser = JSON.parse(googleDataFromStorage);
-    let user = await this.userService.getUserByDetail(parsedUser.id);
-    let newUser = new User(user.firstName, user.secondName, user._id, user.emailAddress, user.authenticated);
+    const parsedUser = JSON.parse(googleDataFromStorage);
+    const user = await this.userService.getUserByDetail(parsedUser.id);
+    const newUser = new User(user.firstName, user.secondName, user._id, user.emailAddress, user.authenticated);
     if(newUser.authenticated){
       this.authenticated = true;
       localStorage.setItem("afData", JSON.stringify(newUser));

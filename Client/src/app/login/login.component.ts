@@ -9,15 +9,15 @@ import { Router } from "@angular/router";
   providers: [],
 })
 export class LoginComponent implements OnInit {
-  
+
   constructor(
-    private router: Router, 
+    private router: Router,
     private ssoauthService:SocialAuthService) {
   }
 
   ngOnInit(): void {
       this.ssoauthService.authState.subscribe((user)=>{
-        let validUser = user != null;
+        const validUser = user != null;
         if(validUser){
           localStorage.setItem("gData", JSON.stringify(user));
           this.router.navigate(["/app/search"])

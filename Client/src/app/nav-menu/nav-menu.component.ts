@@ -11,14 +11,14 @@ import { User } from '../types/users/user.type';
 export class NavMenuComponent {
   public isExpanded = false;
   public user!: User;
-  
+
   constructor(){
-    let storageUser = localStorage.getItem("afData");
+    const storageUser = localStorage.getItem("afData");
     if(storageUser != null){
       this.user = JSON.parse(storageUser);
     }
   }
-  
+
   public version = Environment.version;
 
   collapse(): void {
