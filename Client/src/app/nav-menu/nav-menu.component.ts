@@ -9,6 +9,7 @@ import { User } from '../types/users/user.type';
   styleUrls: ["./nav-menu.component.css"],
 })
 export class NavMenuComponent {
+  public version = Environment.version;
   public isExpanded = false;
   public user!: User;
 
@@ -18,8 +19,6 @@ export class NavMenuComponent {
       this.user = JSON.parse(storageUser);
     }
   }
-
-  public version = Environment.version;
 
   collapse(): void {
     this.isExpanded = false;
