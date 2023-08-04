@@ -12,7 +12,6 @@ class DoubleIndexCache {
             CacheLogger.LogResetting(this.cacheName);
 
         this.setup = true;
-        this.firstIndex = {};
         cacheObjects.forEach(element => {
             this.firstIndex[element._id] = element;
             this.secondIndex[element[this.secondIndexValue]] = element;

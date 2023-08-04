@@ -10,14 +10,15 @@ moduleRoutes.route('/api/modules').get(async function (_req, res) {
     if(modulesCache.setup){
         res.json(modulesCache.get())
     }else{
-        await getModules();
+        const results = await getModules();
+        modulesCache.set(results);
         res.json(modulesCache.get());
     }
 });
 
 moduleRoutes.route('/api/modules/:id').post(async function(_req, res) {
     if(!modulesCache.setup){
-        await getModules();
+      modulesCache.set(await getModules());
     }
     let id = _req.params.id;
     let selectedModule = modulesCache.getSingle(id);
@@ -38,22 +39,11 @@ moduleRoutes.route('/api/modules/:id').post(async function(_req, res) {
 })
 
 async function getModules(){
-    if(modulesCache.setup){
-        return modulesCache.get();
-    }else{
-        const dbConnect = dbo.getDb();
-        let response = dbConnect.collection('modules')
-          .find({})
-          .toArray(function (err, result) {
-          if (err) {
-            return 'Error fetching listings!';
-            } else {
-            modulesCache.set(result);
-            return modulesCache.get();
-          }
-        });
-        return await response;
-    }
+  const dbConnect = dbo.getDb();
+  let response = await dbConnect.collection('modules')
+    .find({})
+    .toArray();
+  return response;
 }
 
 module.exports.moduleRoutes = moduleRoutes;
