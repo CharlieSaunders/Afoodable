@@ -4,14 +4,12 @@ import { ShoppingList, ShoppingListItem } from "../types/recipes/shopping-list.t
 import { Router } from "@angular/router";
 import { RecipeService } from "../services/recipes/recipe.service";
 import { Subscription } from "rxjs";
-import { RecipeTagService } from "../services/recipes/recipe-tag.service";
-import { RecipeTag } from "../types/recipes/recipe-tag.type";
 
 @Component({
   selector: "app-recipe-search",
   templateUrl: "./recipe-search.component.html",
   styleUrls: ["./recipe-search.component.css"],
-  providers: [RecipeService, RecipeTagService],
+  providers: [RecipeService],
 })
 export class RecipeSearchComponent implements OnInit {
   private readonly subscriptions: Subscription = new Subscription();
@@ -22,11 +20,9 @@ export class RecipeSearchComponent implements OnInit {
   public totalSelectedRecipes = 0;
   public recipes!: Array<Recipe>;
   public shoppingList: ShoppingList = new ShoppingList();
-  public recipeTags!: Array<RecipeTag>;
 
   constructor(_router: Router,
-    private recipeService: RecipeService,
-    private recipeTagService: RecipeTagService) {
+    private recipeService: RecipeService,) {
     this.router = _router;
   }
 
@@ -34,12 +30,6 @@ export class RecipeSearchComponent implements OnInit {
     this.subscriptions.add(
       this.recipeService.getRecipes().subscribe((data: Array<Recipe>) => {
         this.recipes = data;
-      })
-    );
-
-    this.subscriptions.add(
-      this.recipeTagService.getAll().subscribe((data: Array<RecipeTag>) => {
-        this.recipeTags = data;
       })
     );
   }

@@ -1,11 +1,11 @@
 const express = require('express');
+const recipeRoutes = express.Router();
 const multer = require('multer');
 const dbo = require('../Data/conn');
 const GenericCache = require('./Caches/genericCache');
 
 let mongoDb = require('mongodb');
 const { ingredientsCache } = require('./ingredient');
-let recipeRoutes = express.Router();
 let recipesCache = new GenericCache("Recipe Cache");
 
 let storage = multer.diskStorage({
@@ -209,4 +209,4 @@ async function addRecipeData(recipe){
   return recipe;
 }
 
-module.exports = recipeRoutes;
+module.exports.recipeRoutes = recipeRoutes;

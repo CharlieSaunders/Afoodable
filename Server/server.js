@@ -7,10 +7,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(require('./Routes/recipeTags'));
-app.use(require('./Routes/recipe'));
+app.use(require('./Routes/recipe').recipeRoutes);
 app.use(require('./Routes/ingredient').ingredientRoutes);
-app.use(require('./Routes/email'));
+app.use(require('./Routes/email').emailRoutes);
 app.use(require('./Routes/modules').moduleRoutes);
 app.use(require('./Routes/users').usersRoutes);
 

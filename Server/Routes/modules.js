@@ -10,7 +10,7 @@ moduleRoutes.route('/api/modules').get(async function (_req, res) {
     if(modulesCache.setup){
         res.json(modulesCache.get())
     }else{
-        let modules = await getModules();
+        await getModules();
         res.json(modulesCache.get());
     }
 });
@@ -57,4 +57,3 @@ async function getModules(){
 }
 
 module.exports.moduleRoutes = moduleRoutes;
-exports.modulesCache = modulesCache;
