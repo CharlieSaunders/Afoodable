@@ -9,12 +9,13 @@
             <label class="p-2 content-center w-25" for="ingredientSearch">Search by name:</label>
             <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" id="ingredientSearch">
           </div>
-          <div *ngIf="searchText">
-            <ul *ngFor="let ingredient of allIngredients | filterIngredientNamePipe : searchText; index as i">
-                <li *ngIf="i<10" (click)="closeWithValue(ingredient)" style="cursor:pointer" >
-                  {{ingredient.name}}
-                </li>
-              </ul>
+          <br>
+          <div class="row m-2" *ngIf="searchText">
+            <div class="col-sm-3 p-2 text-center bg-light text-dark rounded" *ngFor="let ingredient of allIngredients | filterIngredientNamePipe : searchText; index as i">
+              <div *ngIf="i<20" (click)="closeWithValue(ingredient)" style="cursor:pointer" >
+                {{ingredient.name}}
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-footer">
