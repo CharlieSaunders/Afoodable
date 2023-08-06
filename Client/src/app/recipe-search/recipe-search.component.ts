@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Recipe } from "../types/recipes/recipe.type";
 import { ShoppingList, ShoppingListItem } from "../types/recipes/shopping-list.type";
 import { Router } from "@angular/router";
@@ -11,7 +11,7 @@ import { Subscription } from "rxjs";
   styleUrls: ["./recipe-search.component.css"],
   providers: [RecipeService],
 })
-export class RecipeSearchComponent implements OnInit {
+export class RecipeSearchComponent implements OnInit, OnDestroy {
   private readonly subscriptions: Subscription = new Subscription();
   public sidebarShow = false;
   public searchText = "";
@@ -32,6 +32,10 @@ export class RecipeSearchComponent implements OnInit {
         this.recipes = data;
       })
     );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe()
   }
 
   public toggleSidebar = (): void => {

@@ -1,6 +1,6 @@
 import { CreateResponse, DeleteResponse, UpdateResponse } from "../types/generics/api-response.type";
 import { IngredientDictionary, Ingredient, IngredientBuilder } from "../types/ingredients/ingredient.type";
-import { AfterViewInit, Component, ViewChild} from "@angular/core";
+import { AfterViewInit, Component, ViewChild, OnDestroy} from "@angular/core";
 import { Subscription } from "rxjs";
 import { IngredientService } from "../services/ingredients/ingredient.service";
 import { ModulesService } from "../services/modules/modules.service";
@@ -18,7 +18,7 @@ import { ApplicationModule } from "../types/generics/application-module.type";
   styleUrls: ["./ingredients.component.css"],
   providers: [IngredientService, ModulesService],
 })
-export class IngredientsComponent implements AfterViewInit {
+export class IngredientsComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   private readonly subscription: Subscription = new Subscription();
@@ -60,6 +60,10 @@ export class IngredientsComponent implements AfterViewInit {
       }))
 
     this.newIngredientForm.reset();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 
   public showNewIngredientModal(): void {
