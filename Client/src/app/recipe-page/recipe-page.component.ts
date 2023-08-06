@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Recipe, RecipeItem } from "../types/recipes/recipe.type";
 import { UpdateRecipeDto } from "../types/recipes/update-recipe-dto.type";
 import { RecipeService } from "../services/recipes/recipe.service";
@@ -16,7 +16,7 @@ import { UpdateResponse } from "../types/generics/api-response.type";
   providers: [RecipeService],
 })
 
-export class RecipePageComponent implements OnInit{
+export class RecipePageComponent implements OnInit, OnDestroy{
   private readonly subscriptions: Subscription = new Subscription();
   public allIngredients!: Array<Ingredient>;
   public searchText!: string;
@@ -50,6 +50,9 @@ export class RecipePageComponent implements OnInit{
     );
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe()
+  }
 
   public addIngredientToRecipe(item: RecipeItem): void {
     let added = false;

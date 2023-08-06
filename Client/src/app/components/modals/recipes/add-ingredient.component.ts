@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { IngredientService } from "src/app/services/ingredients/ingredient.service";
 import { Ingredient } from "src/app/types/ingredients/ingredient.type";
@@ -10,7 +10,7 @@ import { RecipeItem, RecipeItemBuilder } from "src/app/types/recipes/recipe.type
     styleUrls: [],
     providers: [IngredientService]
 })
-export class AddIngredientToRecipeModalComponent implements OnInit {
+export class AddIngredientToRecipeModalComponent implements OnInit, OnDestroy {
     private readonly subscriptions: Subscription = new Subscription();
 
     @Input() display = false;
@@ -31,6 +31,10 @@ export class AddIngredientToRecipeModalComponent implements OnInit {
                 this.allIngredients = data;
               })
           );
+    }
+      
+    ngOnDestroy(): void {
+        this.subscriptions.unsubscribe()
     }
 
     public closeWithValue(value: Ingredient) {
