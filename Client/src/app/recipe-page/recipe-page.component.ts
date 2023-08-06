@@ -95,9 +95,8 @@ export class RecipePageComponent implements OnInit{
     }
   }
 
-  public updateStep(index: number){
-    const documentData = document.getElementById(`recipeStep${index}`);
-    this.recipe.steps[index] = documentData?.innerText ?? "No value given";
+  public updateStepText(event: any, index: number): void{
+    this.recipe.steps[index] = event;
   }
 
   public onFileChanged(event: any): void {
