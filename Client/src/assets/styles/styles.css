@@ -79,3 +79,7 @@ footer{
 .greyed-out{
 	filter: grayscale(1);
 }
+
+.float-right{
+	float: right!important;
+}
