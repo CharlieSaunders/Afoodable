@@ -98,8 +98,9 @@ export class RecipePageComponent implements OnInit, OnDestroy{
     }
   }
 
-  public updateStepText(event: any, index: number): void{
-    this.recipe.steps[index] = event;
+  public updateStepText($event: any, index: number): void{
+      const updatedText = $event.target.innerText;
+      this.recipe.steps[index] = updatedText;
   }
 
   public onFileChanged(event: any): void {
