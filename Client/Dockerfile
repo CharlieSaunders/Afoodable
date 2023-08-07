@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 COPY ["./", "./"]
 RUN npm install --omit-dev
 RUN npm install -g @angular/cli
-RUN ng build --c development
+RUN ng build --c production
 
 ### STAGE 2: Run ###
 FROM nginx:1.23.3-alpine
