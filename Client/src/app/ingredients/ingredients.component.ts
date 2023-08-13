@@ -23,7 +23,7 @@ export class IngredientsComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort!: MatSort;
   private readonly subscription: Subscription = new Subscription();
 
-  public displayedColumns: string[] = ["name", "cost", "servingSize", "actions"];
+  public displayedColumns: string[] = ["name", "actions"];
   public uploadModule!: ApplicationModule;
   public downloadModule!: ApplicationModule;
   public ingredients!: IngredientDictionary;
