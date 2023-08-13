@@ -2,12 +2,14 @@ nav{
   height: 5vh;
   z-index: -1;
   border-bottom: 2px solid #c0c0c0;
+  transition: 0.25s ease-in all;
 }
 
 a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+  transition: 0.25s ease-in all;
 }
 
 html {

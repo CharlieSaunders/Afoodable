@@ -23,10 +23,6 @@
               Actions
             </button>
             <div ngbDropdownMenu aria-labelledby="actionDropdown" class="bg-dark  p-1">
-              <app-download-as *ngIf="ingredients && downloadModule?.value" [object]="ingredients.GetAsArray()"></app-download-as>
-              &nbsp;
-              <app-upload-as *ngIf="uploadModule?.value" [type]="'Ingredient'"></app-upload-as>
-              &nbsp;
               <button matTooltip="Create new ingredient" mat-mini-fab class="bg-success" (click)="showNewIngredientModal()">➕</button>
             </div>
           </div>

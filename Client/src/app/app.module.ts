@@ -28,8 +28,6 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MacrosComponent } from "./components/macros/macros.component";
 import { AddIngredientToRecipeModalComponent } from "./components/modals/recipes/add-ingredient.component";
 import { RecipeSearchComponent } from "./recipe-search/recipe-search.component"
-import { DownloadAsComponent } from "./components/downloads/download-as.component";
-import { UploadAsComponent } from "./components/uploads/upload-as.component";
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { LoginComponent } from './login/login.component';
 import { GoogleLoginProvider, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
@@ -66,8 +64,6 @@ const routes: Routes = [
     MacrosComponent,
     AddIngredientToRecipeModalComponent,
     RecipeSearchComponent,
-    DownloadAsComponent,
-    UploadAsComponent,
     LoginComponent,
     ShellComponent
   ],
