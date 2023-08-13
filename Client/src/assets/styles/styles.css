@@ -83,3 +83,7 @@ footer{
 .float-right{
 	float: right!important;
 }
+
+.overflow-hidden{
+	overflow: hidden!important;
+}
