@@ -31,7 +31,7 @@ export class Recipe {
     this.type = _type;
     this.rating = _rating;
     this.ratings = _ratings;
-    this.imageUrl = `https://res.cloudinary.com/afoodable/image/upload/v1691940808/${env}/${_imageUrl}`;
+    this.imageUrl = _imageUrl;
     this.ingredients = _ingredients;
     this.cost = this.TotalCost(_ingredients);
     this.totalCost = this.cost.toFixed(2);

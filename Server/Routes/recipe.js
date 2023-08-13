@@ -155,24 +155,25 @@ recipeRoutes.route('/api/recipes/image/:id').post(upload.single('recipeImage'), 
     public_id: docReference,
     folder: module.folder
   }, 
-  function(error, result) {
+  async function(error, result) {
     if(error){
       console.log(error)
+      res.json(error);
+    }else{
+      let udpated = await dbConnect.collection('recipes').updateOne(
+        { 
+          _id: new mongoDb.ObjectId(docReference) 
+        },
+        {
+          $set: { 
+            'imageUrl': result.secure_url
+          }
+        }
+      );
+      recipesCache.setSingle(await getSingleRecipe(docReference));
+      res.json(udpated);
     }
   });
-
-  let udpated = await dbConnect.collection('recipes').updateOne(
-    { 
-      _id: new mongoDb.ObjectId(docReference) 
-    },
-    {
-      $set: { 
-        'imageUrl': _req.file.filename
-      }
-    }
-  );
-  recipesCache.setSingle(await getSingleRecipe(docReference));
-  res.json(udpated);
 });
 
 
