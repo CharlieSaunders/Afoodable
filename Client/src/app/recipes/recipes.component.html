@@ -7,20 +7,13 @@
       <td mat-cell *matCellDef="let recipe"> {{recipe.name}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="update">
+    <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef >
-        <button style="float: left;" mat-mini-fab class="bg-success" (click)="toggleNewRecipeModal()">➕</button>
+        <button style="float: right;" mat-mini-fab class="bg-success m-1" (click)="toggleNewRecipeModal()">➕</button>
       </th>
       <td mat-cell *matCellDef="let recipe">
-        <button mat-mini-fab color="accent" style="float: left;" (click)="navigateToRecipe(recipe._id)">✏️</button>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="delete">
-      <th mat-header-cell *matHeaderCellDef >
-      </th>
-      <td mat-cell *matCellDef="let recipe"> 
-        <button mat-mini-fab color="warn" style="float: left;" (click)="deleteRecipe(recipe._id)">🗑️</button>
+        <button mat-mini-fab color="warn" class="m-1" style="float: right;" (click)="deleteRecipe(recipe._id)">🗑️</button>
+        <button mat-mini-fab color="accent" class="m-1" style="float: right;" (click)="navigateToRecipe(recipe._id)">✏️</button>
       </td>
     </ng-container>
 
