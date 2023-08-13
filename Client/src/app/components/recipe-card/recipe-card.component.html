@@ -2,7 +2,7 @@
     <div class="card recipeCard border border-warning" *ngIf="recipe.favourite">
         <div *ngIf="timesSelected > 0" class="timesSelectedBox text-dark">x{{recipe.selectedAmount}}</div>
         <div class="background-block">
-            <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" (click)="navigateToRecipe(recipe._id)" class="background"/>
+            <img src="{{recipe.imageUrl}}" (click)="navigateToRecipe(recipe._id)" class="background"/>
         </div>
         <div class="card-content">
             <h2>{{recipe.name}}</h2>
@@ -21,7 +21,7 @@
     <div class="card recipeCard" *ngIf="!recipe.favourite">
         <div *ngIf="timesSelected > 0" class="timesSelectedBox text-dark" [ngClass]="{'border border-warning': recipe.favourite}">x{{recipe.selectedAmount}}</div>
         <div class="background-block">
-            <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" (click)="navigateToRecipe(recipe._id)" class="background"/>
+            <img src="{{recipe.imageUrl}}"  (click)="navigateToRecipe(recipe._id)" class="background"/>
         </div>
         <div class="card-content">
             <h2>{{recipe.name}}</h2>

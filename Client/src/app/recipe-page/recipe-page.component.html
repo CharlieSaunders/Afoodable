@@ -1,6 +1,6 @@
 <br><br><br>
 <div class="container" *ngIf="recipe">
-	<div class="bg-dark text-secondary px-4 py-5 text-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6)), url('../../assets/images/recipes/{{ recipe.imageUrl }}')">
+	<div class="bg-dark text-secondary px-4 py-5 text-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6)), url('{{ recipe.imageUrl }}')">
     	<div class="py-5">
       		<h1 class="display-5 fw-bold text-white">{{recipe.name}}</h1>
       		<div class="col-lg-8 mx-auto">

@@ -1,3 +1,4 @@
+import { Environment } from "src/environments/environment";
 import { Macros } from "../generics/macros.type";
 import { Ingredient } from "../ingredients/ingredient.type";
 
@@ -22,12 +23,15 @@ export class Recipe {
   constructor(_name: string, _type: string, _rating: number, _ratings: number, _imageUrl: string,
     _ingredients: Array<RecipeItem>, _dbId: string, _steps: Array<string>, _description: string,
     _serves: number, _calories: number, _fat: number, _carbs: number, _protein: number, _fav: boolean) {
+
+      let env = Environment.production ? "Afoodable" : "Afoodable-dev";
+
     this._id = _dbId;
     this.name = _name;
     this.type = _type;
     this.rating = _rating;
     this.ratings = _ratings;
-    this.imageUrl = _imageUrl;
+    this.imageUrl = `https://res.cloudinary.com/afoodable/image/upload/v1691940808/${env}/${_imageUrl}`;
     this.ingredients = _ingredients;
     this.cost = this.TotalCost(_ingredients);
     this.totalCost = this.cost.toFixed(2);
