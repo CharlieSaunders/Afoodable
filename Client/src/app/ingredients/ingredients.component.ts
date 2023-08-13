@@ -150,13 +150,6 @@ export class IngredientsComponent implements AfterViewInit, OnDestroy {
         .subscribe((data: CreateResponse) => {
           return data.acknowledged;
         });
-
-      if (created) {
-        PageHelpers.RefreshPage();
-      }
-      else {
-        this.toasterService.success(`Failed to create ${newIngredient.name}`);
-      }
     }
 
     this.ngAfterViewInit();
