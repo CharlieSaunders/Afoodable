@@ -28,7 +28,7 @@ export class RecipesComponent implements AfterViewInit, OnDestroy{
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  public displayedColumns: string[] = ["name", "type", "totalCost", "notes", "actions"];
+  public displayedColumns: string[] = ["name", "actions"];
 
   public newRecipeForm = new FormGroup({
     name: new FormControl(""),

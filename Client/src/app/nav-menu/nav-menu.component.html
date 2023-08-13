@@ -1,12 +1,12 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark p-0">
     <div class="container-fluid bg-dark">
-      <a class="navbar-brand" [routerLink]="['/app/search']">Afoodable for {{ user.firstName }} {{ user.secondName }}</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
+      <a class="navbar-brand" [routerLink]="['/app/search']">{{ user.firstName }}'s Afoodable<sup>{{version}}</sup></a>
+      <button class="navbar-toggler m-1" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end" [ngClass]="{ show: isExpanded }">
-        <ul class="navbar-nav flex-grow">
+        <ul class="navbar-nav flex-grow m-1">
 
           <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-light" [routerLink]="['/app/search']">Search</a>
@@ -24,7 +24,7 @@
             <a class="nav-link text-light" [routerLink]="['/app/recipes']">Recipes</a>
           </li>
         </ul>
-        <button type="button" class="btn btn-danger" (click)="logout()">Logout</button>
+        <button type="button" class="btn btn-danger m-1" (click)="logout()">Logout</button>
       </div>
     </div>
   </nav>

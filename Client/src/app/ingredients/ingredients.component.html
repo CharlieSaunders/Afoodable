@@ -7,16 +7,6 @@
       <td mat-cell *matCellDef="let ingredient"> {{ingredient.name}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="cost">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cost"> Cost </th>
-      <td mat-cell *matCellDef="let ingredient"> £{{ingredient.getCost()}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="servingSize">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by servingSize"> Serving </th>
-      <td mat-cell *matCellDef="let ingredient"> {{ingredient.servingSize}} {{ingredient.servingMetric}} </td>
-    </ng-container>
-
     <ng-container matColumnDef="notes">
       <th mat-header-cell *matHeaderCellDef> </th>
       <td mat-cell *matCellDef="let ingredient"> 
@@ -28,21 +18,17 @@
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>
-          <div ngbDropdown class="d-inline-block" container="body">
+          <div ngbDropdown class="d-inline-block float-right" container="body">
             <button type="button" class="btn btn-outline-secondary" id="actionDropdown" ngbDropdownToggle>
               Actions
             </button>
             <div ngbDropdownMenu aria-labelledby="actionDropdown" class="bg-dark  p-1">
-              <app-download-as *ngIf="ingredients && downloadModule?.value" [object]="ingredients.GetAsArray()"></app-download-as>
-              &nbsp;
-              <app-upload-as *ngIf="uploadModule?.value" [type]="'Ingredient'"></app-upload-as>
-              &nbsp;
               <button matTooltip="Create new ingredient" mat-mini-fab class="bg-success" (click)="showNewIngredientModal()">➕</button>
             </div>
           </div>
       </th>
       <td mat-cell *matCellDef="let ingredient"> 
-        <button mat-mini-fab color="accent" (click)="showUpdateIngredientModal(ingredient)">✏️</button>
+        <button mat-mini-fab color="accent" class="float-right" (click)="showUpdateIngredientModal(ingredient)">✏️</button>
       </td>
     </ng-container>
 
@@ -143,7 +129,7 @@
       <div class="card-footer p-1 m-1">
         <button type="button" class="btn btn-success m-1" (click)="updateExistingIngredient()">Save</button>
         <button type="button" class="btn btn-danger m-1" (click)="hideAllModals()">Cancel</button>
-        <button type="button" class="btn btn-danger m-1" (click)="deleteIngredient()">Delete</button>
+        <button type="button" class="btn btn-outline-danger m-1 float-right" (click)="deleteIngredient()">Delete</button>
       </div>
     </div>
   </div>

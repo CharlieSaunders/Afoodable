@@ -14,7 +14,7 @@ export class UsersService {
   }
 
   public async getUserByDetail(id: string): Promise<any> {
-    let apiCall$ = this.http.get(`${this.baseUrl}/${id}`);
+    const apiCall$ = this.http.get(`${this.baseUrl}/${id}`);
     return firstValueFrom(apiCall$);
   }
 }

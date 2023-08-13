@@ -1,19 +1,17 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Recipe } from "../types/recipes/recipe.type";
 import { ShoppingList, ShoppingListItem } from "../types/recipes/shopping-list.type";
 import { Router } from "@angular/router";
 import { RecipeService } from "../services/recipes/recipe.service";
 import { Subscription } from "rxjs";
-import { RecipeTagService } from "../services/recipes/recipe-tag.service";
-import { RecipeTag } from "../types/recipes/recipe-tag.type";
 
 @Component({
   selector: "app-recipe-search",
   templateUrl: "./recipe-search.component.html",
   styleUrls: ["./recipe-search.component.css"],
-  providers: [RecipeService, RecipeTagService],
+  providers: [RecipeService],
 })
-export class RecipeSearchComponent implements OnInit {
+export class RecipeSearchComponent implements OnInit, OnDestroy {
   private readonly subscriptions: Subscription = new Subscription();
   public sidebarShow = false;
   public searchText = "";
@@ -22,11 +20,9 @@ export class RecipeSearchComponent implements OnInit {
   public totalSelectedRecipes = 0;
   public recipes!: Array<Recipe>;
   public shoppingList: ShoppingList = new ShoppingList();
-  public recipeTags!: Array<RecipeTag>;
 
   constructor(_router: Router,
-    private recipeService: RecipeService,
-    private recipeTagService: RecipeTagService) {
+    private recipeService: RecipeService,) {
     this.router = _router;
   }
 
@@ -36,12 +32,10 @@ export class RecipeSearchComponent implements OnInit {
         this.recipes = data;
       })
     );
+  }
 
-    this.subscriptions.add(
-      this.recipeTagService.getAll().subscribe((data: Array<RecipeTag>) => {
-        this.recipeTags = data;
-      })
-    );
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe()
   }
 
   public toggleSidebar = (): void => {

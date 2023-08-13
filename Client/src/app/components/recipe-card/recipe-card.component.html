@@ -2,7 +2,7 @@
     <div class="card recipeCard border border-warning" *ngIf="recipe.favourite">
         <div *ngIf="timesSelected > 0" class="timesSelectedBox text-dark">x{{recipe.selectedAmount}}</div>
         <div class="background-block">
-            <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" (click)="navigateToRecipe(recipe._id)" class="background"/>
+            <img src="{{recipe.imageUrl}}" (click)="navigateToRecipe(recipe._id)" class="background"/>
         </div>
         <div class="card-content">
             <h2>{{recipe.name}}</h2>
@@ -12,16 +12,16 @@
             <br><br>
             <small>~£{{recipe.totalCost}}</small>
             <div class="callToActionContainer">
-                <button mat-mini-fab class="bg-light float-right" style="float:right" (click)="updateSelectRecipe(recipe)">➕</button>
-                <button *ngIf="timesSelected > 0" mat-mini-fab class="bg-light float-right" style="float:left" (click)="updateUnselectRecipe(recipe)">➖</button>
-        </div>
+                <button mat-mini-fab class="bg-light" style="float:right" (click)="updateSelectRecipe(recipe)">➕</button>
+                <button *ngIf="timesSelected > 0" mat-mini-fab class="bg-light" style="float:left" (click)="updateUnselectRecipe(recipe)">➖</button>
+            </div>
         </div>
     </div>
 
     <div class="card recipeCard" *ngIf="!recipe.favourite">
         <div *ngIf="timesSelected > 0" class="timesSelectedBox text-dark" [ngClass]="{'border border-warning': recipe.favourite}">x{{recipe.selectedAmount}}</div>
         <div class="background-block">
-            <img src="../../assets/images/recipes/{{ recipe.imageUrl }}" (click)="navigateToRecipe(recipe._id)" class="background"/>
+            <img src="{{recipe.imageUrl}}"  (click)="navigateToRecipe(recipe._id)" class="background"/>
         </div>
         <div class="card-content">
             <h2>{{recipe.name}}</h2>
@@ -31,8 +31,8 @@
             <br><br>
             <small>~£{{recipe.totalCost}}</small>
             <div class="callToActionContainer">
-                <button mat-mini-fab class="bg-light float-right" style="float:right" (click)="updateSelectRecipe(recipe)">➕</button>
-                <button *ngIf="timesSelected > 0" mat-mini-fab class="bg-light float-right" style="float:left" (click)="updateUnselectRecipe(recipe)">➖</button>
+                <button mat-mini-fab class="bg-light" style="float:right" (click)="updateSelectRecipe(recipe)">➕</button>
+                <button *ngIf="timesSelected > 0" mat-mini-fab class="bg-light" style="float:left" (click)="updateUnselectRecipe(recipe)">➖</button>
         </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 <br><br><br>
 <div class="container" *ngIf="recipe">
-	<div class="bg-dark text-secondary px-4 py-5 text-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6)), url('../../assets/images/recipes/{{ recipe.imageUrl }}')">
+	<div class="bg-dark text-secondary px-4 py-5 text-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6)), url('{{ recipe.imageUrl }}')">
     	<div class="py-5">
       		<h1 class="display-5 fw-bold text-white">{{recipe.name}}</h1>
       		<div class="col-lg-8 mx-auto">
@@ -41,19 +41,18 @@
 					<div class="text-dark" *ngIf="recipe.ingredients.length > 0">
 						<table class="table table-hover table-responsive" style="width: 100%">
 							<tr>
+								<th scope="col"></th>
 								<th scope="col">Name</th>
 								<th scope="col">Amount</th>
 								<th scope="col">Cost</th>
 								<th scope="col"></th>
 							</tr>
 							<tr *ngFor="let ingredient of recipe.ingredients; let i=index;">
+								<td><button type="button" class="btn btn-danger text-dark" (click)="amendIngredientAtIndex(i, -1)">-</button></td>
 								<td scope="row">{{ingredient.name}}</td>
 								<td>{{ingredient.getTotalRequired()}}</td>
 								<td>~£{{ingredient.getCost()}}</td>
-								<td class="text-right">
-									<button type="button" style="float: left" class="btn btn-success mx-2 text-dark" (click)="amendIngredientAtIndex(i, 1)">+</button>
-									<button type="button" style="float: right" class="btn btn-danger text-dark" (click)="amendIngredientAtIndex(i, -1)">-</button>
-								</td>
+								<td class="text-right"><button type="button" class="btn btn-success text-dark" (click)="amendIngredientAtIndex(i, 1)">+</button></td>
 							</tr>
 						</table>
 					</div>
@@ -77,7 +76,7 @@
 								<mat-card-title><button type="button" class="btn btn-danger p-1 m-1" (click)="removeStepAtIndex(i)">-</button> Step: {{i+1}}</mat-card-title>
 							</mat-card-header>
 							<mat-card-content>
-								<p contenteditable="true" (keyup)="updateStep(i)" id="recipeStep{{i}}">{{step}}</p>
+								<p type="text" contenteditable="true" style="width: 100%" (focusout)="updateStepText($event, i)" id="recipeStep{{i}}">{{step}}</p>
 							</mat-card-content>
 						</mat-card>
 					</mat-accordion>

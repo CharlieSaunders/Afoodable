@@ -3,7 +3,7 @@
     border-collapse: collapse !important;
     font-size: 1.1rem !important;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15) !important;
-    width: 100% !important;
+    width: 95vw !important;
     background-color: #f2f2f2!important;
     color: #212529 !important;
     text-align: left !important;
@@ -20,6 +20,7 @@
 .mat-table td {
     font-size: 1rem;
     color: #212529 !important;
+    margin: 0;
 }
 
 .mat-table tr {

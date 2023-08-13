@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { Environment } from "src/environments/environment";
 import { Recipe } from "../../types/recipes/recipe.type";
 
 @Component({
@@ -13,7 +14,6 @@ export class RecipeCardComponent{
   @Input() unselectRecipe!: (args: Recipe) => void;
   @Input() updateShoppingList!: (args: Recipe) => void;
   @Input() removeFromShoppingList!: (args: Recipe) => void;
-
   public timesSelected = 0;
 
   constructor() {}

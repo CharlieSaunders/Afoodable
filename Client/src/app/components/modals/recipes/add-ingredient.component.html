@@ -1,20 +1,21 @@
   <div class="modal-wrapper" *ngIf="allIngredients && display">
-    <div class="col-lg-4 m-auto">
+    <div class="col-lg-6 m-auto">
       <div class="card fix-to-flex">
         <div class="card-header">
           <h4 class="card-title">Add Ingredient</h4>
         </div>
         <div class="card-body p-1 m-2">
           <div class="input-group">
-            <label class="p-2 content-center w-25" for="ingredientSearch">Search by name:</label>
+            <label class="ontent-center w-25" for="ingredientSearch">Search by name:</label>
             <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" id="ingredientSearch">
           </div>
-          <div *ngIf="searchText">
-            <ul *ngFor="let ingredient of allIngredients | filterIngredientNamePipe : searchText; index as i">
-                <li *ngIf="i<10" (click)="closeWithValue(ingredient)" style="cursor:pointer" >
-                  {{ingredient.name}}
-                </li>
-              </ul>
+          <br>
+          <div class="row" *ngIf="searchText">
+            <div class="col-sm-3 p-2 text-center bg-light text-dark rounded" *ngFor="let ingredient of allIngredients | filterIngredientNamePipe : searchText; index as i">
+              <div *ngIf="i<20" (click)="closeWithValue(ingredient)" style="cursor:pointer" >
+                {{ingredient.name}}
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-footer">

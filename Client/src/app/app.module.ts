@@ -22,15 +22,12 @@ import { MatSortModule } from "@angular/material/sort";
 import { ConfigurationComponent } from "./configuration/configuration.component";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MonacoEditorModule } from "ngx-monaco-editor-v2";
-import { RecipeTagComponent } from "./components/recipe-tag/recipe-tag.component";
 import { MatCardModule } from "@angular/material/card";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MacrosComponent } from "./components/macros/macros.component";
 import { AddIngredientToRecipeModalComponent } from "./components/modals/recipes/add-ingredient.component";
 import { RecipeSearchComponent } from "./recipe-search/recipe-search.component"
-import { DownloadAsComponent } from "./components/downloads/download-as.component";
-import { UploadAsComponent } from "./components/uploads/upload-as.component";
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { LoginComponent } from './login/login.component';
 import { GoogleLoginProvider, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
@@ -64,12 +61,9 @@ const routes: Routes = [
     RecipeCardComponent,
     SidebarComponent,
     ConfigurationComponent,
-    RecipeTagComponent,
     MacrosComponent,
     AddIngredientToRecipeModalComponent,
     RecipeSearchComponent,
-    DownloadAsComponent,
-    UploadAsComponent,
     LoginComponent,
     ShellComponent
   ],

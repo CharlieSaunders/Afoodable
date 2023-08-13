@@ -96,4 +96,4 @@ async function getEmailModule(){
   return emailCache.get()[0];
 }
 
-module.exports = emailRoutes;
+module.exports.emailRoutes = emailRoutes;

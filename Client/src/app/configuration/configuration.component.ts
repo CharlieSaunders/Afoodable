@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { FormHelpers } from "../helpers/form-helpers";
@@ -15,7 +15,7 @@ import { ToastrService } from "ngx-toastr";
   templateUrl: "./configuration.component.html",
   providers: [EmailService, ModulesService, ToastrService],
 })
-export class ConfigurationComponent implements OnInit {
+export class ConfigurationComponent implements OnInit, OnDestroy {
   private readonly subscriptions: Subscription = new Subscription();
 
   public emailConfig!: EmailConfiguration;
@@ -50,6 +50,10 @@ export class ConfigurationComponent implements OnInit {
       this.modulesService.getModules().subscribe((data: Array<ApplicationModule>) => {
         this.modules = data;
       }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe()
   }
 
   public saveConfig(): void {

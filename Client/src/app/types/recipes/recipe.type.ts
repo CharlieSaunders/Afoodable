@@ -1,3 +1,4 @@
+import { Environment } from "src/environments/environment";
 import { Macros } from "../generics/macros.type";
 import { Ingredient } from "../ingredients/ingredient.type";
 
@@ -22,6 +23,9 @@ export class Recipe {
   constructor(_name: string, _type: string, _rating: number, _ratings: number, _imageUrl: string,
     _ingredients: Array<RecipeItem>, _dbId: string, _steps: Array<string>, _description: string,
     _serves: number, _calories: number, _fat: number, _carbs: number, _protein: number, _fav: boolean) {
+
+      let env = Environment.production ? "Afoodable" : "Afoodable-dev";
+
     this._id = _dbId;
     this.name = _name;
     this.type = _type;

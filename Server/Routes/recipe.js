@@ -1,21 +1,21 @@
+const cloudinary = require('cloudinary');
+const fs = require("fs");
 const express = require('express');
-const multer = require('multer');
+const recipeRoutes = express.Router();
 const dbo = require('../Data/conn');
+const multer = require('multer');
 const GenericCache = require('./Caches/genericCache');
 
 let mongoDb = require('mongodb');
 const { ingredientsCache } = require('./ingredient');
-let recipeRoutes = express.Router();
 let recipesCache = new GenericCache("Recipe Cache");
+let recipesModuleCache = new GenericCache("Recipe Module Cache");
 
 let storage = multer.diskStorage({
-  destination: function(req, file, callBack){
-    callBack(null, '../Client/src/assets/images/recipes/');
-  },
   filename: function(req, file, callBack){
     callBack(null, `${file.originalname}.${file.mimetype.split("/")[1]}`);
   }
-});
+})
 
 let upload = multer({storage: storage});
 
@@ -130,41 +130,50 @@ recipeRoutes.route('/api/recipes/:id').delete(async function(_req, res) {
   res.json(deleted);
 })
 
-// RATE RECIPE
-recipeRoutes.route('/api/recipes/rating/:id').post(async function(_req, res){
-  let docReference = _req.params.id;
-  const dbConnect = dbo.getDb();
-  let updated = await dbConnect.collection('recipes').updateOne(
-    { 
-      _id: new mongoDb.ObjectId(docReference) 
-    },
-    {
-      $set: { 
-        'rating': _req.body.rating,
-        'ratings': _req.body.ratings
-      }
-    }
-  );
-  recipesCache.setSingle(await getSingleRecipe(docReference));
-  res.json(updated);
-});
 
 // UPDATE RECIPE IMAGE
 recipeRoutes.route('/api/recipes/image/:id').post(upload.single('recipeImage'), async function (_req, res){
-  let docReference = _req.params.id;
   const dbConnect = dbo.getDb();
-  let udpated = await dbConnect.collection('recipes').updateOne(
-    { 
-      _id: new mongoDb.ObjectId(docReference) 
-    },
-    {
-      $set: { 
-        'imageUrl': _req.file.filename
-      }
+
+  if(!recipesModuleCache.setup){
+    let response = await dbConnect.collection('modules')
+    .find({})
+    .toArray();
+    recipesModuleCache.set(response.filter((module) => module.moduleName == "imageService"));
+  }  
+  
+  const module = recipesModuleCache.get()[0];
+  cloudinary.config({ 
+    cloud_name: module.cloud_name, 
+    api_key: module.api_key, 
+    api_secret: module.api_secret 
+  });
+
+  let docReference = _req.params.id;
+  cloudinary.v2.uploader.upload(_req.file.path,
+  { 
+    public_id: docReference,
+    folder: module.folder
+  }, 
+  async function(error, result) {
+    if(error){
+      console.log(error)
+      res.json(error);
+    }else{
+      let udpated = await dbConnect.collection('recipes').updateOne(
+        { 
+          _id: new mongoDb.ObjectId(docReference) 
+        },
+        {
+          $set: { 
+            'imageUrl': result.secure_url
+          }
+        }
+      );
+      recipesCache.setSingle(await getSingleRecipe(docReference));
+      res.json(udpated);
     }
-  );
-  recipesCache.setSingle(await getSingleRecipe(docReference));
-  res.json(udpated);
+  });
 });
 
 
@@ -209,4 +218,4 @@ async function addRecipeData(recipe){
   return recipe;
 }
 
-module.exports = recipeRoutes;
+module.exports.recipeRoutes = recipeRoutes;

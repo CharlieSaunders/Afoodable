@@ -9,17 +9,16 @@ import { User } from '../types/users/user.type';
   styleUrls: ["./nav-menu.component.css"],
 })
 export class NavMenuComponent {
+  public version = Environment.version;
   public isExpanded = false;
   public user!: User;
-  
+
   constructor(){
-    let storageUser = localStorage.getItem("afData");
+    const storageUser = localStorage.getItem("afData");
     if(storageUser != null){
       this.user = JSON.parse(storageUser);
     }
   }
-  
-  public version = Environment.version;
 
   collapse(): void {
     this.isExpanded = false;
