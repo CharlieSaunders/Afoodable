@@ -152,7 +152,7 @@ export class IngredientsComponent implements AfterViewInit, OnDestroy {
         });
 
       if (created) {
-        console.lo;
+        PageHelpers.RefreshPage();
       }
       else {
         this.toasterService.success(`Failed to create ${newIngredient.name}`);
