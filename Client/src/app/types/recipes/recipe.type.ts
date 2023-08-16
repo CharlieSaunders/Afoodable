@@ -1,4 +1,3 @@
-import { Environment } from "src/environments/environment";
 import { Macros } from "../generics/macros.type";
 import { Ingredient } from "../ingredients/ingredient.type";
 

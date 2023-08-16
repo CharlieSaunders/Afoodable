@@ -31,7 +31,6 @@ export class UpdateResponse {
   }
 }
 
-// Mappers
 export class ApiResponseMapper {
   public static mapCreate(result: any) {
     return new CreateResponse(result.acknowledged, result.insertedId);
