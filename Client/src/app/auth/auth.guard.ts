@@ -13,11 +13,9 @@ export class AuthGuard {
 
   async canActivate(): Promise<any> {
     const result = await this.authService.isAuthenticated();
-    
     if(!result){
       this.router.navigate([""]);
     }
-
     return result;
   }
 }

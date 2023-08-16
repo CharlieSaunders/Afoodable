@@ -24,8 +24,6 @@ export class Recipe {
     _ingredients: Array<RecipeItem>, _dbId: string, _steps: Array<string>, _description: string,
     _serves: number, _calories: number, _fat: number, _carbs: number, _protein: number, _fav: boolean) {
 
-      let env = Environment.production ? "Afoodable" : "Afoodable-dev";
-
     this._id = _dbId;
     this.name = _name;
     this.type = _type;
