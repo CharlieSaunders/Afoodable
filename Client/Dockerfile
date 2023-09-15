@@ -1,7 +1,7 @@
 ### STAGE 1: Build ###
 FROM node:18-alpine AS build
 WORKDIR /usr/src/app
-COPY ["./", "./"]
+COPY ["./Client", "./"]
 RUN npm install --omit-dev
 RUN npm install -g @angular/cli
 RUN ng build --c prod
