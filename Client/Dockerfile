@@ -2,6 +2,8 @@
 FROM node:18-alpine AS build
 WORKDIR /usr/src/app
 COPY ["./", "./"]
+COPY ["/etc/letsencrypt/live/the2charlies.net/fullchain.pem", "/etc/letsencrypt/live/the2charlies.net/fullchain.pem"]
+COPY ["/etc/letsencrypt/live/the2charlies.net/privkey.pem", "/etc/letsencrypt/live/the2charlies.net/privkey.pem"]
 RUN npm install --omit-dev
 RUN npm install -g @angular/cli
 RUN ng build --c prod
