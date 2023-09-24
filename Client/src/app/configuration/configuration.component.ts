@@ -6,7 +6,6 @@ import { PageHelpers } from "../helpers/page-helpers";
 import { EmailService } from "../services/emails/emails.service";
 import { ModulesService } from "../services/modules/modules.service";
 import { EmailConfiguration, UpdateEmailConfiguration } from "../types/generics/email-configuration.type";
-import { CreateRecipeTag, RecipeTag } from "../types/recipes/recipe-tag.type";
 import { ApplicationModule, ApplicationModulesMapper } from "../types/generics/application-module.type"
 import { ToastrService } from "ngx-toastr";
 

@@ -32,7 +32,7 @@ export class AddIngredientToRecipeModalComponent implements OnInit, OnDestroy {
               })
           );
     }
-      
+
     ngOnDestroy(): void {
         this.subscriptions.unsubscribe()
     }
