@@ -14,8 +14,8 @@ export class ModulesService {
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
-    this.httpHeaders.set('T2C-Forward-Host', 'localhost:9998');
-    this.httpHeaders.set('T2C-Forward-Path', '/api/modules');
+    this.httpHeaders.append('T2C-Forward-Host', 'localhost:9998');
+    this.httpHeaders.append('T2C-Forward-Path', '/api/modules');
   }
 
   public getModules(): Observable<Array<ApplicationModule>> {

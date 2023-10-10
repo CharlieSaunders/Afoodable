@@ -18,8 +18,8 @@ export class EmailService {
   constructor(
     private http: HttpClient) {
     this.httpClient = http;
-    this.httpHeaders.set('T2C-Forward-Host', 'localhost:9998');
-    this.httpHeaders.set('T2C-Forward-Path', '/api/email');
+    this.httpHeaders.append('T2C-Forward-Host', 'localhost:9998');
+    this.httpHeaders.append('T2C-Forward-Path', '/api/email');
   }
 
   public getConfig(): Observable<EmailConfiguration> {

@@ -15,8 +15,8 @@ export class IngredientService {
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
-    this.httpHeaders.set('T2C-Forward-Host', 'localhost:9998');
-    this.httpHeaders.set('T2C-Forward-Path', '/api/ingredients');
+    this.httpHeaders.append('T2C-Forward-Host', 'localhost:9998');
+    this.httpHeaders.append('T2C-Forward-Path', '/api/ingredients');
   }
 
   public getIngredients(): Observable<Array<Ingredient>> {
