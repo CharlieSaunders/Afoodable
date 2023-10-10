@@ -11,8 +11,8 @@ export class RecipeService {
   private httpClient!: HttpClient;
   private baseUrl = `${Environment.url}/api/InternalApi`;
   private httpHeaders: HttpHeaders = new HttpHeaders({
-    'T2C-Forward-Host', 'localhost:9998',
-    'T2C-Forward-Path', '/api/Recipes'
+    'T2C-Forward-Host': 'localhost:9998',
+    'T2C-Forward-Path': '/api/Recipes'
   });
 
   constructor(private http: HttpClient) {

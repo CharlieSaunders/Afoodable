@@ -14,8 +14,8 @@ export class EmailService {
   private httpClient!: HttpClient;
   private baseUrl: string = `${Environment.url}/api/InternalApi`;
   private httpHeaders: HttpHeaders = new HttpHeaders({
-    'T2C-Forward-Host', 'localhost:9998',
-    'T2C-Forward-Path', '/api/email'
+    'T2C-Forward-Host': 'localhost:9998',
+    'T2C-Forward-Path': '/api/email'
   });
 
   constructor(
