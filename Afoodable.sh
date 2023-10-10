@@ -119,7 +119,7 @@ ngBuild() {
 	then
 		echo "$I Skipping NG build as dist found and no client files changed"
 	else
-		cd ${PATH_TO_CLIENT_DIRECTORY} && ng build -c prod
+		cd ${PATH_TO_CLIENT_DIRECTORY} && ng build -c prod --base-href afoodable
 	fi
 	
 }
