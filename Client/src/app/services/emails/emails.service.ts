@@ -13,7 +13,7 @@ import { Environment } from "../../../environments/environment";
 export class EmailService {
   private httpClient!: HttpClient;
   private baseUrl: string = `${Environment.url}/api/InternalApi`;
-  private httpHeaders!: HttpHeaders = new HttpHeaders();
+  private httpHeaders: HttpHeaders = new HttpHeaders();
 
   constructor(
     private http: HttpClient) {
