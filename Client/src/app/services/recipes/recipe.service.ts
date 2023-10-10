@@ -9,15 +9,18 @@ import { Environment } from "../../../environments/environment";
 @Injectable()
 export class RecipeService {
   private httpClient!: HttpClient;
-  private baseUrl = `${Environment.url}/api/recipes`;
+  private baseUrl = `${Environment.url}/api/InternalApi`;
+  private httpHeaders!: HttpHeaders;
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
+    this.httpHeaders.set('T2C-Forward-Host', 'localhost:9998');
+    this.httpHeaders.set('T2C-Forward-Path', '/api/Recipes');
   }
 
   public getRecipes(): Observable<Array<Recipe>> {
     return this.httpClient
-      .get(this.baseUrl)
+      .get(this.baseUrl, {headers: this.httpHeaders})
       .pipe(
         map(RecipeMapper.map)
         );
@@ -25,7 +28,7 @@ export class RecipeService {
 
   public getRecipe(id: string): Observable<Recipe> {
     return this.httpClient
-      .get<Recipe>(`${this.baseUrl}/${id}`)
+      .get<Recipe>(`${this.baseUrl}/${id}`, {headers: this.httpHeaders})
       .pipe(
         map(RecipeMapper.mapSingle)
         );
@@ -33,7 +36,7 @@ export class RecipeService {
 
   public updateRecipe(request: UpdateRecipeDto): Observable<UpdateResponse> {
     return this.httpClient
-      .patch<UpdateResponse>(`${this.baseUrl}`, request, {})
+      .patch<UpdateResponse>(`${this.baseUrl}`, request, {headers: this.httpHeaders})
       .pipe(
         map(ApiResponseMapper.mapUpdate)
         );
@@ -41,7 +44,7 @@ export class RecipeService {
 
   public createNewRecipe(request: Recipe): Observable<CreateResponse> {
     return this.httpClient
-      .post<CreateResponse>(this.baseUrl, request)
+      .post<CreateResponse>(this.baseUrl, request, {headers: this.httpHeaders})
       .pipe(
         map(ApiResponseMapper.mapCreate)
         );
@@ -49,7 +52,7 @@ export class RecipeService {
 
   public deleteRecipe(id: string): Observable<DeleteResponse> {
     return this.httpClient
-      .delete<Recipe>(`${this.baseUrl}/${id}`)
+      .delete<Recipe>(`${this.baseUrl}/${id}`, {headers: this.httpHeaders})
       .pipe(
         map(ApiResponseMapper.mapDelete)
         );
@@ -58,7 +61,8 @@ export class RecipeService {
   public addRating(id: string, rating: number, ratings: number): Observable<UpdateResponse> {
     return this.httpClient.post<UpdateResponse>(
       `${this.baseUrl}/rating/${id}`,
-      { rating, ratings }
+      { rating, ratings },
+      {headers: this.httpHeaders}
     );
   }
 
@@ -66,7 +70,7 @@ export class RecipeService {
     const formData = new FormData();
     formData.append("recipeImage", image, recipe._id);
     return this.httpClient
-      .post<Recipe>(`${this.baseUrl}/image/${recipe._id}`, formData)
+      .post<Recipe>(`${this.baseUrl}/image/${recipe._id}`, formData, {headers: this.httpHeaders})
       .pipe(
         map(ApiResponseMapper.mapUpdate)
         );

@@ -10,15 +10,18 @@ import { Environment } from "../../../environments/environment";
 })
 export class IngredientService {
   private httpClient!: HttpClient;
-  private baseUrl = `${Environment.url}/api/ingredients`;
+  private baseUrl = `${Environment.url}/api/InternalApi`;
+  private httpHeaders!: HttpHeaders;
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
+    this.httpHeaders.set('T2C-Forward-Host', 'localhost:9998');
+    this.httpHeaders.set('T2C-Forward-Path', '/api/ingredients');
   }
 
   public getIngredients(): Observable<Array<Ingredient>> {
     return this.httpClient
-      .get<Array<Ingredient>>(this.baseUrl)
+      .get<Array<Ingredient>>(this.baseUrl, {headers: this.httpHeaders})
       .pipe(
         map(IngredientMapper.map)
         );
@@ -26,7 +29,7 @@ export class IngredientService {
 
   public getIngredientsDictionary(): Observable<IngredientDictionary> {
     return this.httpClient
-      .get<IngredientDictionary>(this.baseUrl)
+      .get<IngredientDictionary>(this.baseUrl, {headers: this.httpHeaders})
       .pipe(
         map(IngredientMapper.mapDictionary)
         );
@@ -34,7 +37,7 @@ export class IngredientService {
 
   public newIngredient(ingredient: Ingredient): Observable<CreateResponse> {
     return this.httpClient
-      .post<Ingredient>(this.baseUrl, ingredient)
+      .post<Ingredient>(this.baseUrl, ingredient, {headers: this.httpHeaders})
       .pipe(
         map(ApiResponseMapper.mapCreate)
         );
@@ -42,7 +45,7 @@ export class IngredientService {
 
   public updateIngredient(ingredient: Ingredient): Observable<UpdateResponse> {
     return this.httpClient
-      .patch<Ingredient>(this.baseUrl, ingredient)
+      .patch<Ingredient>(this.baseUrl, ingredient, {headers: this.httpHeaders})
       .pipe(
         map(ApiResponseMapper.mapUpdate)
         );
@@ -50,7 +53,7 @@ export class IngredientService {
 
   public deleteIngredient(id: string): Observable<DeleteResponse> {
     return this.http
-      .delete<Ingredient>(`${this.baseUrl}/${id}`)
+      .delete<Ingredient>(`${this.baseUrl}/${id}`, {headers: this.httpHeaders})
       .pipe(
         map(ApiResponseMapper.mapDelete)
         );
