@@ -12,7 +12,8 @@ import { Environment } from "../../../environments/environment";
 })
 export class EmailService {
   private httpClient!: HttpClient;
-  private baseUrl: string = `${Environment.url}/api/email`;
+  private baseUrl: string = Environment.url;
+  private urlEndpoint: string = '/api/email';
 
   constructor(
     private http: HttpClient) {

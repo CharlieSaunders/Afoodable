@@ -1,0 +1,10 @@
+[Unit]
+Description=Afoodable API
+
+[Service]
+ExecStart=/usr/bin/node /var/www/html/afoodable-server/server.js
+WorkingDirectory=/var/www/html/afoodable-server/
+User=pi
+
+[Install]
+WantedBy=multi-user.target
