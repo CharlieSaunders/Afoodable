@@ -13,14 +13,20 @@ export class UsersService {
   constructor(private http: HttpClient) {
   }
 
-  public async getUserByDetail(id: string): Promise<any> {
-    const apiCall$ = this.http.get(`${this.baseUrl}/${id}`);
+  public async CreateSession(id: string): Promise<any> {
+    const apiCall$ = this.http.get(`${this.baseUrl}/session/${id}`);
     return firstValueFrom(apiCall$);
   }
 }
-
 export class UserMapper{
-    public static map(result: any): User {
-        return new User(result[0].firstName, result[0].secondName, result[0].id, result[0].emailAddress, result[0].authenticated);
-    }
+  public static map(result: any): User {
+      return new User(
+        result[0].firstName, 
+        result[0].secondName, 
+        result[0].id, 
+        result[0].emailAddress, 
+        result[0].authenticated, 
+        result[0].authenticationToken, 
+        result[0].reference);
+  }
 }

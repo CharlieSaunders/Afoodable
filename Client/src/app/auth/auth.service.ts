@@ -15,13 +15,15 @@ export class AuthService {
     const googleDataFromStorage = localStorage.getItem("gData");
 
     if(googleDataFromStorage === null){
-      console.log("No GData User")
+      console.log("No Google User Data")
       return false;
     }
 
     const parsedUser = JSON.parse(googleDataFromStorage);
-    const user = await this.userService.getUserByDetail(parsedUser.id);
-    const newUser = new User(user.firstName, user.secondName, user._id, user.emailAddress, user.authenticated);
+    const apiResponse = await this.userService.CreateSession(parsedUser.id);
+    const node = apiResponse.results;
+    const newUser = new User(node.firstName, node.secondName, node._id, node.emailAddress, node.authenticated, node.authenticationToken, node.reference);
+
     if(newUser.authenticated){
       this.authenticated = true;
       localStorage.setItem("afData", JSON.stringify(newUser));
