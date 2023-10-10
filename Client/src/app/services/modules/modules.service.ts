@@ -10,12 +10,13 @@ import { Environment } from "../../../environments/environment";
 export class ModulesService {
   private httpClient!: HttpClient;
   private baseUrl = `${Environment.url}/api/InternalApi`;
-  private httpHeaders: HttpHeaders = new HttpHeaders();
+  private httpHeaders: HttpHeaders = new HttpHeaders({
+    'T2C-Forward-Host', 'localhost:9998',
+    'T2C-Forward-Path', '/api/modules'
+  });
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
-    this.httpHeaders.append('T2C-Forward-Host', 'localhost:9998');
-    this.httpHeaders.append('T2C-Forward-Path', '/api/modules');
   }
 
   public getModules(): Observable<Array<ApplicationModule>> {
