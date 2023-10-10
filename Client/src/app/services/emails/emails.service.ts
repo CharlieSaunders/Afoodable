@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { AnyMapper } from "src/app/types/generics/any-type.type";
@@ -13,7 +13,7 @@ import { Environment } from "../../../environments/environment";
 export class EmailService {
   private httpClient!: HttpClient;
   private baseUrl: string = Environment.url;
-  private httpHeaders!: Headers;
+  private httpHeaders!: HttpHeaders;
 
   constructor(
     private http: HttpClient) {
@@ -23,7 +23,7 @@ export class EmailService {
   }
 
   public getConfig(): Observable<EmailConfiguration> {
-    return this.httpClient.get(this.baseUrl, this.httpHeaders)
+    return this.httpClient.get(this.baseUrl, {headers: this.httpHeaders})
     .pipe(
       map(EmailConfigurationMapper.Map)
     );
@@ -35,14 +35,14 @@ export class EmailService {
       Recipes: recipes
     };
 
-    return this.httpClient.post(this.baseUrl, this.httpHeaders, request)
+    return this.httpClient.post(this.baseUrl,  request, {headers: this.httpHeaders})
     .pipe(
         map(AnyMapper.map)
     );
   }
 
   public update(request: UpdateEmailConfiguration): Observable<any>{
-    return this.httpClient.patch(this.baseUrl, this.httpHeaders, request)
+    return this.httpClient.patch(this.baseUrl, request, {headers: this.httpHeaders})
     .pipe(
       map(AnyMapper.map)
     );
