@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Recipe, RecipeItem } from "src/app/types/recipes/recipe.type";
 import { Observable, map } from "rxjs";
 import { UpdateRecipeDto } from "../../types/recipes/update-recipe-dto.type";
