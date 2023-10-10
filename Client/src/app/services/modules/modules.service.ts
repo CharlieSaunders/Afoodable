@@ -27,7 +27,8 @@ export class ModulesService {
   }
 
   public toggle(id: string): Observable<ApplicationModule>{
-    return this.http.post<ApplicationModule>(`${this.baseUrl}/${id}`, {}, {headers: this.httpHeaders})
+    this.httpHeaders.set('T2C-Forward-Path', `/api/modules/${id}`);
+    return this.http.post<ApplicationModule>(this.baseUrl, {}, {headers: this.httpHeaders})
     .pipe(
       map(ApplicationModulesMapper.mapSingle)
       )

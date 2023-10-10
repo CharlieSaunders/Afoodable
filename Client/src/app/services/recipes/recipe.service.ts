@@ -28,8 +28,9 @@ export class RecipeService {
   }
 
   public getRecipe(id: string): Observable<Recipe> {
+    this.httpHeaders.set('T2C-Forward-Path', `/api/Recipes/${id}`)
     return this.httpClient
-      .get<Recipe>(`${this.baseUrl}/${id}`, {headers: this.httpHeaders})
+      .get<Recipe>(this.baseUrl, {headers: this.httpHeaders})
       .pipe(
         map(RecipeMapper.mapSingle)
         );
@@ -52,26 +53,20 @@ export class RecipeService {
   }
 
   public deleteRecipe(id: string): Observable<DeleteResponse> {
+    this.httpHeaders.set('T2C-Forward-Path', `/api/Recipes/${id}`)
     return this.httpClient
-      .delete<Recipe>(`${this.baseUrl}/${id}`, {headers: this.httpHeaders})
+      .delete<Recipe>(this.baseUrl, {headers: this.httpHeaders})
       .pipe(
         map(ApiResponseMapper.mapDelete)
         );
   }
 
-  public addRating(id: string, rating: number, ratings: number): Observable<UpdateResponse> {
-    return this.httpClient.post<UpdateResponse>(
-      `${this.baseUrl}/rating/${id}`,
-      { rating, ratings },
-      {headers: this.httpHeaders}
-    );
-  }
-
   public updateImage(image: File, recipe: Recipe): Observable<UpdateResponse> {
+    this.httpHeaders.set('T2C-Forward-Path', `/api/Recipes/image/${recipe._id}`)
     const formData = new FormData();
     formData.append("recipeImage", image, recipe._id);
     return this.httpClient
-      .post<Recipe>(`${this.baseUrl}/image/${recipe._id}`, formData, {headers: this.httpHeaders})
+      .post<Recipe>(this.baseUrl, formData, {headers: this.httpHeaders})
       .pipe(
         map(ApiResponseMapper.mapUpdate)
         );

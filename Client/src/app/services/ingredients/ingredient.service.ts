@@ -53,6 +53,7 @@ export class IngredientService {
   }
 
   public deleteIngredient(id: string): Observable<DeleteResponse> {
+    this.httpHeaders.set('T2C-Forward-Path', `/api/ingredients/${id}`)
     return this.http
       .delete<Ingredient>(`${this.baseUrl}/${id}`, {headers: this.httpHeaders})
       .pipe(
