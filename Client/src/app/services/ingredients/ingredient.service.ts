@@ -11,7 +11,7 @@ import { Environment } from "../../../environments/environment";
 export class IngredientService {
   private httpClient!: HttpClient;
   private baseUrl = `${Environment.url}/api/InternalApi`;
-  private httpHeaders!: HttpHeaders;
+  private httpHeaders!: HttpHeaders = new HttpHeaders();
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
