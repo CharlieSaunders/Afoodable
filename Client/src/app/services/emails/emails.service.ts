@@ -13,16 +13,13 @@ import { Environment } from "../../../environments/environment";
 export class EmailService {
   private httpClient!: HttpClient;
   private baseUrl: string = Environment.url;
-  private httpHeaders: object = {
-    headers: {
-      'T2C-Forward-Host': 'localhost:9998',
-      'T2C-Forward-Path': '/api/email'
-      }
-    }
+  private httpHeaders!: Headers;
 
   constructor(
     private http: HttpClient) {
     this.httpClient = http;
+    this.httpHeaders.set('T2C-Forward-Host', 'localhost:9998');
+    this.httpHeaders.set('T2C-Forward-Path', '/api/email');
   }
 
   public getConfig(): Observable<EmailConfiguration> {
