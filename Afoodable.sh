@@ -133,6 +133,8 @@ copyNginxConfigs(){
 	echo "$S Skipping NGINX Config changes. Please remember to add a proxy to this website"
     echo "$S Copying Service"
     `sudo cp -r ${PATH_TO_DIRECTORY}/Afoodable.service ${PATH_TO_SERVICE_DIRECTORY}/Afoodable.service`
+    `sudo systemctl daemon-reload`
+    `sudo systemctl restart Afoodable.service`
 }
 
 

@@ -9,7 +9,7 @@ import { Environment } from "../../../environments/environment";
 @Injectable()
 export class RecipeService {
   private httpClient!: HttpClient;
-  private baseUrl = `${Environment.url}/api/InternalApi`;
+  private baseUrl = Environment.internalUrl;
   private httpHeaders: HttpHeaders = new HttpHeaders({
     'T2C-Forward-Host': 'localhost:9998',
     'T2C-Forward-Path': '/api/Recipes'

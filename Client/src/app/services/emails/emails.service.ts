@@ -12,7 +12,7 @@ import { Environment } from "../../../environments/environment";
 })
 export class EmailService {
   private httpClient!: HttpClient;
-  private baseUrl: string = `${Environment.url}/api/InternalApi`;
+  private baseUrl: string = Environment.internalUrl;
   private httpHeaders: HttpHeaders = new HttpHeaders({
     'T2C-Forward-Host': 'localhost:9998',
     'T2C-Forward-Path': '/api/email'
