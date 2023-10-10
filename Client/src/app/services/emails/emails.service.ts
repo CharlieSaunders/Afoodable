@@ -13,7 +13,12 @@ import { Environment } from "../../../environments/environment";
 export class EmailService {
   private httpClient!: HttpClient;
   private baseUrl: string = Environment.url;
-  private urlEndpoint: string = '/api/email';
+  private httpHeaders: object = {
+    headers: {
+      'T2C-Forward-Host': 'localhost:9998',
+      'T2C-Forward-Path': '/api/email'
+      }
+    }
 
   constructor(
     private http: HttpClient) {
@@ -21,7 +26,7 @@ export class EmailService {
   }
 
   public getConfig(): Observable<EmailConfiguration> {
-    return this.httpClient.get(this.baseUrl)
+    return this.httpClient.get(this.baseUrl, this.httpHeaders)
     .pipe(
       map(EmailConfigurationMapper.Map)
     );
@@ -33,14 +38,14 @@ export class EmailService {
       Recipes: recipes
     };
 
-    return this.httpClient.post(this.baseUrl, request)
+    return this.httpClient.post(this.baseUrl, this.httpHeaders, request)
     .pipe(
         map(AnyMapper.map)
     );
   }
 
   public update(request: UpdateEmailConfiguration): Observable<any>{
-    return this.httpClient.patch(this.baseUrl, request)
+    return this.httpClient.patch(this.baseUrl, this.httpHeaders, request)
     .pipe(
       map(AnyMapper.map)
     );
