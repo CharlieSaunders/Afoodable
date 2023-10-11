@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
+import { HttpHeaderHelper } from "src/app/helpers/http-headers-helpers";
 import { AnyMapper } from "src/app/types/generics/any-type.type";
 import { EmailConfiguration, EmailConfigurationMapper, UpdateEmailConfiguration } from "src/app/types/generics/email-configuration.type";
 import { Recipe } from "src/app/types/recipes/recipe.type";
@@ -13,11 +14,8 @@ import { Environment } from "../../../environments/environment";
 export class EmailService {
   private httpClient!: HttpClient;
   private baseUrl: string = Environment.internalUrl;
-  private httpHeaders: HttpHeaders = new HttpHeaders({
-    'T2C-Forward-Host': 'localhost:9998',
-    'T2C-Forward-Path': '/api/email'
-  });
-
+  private httpHeaders: HttpHeaders = HttpHeaderHelper.For('/api/email', 'localhost:9998');
+  
   constructor(
     private http: HttpClient) {
     this.httpClient = http;

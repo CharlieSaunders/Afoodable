@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
+import { HeaderNames, HttpHeaderHelper } from "src/app/helpers/http-headers-helpers";
 import { ApiResponseMapper, CreateResponse, DeleteResponse, UpdateResponse } from "src/app/types/generics/api-response.type";
 import { Ingredient, IngredientDictionary } from "src/app/types/ingredients/ingredient.type";
 import { Environment } from "../../../environments/environment";
@@ -11,10 +12,7 @@ import { Environment } from "../../../environments/environment";
 export class IngredientService {
   private httpClient!: HttpClient;
   private baseUrl: string = Environment.internalUrl;
-  private httpHeaders: HttpHeaders = new HttpHeaders({
-    'T2C-Forward-Host': 'localhost:9998',
-    'T2C-Forward-Path': '/api/ingredients'
-  });
+  private httpHeaders: HttpHeaders = HttpHeaderHelper.For('/api/ingredients', 'localhost:9998');
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
@@ -53,9 +51,9 @@ export class IngredientService {
   }
 
   public deleteIngredient(id: string): Observable<DeleteResponse> {
-    this.httpHeaders.set('T2C-Forward-Path', `/api/ingredients/${id}`)
+    this.httpHeaders.set(HeaderNames.ForwardPath, `/api/ingredients/${id}`)
     return this.http
-      .delete<Ingredient>(`${this.baseUrl}/${id}`, {headers: this.httpHeaders})
+      .delete<Ingredient>(this.baseUrl, {headers: this.httpHeaders})
       .pipe(
         map(ApiResponseMapper.mapDelete)
         );

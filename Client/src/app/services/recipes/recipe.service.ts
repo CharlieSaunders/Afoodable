@@ -5,16 +5,13 @@ import { Observable, map } from "rxjs";
 import { UpdateRecipeDto } from "../../types/recipes/update-recipe-dto.type";
 import { ApiResponseMapper, CreateResponse, DeleteResponse, UpdateResponse } from "src/app/types/generics/api-response.type";
 import { Environment } from "../../../environments/environment";
+import { HeaderNames, HttpHeaderHelper } from "src/app/helpers/http-headers-helpers";
 
 @Injectable()
 export class RecipeService {
   private httpClient!: HttpClient;
   private baseUrl = Environment.internalUrl;
-  private httpHeaders: HttpHeaders = new HttpHeaders({
-    'T2C-Forward-Host': 'localhost:9998',
-    'T2C-Forward-Path': '/api/Recipes'
-  });
-
+  private httpHeaders: HttpHeaders = HttpHeaderHelper.For('/api/recipes', 'localhost:9998');
   constructor(private http: HttpClient) {
     this.httpClient = http;
   }
@@ -28,7 +25,7 @@ export class RecipeService {
   }
 
   public getRecipe(id: string): Observable<Recipe> {
-    this.httpHeaders.set('T2C-Forward-Path', `/api/Recipes/${id}`)
+    this.httpHeaders.set(HeaderNames.ForwardPath, `/api/Recipes/${id}`)
     return this.httpClient
       .get<Recipe>(this.baseUrl, {headers: this.httpHeaders})
       .pipe(
@@ -53,7 +50,7 @@ export class RecipeService {
   }
 
   public deleteRecipe(id: string): Observable<DeleteResponse> {
-    this.httpHeaders.set('T2C-Forward-Path', `/api/Recipes/${id}`)
+    this.httpHeaders.set(HeaderNames.ForwardPath, `/api/Recipes/${id}`)
     return this.httpClient
       .delete<Recipe>(this.baseUrl, {headers: this.httpHeaders})
       .pipe(
@@ -62,7 +59,7 @@ export class RecipeService {
   }
 
   public updateImage(image: File, recipe: Recipe): Observable<UpdateResponse> {
-    this.httpHeaders.set('T2C-Forward-Path', `/api/Recipes/image/${recipe._id}`)
+    this.httpHeaders.set(HeaderNames.ForwardPath, `/api/Recipes/image/${recipe._id}`)
     const formData = new FormData();
     formData.append("recipeImage", image, recipe._id);
     return this.httpClient

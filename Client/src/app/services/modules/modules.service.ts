@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { ApplicationModule, ApplicationModulesMapper } from "../../types/generics/application-module.type";
 import { Environment } from "../../../environments/environment";
+import { HeaderNames, HttpHeaderHelper } from "src/app/helpers/http-headers-helpers";
 
 @Injectable({
   providedIn: "root",
@@ -10,10 +11,7 @@ import { Environment } from "../../../environments/environment";
 export class ModulesService {
   private httpClient!: HttpClient;
   private baseUrl: string = Environment.internalUrl;
-  private httpHeaders: HttpHeaders = new HttpHeaders({
-    'T2C-Forward-Host': 'localhost:9998',
-    'T2C-Forward-Path': '/api/modules'
-  });
+  private httpHeaders: HttpHeaders = HttpHeaderHelper.For('/api/modules', 'localhost:9998');
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
@@ -27,7 +25,7 @@ export class ModulesService {
   }
 
   public toggle(id: string): Observable<ApplicationModule>{
-    this.httpHeaders.set('T2C-Forward-Path', `/api/modules/${id}`);
+    this.httpHeaders.set(HeaderNames.ForwardPath, `/api/modules/${id}`);
     return this.http.post<ApplicationModule>(this.baseUrl, {}, {headers: this.httpHeaders})
     .pipe(
       map(ApplicationModulesMapper.mapSingle)

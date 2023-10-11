@@ -22,7 +22,7 @@ export class AuthService {
     const parsedUser = JSON.parse(googleDataFromStorage);
     const apiResponse = await this.userService.CreateSession(parsedUser.id);
     const node = apiResponse.results;
-    const newUser = new User(node.firstName, node.secondName, node._id, node.emailAddress, node.authenticated, node.authenticationToken, node.reference);
+    const newUser = new User(node.firstName, node.secondName, node.id, node.emailAddress, node.authenticated, node.authenticationToken, node.reference);
 
     if(newUser.authenticated){
       this.authenticated = true;
