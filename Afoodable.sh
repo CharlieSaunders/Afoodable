@@ -34,7 +34,9 @@ downloadRepository() {
 		`cd ${PATH_TO_DOWNLOAD_DIRECTORY} && git clone ${GITHUB_SSH_URL}`
 	else
 		echo "$I -> Pulling repository"
-		`cd ${PATH_TO_DOWNLOAD_DIRECTORY} && git pull`
+		`cd ${PATH_TO_DIRECTORY} && git reset --hard HEAD`
+		`cd ${PATH_TO_DIRECTORY} && git clean -xffd`
+		`cd ${PATH_TO_DIRECTORY} && git pull`
 	fi
 }
 
