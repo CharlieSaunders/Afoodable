@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UsersService } from '../services/users/users.service';
+import { LocalStorageKeys } from '../types/constants/localStorageKeys';
 import { User } from '../types/users/user.type';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class AuthService {
 
   async isAuthenticated(): Promise<boolean> {
     this.authenticated = false;
-    const googleDataFromStorage = localStorage.getItem("gData");
+    const googleDataFromStorage = localStorage.getItem(LocalStorageKeys.GoogleUserData);
 
     if(googleDataFromStorage === null){
       console.log("No Google User Data")
@@ -26,7 +27,7 @@ export class AuthService {
 
     if(newUser.authenticated){
       this.authenticated = true;
-      localStorage.setItem("afData", JSON.stringify(newUser));
+      localStorage.setItem(LocalStorageKeys.The2CharliesUserData, JSON.stringify(newUser));
     }
 
     return Promise.resolve(this.authenticated);
